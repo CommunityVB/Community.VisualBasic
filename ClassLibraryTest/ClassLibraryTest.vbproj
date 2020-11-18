@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>ClassLibraryTest</RootNamespace>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Community.VisualBasic\Community.VisualBasic\Community.VisualBasic.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="Community.VisualBasic" />
+  </ItemGroup>
+
+</Project>

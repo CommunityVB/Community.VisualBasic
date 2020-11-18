@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ConsoleTestApp</RootNamespace>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Community.VisualBasic\Community.VisualBasic\Community.VisualBasic.vbproj" />
+    <ProjectReference Include="..\Records\Records.csproj" />
+  </ItemGroup>
+
+</Project>
