@@ -23,7 +23,6 @@ Namespace Global.Community.VisualBasic.Devices
     Private _audio As Audio 'Lazy initialized cache for the Audio class.
     Private Shared s_mouse As Mouse 'Lazy initialized cache for the Mouse class. SHARED because Mouse behaves as a ReadOnly singleton class
     Private Shared s_keyboardInstance As Keyboard 'Lazy initialized cache for the Keyboard class.  SHARED because Keyboard behaves as a ReadOnly singleton class
-
     Private Shared s_clipboard As ClipboardProxy 'Lazy initialized cache for the clipboard class. (proxies can be shared - they have no state)
 
     'NOTE: The .Net design guidelines state that access to Instance members does not have to be thread-safe.  Access to Shared members does have to be thread-safe.
@@ -84,7 +83,7 @@ Namespace Global.Community.VisualBasic.Devices
       End Get
     End Property
 
-#If False Then
+#If ORIGINAL Then
 
     ''' <summary>
     ''' This property returns the primary display screen.

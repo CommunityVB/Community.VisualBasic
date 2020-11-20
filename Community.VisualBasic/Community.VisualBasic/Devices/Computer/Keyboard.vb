@@ -6,7 +6,7 @@ Option Explicit On
 Option Strict On
 
 'Imports System.Windows.Forms
-'Imports Microsoft.VisualBasic.CompilerServices
+Imports Community.VisualBasic.CompilerServices
 
 Namespace Global.Community.VisualBasic.Devices
 
@@ -32,7 +32,7 @@ Namespace Global.Community.VisualBasic.Devices
     ''' <param name="wait">Wait for messages to be processed before returning.</param>
     Public Sub SendKeys(keys As String, wait As Boolean)
         Throw New NotImplementedException
-#If False Then
+#If ORIGINAL Then
       If wait Then
         Windows.Forms.SendKeys.SendWait(keys)
       Else
@@ -48,7 +48,7 @@ Namespace Global.Community.VisualBasic.Devices
     Public ReadOnly Property ShiftKeyDown() As Boolean
       Get
         Throw New NotImplementedException
-#If False Then
+#If ORIGINAL Then
         Dim Keys As Keys = Control.ModifierKeys
         Return CType(Keys And Keys.Shift, Boolean)
 #End If
@@ -62,7 +62,7 @@ Namespace Global.Community.VisualBasic.Devices
     Public ReadOnly Property AltKeyDown() As Boolean
       Get
         Throw New NotImplementedException
-#If False Then
+#If ORIGINAL Then
         Dim Keys As Keys = Control.ModifierKeys
         Return CType(Keys And Keys.Alt, Boolean)
 #End If
@@ -76,7 +76,7 @@ Namespace Global.Community.VisualBasic.Devices
     Public ReadOnly Property CtrlKeyDown() As Boolean
       Get
         Throw New NotImplementedException
-#If False Then
+#If ORIGINAL Then
         Dim Keys As Keys = Control.ModifierKeys
         Return CType(Keys And Keys.Control, Boolean)
 #End If
@@ -90,7 +90,7 @@ Namespace Global.Community.VisualBasic.Devices
     Public ReadOnly Property CapsLock() As Boolean
       Get
         Throw New NotImplementedException
-#If False Then
+#If ORIGINAL Then
 
         'Security Note: Only the state of the Caps Lock is returned
 
@@ -108,7 +108,7 @@ Namespace Global.Community.VisualBasic.Devices
     Public ReadOnly Property NumLock() As Boolean
       Get
         Throw New NotImplementedException
-#If False Then
+#If ORIGINAL Then
         'Security Note: Only the state of the Num Lock is returned
 
         'The low order byte of the return value from GetKeyState is 1 if the key is
@@ -125,7 +125,7 @@ Namespace Global.Community.VisualBasic.Devices
     Public ReadOnly Property ScrollLock() As Boolean
       Get
         Throw New NotImplementedException
-#If False Then
+#If ORIGINAL Then
         'Security Note: Only the state of the Scroll Lock is returned
 
         'The low order byte of the return value from GetKeyState is 1 if the key is

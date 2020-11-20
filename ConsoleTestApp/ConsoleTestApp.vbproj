@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Community.VisualBasic\Community.VisualBasic\Community.VisualBasic.vbproj" />
-    <ProjectReference Include="..\Records\Records.csproj" />
   </ItemGroup>
 
 </Project>

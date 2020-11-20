@@ -20,7 +20,7 @@ Namespace Global.Community.VisualBasic.CompilerServices
     End Sub
 
     <Diagnostics.DebuggerHiddenAttribute()>
-    Friend Shared Sub SetTime(ByVal dtTime As DateTime)
+    Friend Shared Sub SetTime(dtTime As DateTime)
 #If TARGET_WINDOWS Then
             Dim systime As New NativeTypes.SystemTime
 
@@ -44,7 +44,7 @@ Namespace Global.Community.VisualBasic.CompilerServices
     End Sub
 
     <Diagnostics.DebuggerHiddenAttribute()>
-    Friend Shared Sub SetDate(ByVal vDate As DateTime)
+    Friend Shared Sub SetDate(vDate As DateTime)
 #If TARGET_WINDOWS Then
             Dim systime As New NativeTypes.SystemTime
 

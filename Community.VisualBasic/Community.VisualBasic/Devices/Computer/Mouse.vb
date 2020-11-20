@@ -6,7 +6,7 @@ Option Strict On
 Option Explicit On
 
 'Imports System.Windows.Forms
-'Imports Microsoft.VisualBasic.CompilerServices.ExceptionUtils
+Imports Community.VisualBasic.CompilerServices.ExceptionUtils
 
 Namespace Global.Community.VisualBasic.Devices
 
@@ -30,7 +30,7 @@ Namespace Global.Community.VisualBasic.Devices
     Public ReadOnly Property ButtonsSwapped() As Boolean
       Get
         Throw New NotImplementedException
-#If False Then
+#If ORIGINAL Then
         If System.Windows.Forms.SystemInformation.MousePresent Then
           Return SystemInformation.MouseButtonsSwapped
         Else
@@ -48,7 +48,7 @@ Namespace Global.Community.VisualBasic.Devices
     Public ReadOnly Property WheelExists() As Boolean
       Get
         Throw New NotImplementedException
-#If False Then
+#If ORIGINAL Then
         If System.Windows.Forms.SystemInformation.MousePresent Then
           Return SystemInformation.MouseWheelPresent
         Else
@@ -66,7 +66,7 @@ Namespace Global.Community.VisualBasic.Devices
     Public ReadOnly Property WheelScrollLines() As Integer
       Get
         Throw New NotImplementedException
-#If False Then
+#If ORIGINAL Then
         If WheelExists Then
           Return SystemInformation.MouseWheelScrollLines
         Else

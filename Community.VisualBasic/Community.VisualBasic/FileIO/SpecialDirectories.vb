@@ -147,11 +147,10 @@ Namespace Global.Community.VisualBasic.FileIO
     ''' <param name="Directory">The special directory's path got back from FX. "" if it does not exist.</param>
     ''' <param name="DirectoryNameResID">The resource ID of the special directory's localized name.</param>
     ''' <returns>A String containing the path to the special directory if success.</returns>
-    Private Shared Function GetDirectoryPath(ByVal Directory As String, ByVal DirectoryNameResID As String) As String
+    Private Shared Function GetDirectoryPath(Directory As String, DirectoryNameResID As String) As String
       ' Only need to worry about Directory being "" since it comes from Framework.
       If Directory = "" Then
-        'Throw ExUtils.GetDirectoryNotFoundException(SR.IO_SpecialDirectoryNotExist, DirectoryNameResID)
-        Throw New IO.DirectoryNotFoundException()
+        Throw ExUtils.GetDirectoryNotFoundException(SR.IO_SpecialDirectoryNotExist, DirectoryNameResID)
       End If
       Return FileSystem.NormalizePath(Directory)
     End Function

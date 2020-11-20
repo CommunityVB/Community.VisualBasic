@@ -8,7 +8,7 @@ Imports Community.VisualBasic.CompilerServices.Utils
 
 Namespace Global.Community.VisualBasic.CompilerServices
 
-  Friend Enum vbErrors
+  Friend Enum VbErrors
     None = 0
     ReturnWOGoSub = 3
     IllegalFuncCall = 5
@@ -173,42 +173,35 @@ Namespace Global.Community.VisualBasic.CompilerServices
     Friend Const DISP_E_NOTACOLLECTION As Integer = &H80020011I
 
     Friend Shared Function VbMakeIllegalForException() As System.Exception
-      Throw New NotImplementedException
-#If False Then
       Return VbMakeExceptionEx(vbErrors.IllegalFor, SR.Format(SR.ID92)) ' 92 - IllegaFor
-#End If
     End Function
 
     Friend Shared Function VbMakeObjNotSetException() As System.Exception
-      Throw New NotImplementedException
-#If False Then
       Return VbMakeExceptionEx(vbErrors.ObjNotSet, SR.Format(SR.ID91)) ' 91 - ObjNotSet
-#End If
     End Function
 
-    Friend Shared Function VbMakeException(ByVal hr As Integer) As System.Exception
+    Friend Shared Function VbMakeException(hr As Integer) As System.Exception
       Dim sMsg As String
 
       If hr > 0 AndAlso hr <= &HFFFFI Then
-        Throw New NotImplementedException
-#If False Then
         sMsg = GetResourceString(CType(hr, vbErrors))
-#End If
+        Throw New NotImplementedException
       Else
         sMsg = ""
       End If
       VbMakeException = VbMakeExceptionEx(hr, sMsg)
     End Function
 
-    Friend Shared Function VbMakeException(ByVal ex As Exception, ByVal hr As Integer) As System.Exception
-      Throw New NotImplementedException
-#If False Then
+    Friend Shared Function VbMakeException(ex As Exception, hr As Integer) As System.Exception
+#If ORIGINAL Then
       Err().SetUnmappedError(hr)
       Return ex
+#Else
+      Throw New NotImplementedException
 #End If
     End Function
 
-    Friend Shared Function VbMakeExceptionEx(ByVal number As Integer, ByVal sMsg As String) As System.Exception
+    Friend Shared Function VbMakeExceptionEx(number As Integer, sMsg As String) As System.Exception
       Dim vBDefinedError As Boolean
 
       VbMakeExceptionEx = BuildException(number, sMsg, vBDefinedError)
@@ -218,7 +211,7 @@ Namespace Global.Community.VisualBasic.CompilerServices
 
     End Function
 
-    Friend Shared Function BuildException(ByVal Number As Integer, ByVal Description As String, ByRef VBDefinedError As Boolean) As System.Exception
+    Friend Shared Function BuildException(Number As Integer, Description As String, ByRef VBDefinedError As Boolean) As System.Exception
 
       VBDefinedError = True
 
@@ -320,12 +313,9 @@ Namespace Global.Community.VisualBasic.CompilerServices
     ''' <param name="PlaceHolders">Strings that will replace place holders in the resource string, if any.</param>
     ''' <returns>A new instance of ArgumentException.</returns>
     ''' <remarks>This is the preferred way to construct an argument exception.</remarks>
-    Friend Shared Function GetArgumentExceptionWithArgName(ByVal ArgumentName As String,
-        ByVal ResourceID As String, ByVal ParamArray PlaceHolders() As String) As ArgumentException
-      Throw New NotImplementedException
-#If False Then
+    Friend Shared Function GetArgumentExceptionWithArgName(ArgumentName As String,
+ResourceID As String, ParamArray PlaceHolders() As String) As ArgumentException
       Return New ArgumentException(SR.Format(ResourceID, PlaceHolders), ArgumentName)
-#End If
     End Function
 
     ''' <summary>
@@ -333,11 +323,8 @@ Namespace Global.Community.VisualBasic.CompilerServices
     ''' </summary>
     ''' <param name="ArgumentName">The name of the argument (parameter). Not localized.</param>
     ''' <returns>A new instance of ArgumentNullException.</returns>
-    Friend Shared Function GetArgumentNullException(ByVal ArgumentName As String) As ArgumentNullException
-      Throw New NotImplementedException
-#If False Then
+    Friend Shared Function GetArgumentNullException(ArgumentName As String) As ArgumentNullException
       Return New ArgumentNullException(ArgumentName, SR.General_ArgumentNullException)
-#End If
     End Function
 
     ''' <summary>
@@ -347,12 +334,9 @@ Namespace Global.Community.VisualBasic.CompilerServices
     ''' <param name="ResourceID">The resource ID. Use CompilerServices.ResID.xxx</param>
     ''' <param name="PlaceHolders">Strings that will replace place holders in the resource string, if any.</param>
     ''' <returns>A new instance of ArgumentNullException.</returns>
-    Friend Shared Function GetArgumentNullException(ByVal ArgumentName As String,
-        ByVal ResourceID As String, ByVal ParamArray PlaceHolders() As String) As ArgumentNullException
-      Throw New NotImplementedException
-#If False Then
+    Friend Shared Function GetArgumentNullException(ArgumentName As String,
+ResourceID As String, ParamArray PlaceHolders() As String) As ArgumentNullException
       Return New ArgumentNullException(ArgumentName, SR.Format(ResourceID, PlaceHolders))
-#End If
     End Function
 
     ''' <summary>
@@ -362,11 +346,8 @@ Namespace Global.Community.VisualBasic.CompilerServices
     ''' <param name="PlaceHolders">Strings that will replace place holders in the resource string, if any.</param>
     ''' <returns>A new instance of IO.DirectoryNotFoundException.</returns>
     Friend Shared Function GetDirectoryNotFoundException(
-        ByVal ResourceID As String, ByVal ParamArray PlaceHolders() As String) As IO.DirectoryNotFoundException
-      Throw New NotImplementedException
-#If False Then
+ResourceID As String, ParamArray PlaceHolders() As String) As IO.DirectoryNotFoundException
       Return New IO.DirectoryNotFoundException(SR.Format(ResourceID, PlaceHolders))
-#End If
     End Function
 
     ''' <summary>
@@ -376,12 +357,9 @@ Namespace Global.Community.VisualBasic.CompilerServices
     ''' <param name="ResourceID">The resource ID. Use CompilerServices.ResID.xxx</param>
     ''' <param name="PlaceHolders">Strings that will replace place holders in the resource string, if any.</param>
     ''' <returns>A new instance of IO.FileNotFoundException.</returns>
-    Friend Shared Function GetFileNotFoundException(ByVal FileName As String,
-        ByVal ResourceID As String, ByVal ParamArray PlaceHolders() As String) As IO.FileNotFoundException
-      Throw New NotImplementedException
-#If False Then
+    Friend Shared Function GetFileNotFoundException(FileName As String,
+ResourceID As String, ParamArray PlaceHolders() As String) As IO.FileNotFoundException
       Return New IO.FileNotFoundException(SR.Format(ResourceID, PlaceHolders), FileName)
-#End If
     End Function
 
     ''' <summary>
@@ -391,11 +369,8 @@ Namespace Global.Community.VisualBasic.CompilerServices
     ''' <param name="PlaceHolders">Strings that will replace place holders in the resource string, if any.</param>
     ''' <returns>A new instance of InvalidOperationException.</returns>
     Friend Shared Function GetInvalidOperationException(
-        ByVal ResourceID As String, ByVal ParamArray PlaceHolders() As String) As InvalidOperationException
-      Throw New NotImplementedException
-#If False Then
+ResourceID As String, ParamArray PlaceHolders() As String) As InvalidOperationException
       Return New InvalidOperationException(SR.Format(ResourceID, PlaceHolders))
-#End If
     End Function
 
     ''' <summary>
@@ -404,11 +379,8 @@ Namespace Global.Community.VisualBasic.CompilerServices
     ''' <param name="ResourceID">The resource ID. Use CompilerServices.ResID.xxx</param>
     ''' <param name="PlaceHolders">Strings that will replace place holders in the resource string, if any.</param>
     ''' <returns>A new instance of IO.IOException.</returns>
-    Friend Shared Function GetIOException(ByVal ResourceID As String, ByVal ParamArray PlaceHolders() As String) As IO.IOException
-      Throw New NotImplementedException
-#If False Then
+    Friend Shared Function GetIOException(ResourceID As String, ParamArray PlaceHolders() As String) As IO.IOException
       Return New IO.IOException(SR.Format(ResourceID, PlaceHolders))
-#End If
     End Function
 
     ''' <summary>
@@ -420,11 +392,8 @@ Namespace Global.Community.VisualBasic.CompilerServices
     ''' <remarks>There is no way to exclude the Win32 error so this function will call Marshal.GetLastWin32Error all the time.</remarks>
 
     Friend Shared Function GetWin32Exception(
-        ByVal ResourceID As String, ByVal ParamArray PlaceHolders() As String) As ComponentModel.Win32Exception
-      Throw New NotImplementedException
-#If False Then
+ResourceID As String, ParamArray PlaceHolders() As String) As ComponentModel.Win32Exception
       Return New ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error(), SR.Format(ResourceID, PlaceHolders))
-#End If
     End Function
 
   End Class
@@ -432,20 +401,17 @@ Namespace Global.Community.VisualBasic.CompilerServices
   Friend NotInheritable Class InternalErrorException
     Inherits System.Exception
 
-    Public Sub New(ByVal message As String)
+    Public Sub New(message As String)
       MyBase.New(message)
     End Sub
 
-    Public Sub New(ByVal message As String, ByVal innerException As System.Exception)
+    Public Sub New(message As String, innerException As System.Exception)
       MyBase.New(message, innerException)
     End Sub
 
     ' default constructor
     Public Sub New()
-      Throw New NotImplementedException
-#If False Then
       MyBase.New(SR.InternalError_VisualBasicRuntime)
-#End If
     End Sub
 
   End Class

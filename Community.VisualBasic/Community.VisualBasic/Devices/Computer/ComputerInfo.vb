@@ -7,7 +7,7 @@ Option Strict On
 Option Infer On
 
 Imports System.Runtime.InteropServices
-'Imports Microsoft.VisualBasic.CompilerServices
+Imports Community.VisualBasic.CompilerServices
 
 Namespace Global.Community.VisualBasic.Devices
 
@@ -24,8 +24,6 @@ Namespace Global.Community.VisualBasic.Devices
     ''' </summary>
     Sub New()
     End Sub
-
-#If False Then
 
 #Disable Warning IDE0049 ' Simplify Names, Justification:="<Public API>
     ''' <summary>
@@ -79,8 +77,6 @@ Namespace Global.Community.VisualBasic.Devices
     End Property
 #Enable Warning IDE0049 ' Simplify Names
 
-#End If
-
     ''' <summary>
     ''' Gets the current UICulture installed on the machine.
     ''' </summary>
@@ -132,8 +128,6 @@ Namespace Global.Community.VisualBasic.Devices
         _instanceBeingWatched = RealClass
       End Sub
 
-#If False Then
-
 #Disable Warning IDE0049 ' Simplify Names, Justification:=<Public API>
       <DebuggerBrowsable(DebuggerBrowsableState.RootHidden)>
       Public ReadOnly Property TotalPhysicalMemory() As UInt64
@@ -164,8 +158,6 @@ Namespace Global.Community.VisualBasic.Devices
       End Property
 #Enable Warning IDE0049 ' Simplify Names
 
-#End If
-
       <DebuggerBrowsable(DebuggerBrowsableState.RootHidden)>
       Public ReadOnly Property InstalledUICulture() As Globalization.CultureInfo
         Get
@@ -191,7 +183,6 @@ Namespace Global.Community.VisualBasic.Devices
       Private ReadOnly _instanceBeingWatched As ComputerInfo
     End Class
 
-#If False Then
     ''' <summary>
     ''' Gets the whole memory information details.
     ''' </summary>
@@ -211,6 +202,7 @@ Namespace Global.Community.VisualBasic.Devices
     ''' Calls GlobalMemoryStatusEx and returns the correct value.
     ''' </summary>
     Private Class InternalMemoryStatus
+
       Friend Sub New()
       End Sub
 
@@ -253,9 +245,8 @@ Namespace Global.Community.VisualBasic.Devices
       End Sub
 
       Private _memoryStatusEx As NativeMethods.MEMORYSTATUSEX
-    End Class
 
-#End If
+    End Class
 
   End Class
 

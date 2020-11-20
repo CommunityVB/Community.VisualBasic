@@ -2,6 +2,9 @@ Option Explicit On
 Option Strict On
 Option Infer On
 
+Imports mVB = Microsoft.VisualBasic
+Imports cVB = Community.VisualBasic
+
 Module Program
 
   Sub Main(args As String())
@@ -15,11 +18,8 @@ Module Program
     Console.WriteLine($"OS Type: {My.Computer.Info.OSPlatform}.")
     Console.WriteLine($"OS Version: {My.Computer.Info.OSVersion}.")
 
-    Dim c = New Records.Child With {.ID = 1}
-    'Dim b = New Records.Child With {.ID = 1, .FirstName = "A", .LastName = "B"}
-
-    'If c = b Then
-    'End If
+    Dim a3 = "This is a test"
+    Dim l1 = Left(a3, 4)
 
     If Debugger.IsAttached Then
       Console.WriteLine()

@@ -8,11 +8,11 @@ Imports System.ComponentModel
 Imports System.Net
 Imports System.Security
 Imports System.Threading
-'Imports Microsoft.VisualBasic.CompilerServices
-'Imports Microsoft.VisualBasic.CompilerServices.ExceptionUtils
-'Imports Microsoft.VisualBasic.CompilerServices.Utils
-'Imports Microsoft.VisualBasic.FileIO
-'Imports Microsoft.VisualBasic.MyServices.Internal
+Imports Community.VisualBasic.CompilerServices
+Imports Community.VisualBasic.CompilerServices.ExceptionUtils
+Imports Community.VisualBasic.CompilerServices.Utils
+Imports Community.VisualBasic.FileIO
+Imports Community.VisualBasic.MyServices.Internal
 Imports NetInfoAlias = System.Net.NetworkInformation
 
 Namespace Global.Community.VisualBasic.Devices
@@ -36,8 +36,6 @@ Namespace Global.Community.VisualBasic.Devices
   '''  An object that allows easy access to some simple network properties and functionality.
   ''' </summary>
   Public Class Network
-
-#If False Then
 
     ''' <summary>
     '''  Event fired when connected to the network
@@ -387,6 +385,7 @@ Namespace Global.Community.VisualBasic.Devices
           client.Credentials = networkCredentials
         End If
 
+#If ORIGINAL Then
         Dim dialog As ProgressDialog = Nothing
         If showUI AndAlso System.Environment.UserInteractive Then
           dialog = New ProgressDialog With {
@@ -394,6 +393,7 @@ Namespace Global.Community.VisualBasic.Devices
               .LabelText = GetResourceString(SR.ProgressDialogDownloadingLabel, address.AbsolutePath, fullFilename)
           }
         End If
+#End If
 
         'Check to see if the target directory exists. If it doesn't, create it
         Dim targetDirectory As String = System.IO.Path.GetDirectoryName(fullFilename)
@@ -408,6 +408,7 @@ Namespace Global.Community.VisualBasic.Devices
         End If
 
         'Create the copier
+#If ORIGINAL Then
         Dim copier As New WebClientCopy(client, dialog)
 
         'Download the file
@@ -419,6 +420,7 @@ Namespace Global.Community.VisualBasic.Devices
             Throw New OperationCanceledException()
           End If
         End If
+#End If
 
       End Using
 
@@ -618,6 +620,7 @@ Namespace Global.Community.VisualBasic.Devices
           client.Credentials = networkCredentials
         End If
 
+#If ORIGINAL Then
         Dim Dialog As ProgressDialog = Nothing
         If showUI AndAlso System.Environment.UserInteractive Then
           Dialog = New ProgressDialog With {
@@ -638,7 +641,10 @@ Namespace Global.Community.VisualBasic.Devices
             Throw New OperationCanceledException()
           End If
         End If
+#End If
+
       End Using
+
 
     End Sub
 
@@ -808,18 +814,14 @@ Namespace Global.Community.VisualBasic.Devices
       Return request
     End Function
 
-#Disable Warning BC41004 ' First statement of this 'Sub New' should be an explicit call to 'MyBase.New' or 'MyClass.New' because the constructor in the base class is marked obsolete
     Friend Sub New()
     End Sub
-#Enable Warning BC41004 ' First statement of this 'Sub New' should be an explicit call to 'MyBase.New' or 'MyClass.New' because the constructor in the base class is marked obsolete
 
     ' The Timeout value to be used by WebClient's WebRequest for Downloading or Uploading a file
     Private _timeout As Integer = 100000
 
     ' Flag used to indicate whether or not we should use passive mode when ftp downloading
     Private _useNonPassiveFtp As Boolean
-
-#End If
 
   End Class
 

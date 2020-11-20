@@ -7,7 +7,7 @@ Option Strict On
 
 Imports System.IO
 
-'Imports Microsoft.VisualBasic.CompilerServices.ExceptionUtils
+Imports Community.VisualBasic.CompilerServices.ExceptionUtils
 
 Namespace Global.Community.VisualBasic
 
@@ -51,13 +51,10 @@ Namespace Global.Community.VisualBasic
       ''' WaitToComplete (sync) or BackgroundLoop
       ''' </param>
       Public Sub Play(location As String, playMode As AudioPlayMode)
-        Throw New NotImplementedException
-#If False Then
         ValidateAudioPlayModeEnum(playMode, NameOf(playMode))
         Dim safeFilename As String = ValidateFilename(location)
         Dim sound As Media.SoundPlayer = New Media.SoundPlayer(safeFilename)
         Play(sound, playMode)
-#End If
       End Sub
 
       ''' <summary>
@@ -66,8 +63,6 @@ Namespace Global.Community.VisualBasic
       ''' <param name="data">The array representing the .wav file</param>
       ''' <param name="playMode">The mode in which the array should be played</param>
       Public Sub Play(data() As Byte, playMode As AudioPlayMode)
-        Throw New NotImplementedException
-#If False Then
         If data Is Nothing Then
           Throw GetArgumentNullException("data")
         End If
@@ -76,7 +71,6 @@ Namespace Global.Community.VisualBasic
         Dim soundStream As MemoryStream = New MemoryStream(data)
         Play(soundStream, playMode)
         soundStream.Close()
-#End If
       End Sub
 
       ''' <summary>
@@ -85,18 +79,14 @@ Namespace Global.Community.VisualBasic
       ''' <param name="stream">The stream representing the .wav file</param>
       ''' <param name="playMode">The mode in which the stream should be played</param>
       Public Sub Play(stream As Stream, playMode As AudioPlayMode)
-        Throw New NotImplementedException
-#If False Then
         ValidateAudioPlayModeEnum(playMode, NameOf(playMode))
         If stream Is Nothing Then
           Throw GetArgumentNullException("stream")
         End If
 
         Play(New Media.SoundPlayer(stream), playMode)
-#End If
       End Sub
 
-#If False Then
       ''' <summary>
       '''   Plays a system messageBeep sound.
       ''' </summary>
@@ -110,20 +100,15 @@ Namespace Global.Community.VisualBasic
         systemSound.Play()
 
       End Sub
-#End If
 
       ''' <summary>
       '''  Stops the play of any playing sound
       ''' </summary>
       Public Sub [Stop]()
-        Throw New NotImplementedException
-#If False Then
         Dim sound As New Media.SoundPlayer()
         sound.Stop()
-#End If
       End Sub
 
-#If False Then
       ''' <summary>
       '''  Plays the passed in SoundPlayer in the passed in mode
       ''' </summary>
@@ -154,22 +139,16 @@ Namespace Global.Community.VisualBasic
 
       End Sub
 
-#End If
-
       ''' <summary>
       '''  Gets the full name and path for the file. Throws if unable to get full name and path
       ''' </summary>
       ''' <param name="location">The filename being tested</param>
       ''' <returns>A full name and path of the file</returns>
       Private Function ValidateFilename(location As String) As String
-        Throw New NotImplementedException
-#If False Then
         If String.IsNullOrEmpty(location) Then
           Throw GetArgumentNullException("location")
         End If
-
         Return location
-#End If
       End Function
 
       ''' <summary>
@@ -182,12 +161,11 @@ Namespace Global.Community.VisualBasic
         End If
       End Sub
 
-#If False Then
       ' Object that plays the sounds. We use a private member so we can ensure we have a reference for async plays
       Private _sound As Media.SoundPlayer
-#End If
 
-    End Class 'Audio
+    End Class
+
   End Namespace
 
 End Namespace
