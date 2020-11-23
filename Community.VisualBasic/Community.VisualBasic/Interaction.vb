@@ -21,11 +21,19 @@ Namespace Global.Community.VisualBasic
     '============================================================================
 
     Public Function Shell(PathName As String, Optional Style As AppWinStyle = AppWinStyle.MinimizedFocus, Optional Wait As Boolean = False, Optional Timeout As Integer = -1) As Integer
+#If TARGET_WINDOWS Then
       Return DirectCast(InvokeMethod("Shell", PathName, Style, Wait, Timeout), Integer)
+#Else
+      Throw New PlatformNotSupportedException()
+#End If
     End Function
 
     Public Sub AppActivate(ProcessId As Integer)
+#If TARGET_WINDOWS Then
       InvokeMethod("AppActivateByProcessId", ProcessId)
+#Else
+      Throw New PlatformNotSupportedException()
+#End If
     End Sub
 
     Public Sub AppActivate(Title As String)

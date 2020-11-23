@@ -9,8 +9,4 @@
     <ProjectReference Include="..\Community.VisualBasic\Community.VisualBasic\Community.VisualBasic.vbproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Import Include="Community.VisualBasic" />
-  </ItemGroup>
-
 </Project>

@@ -21,6 +21,9 @@ Module Program
     Dim a3 = "This is a test"
     Dim l1 = Left(a3, 4)
 
+    Dim c = New ClassLibraryTest.Class1()
+    c.CoverageInteraction()
+
     If Debugger.IsAttached Then
       Console.WriteLine()
       Console.WriteLine("Press enter to close.")

@@ -754,6 +754,19 @@ CompareOption As CompareMethod, ci As CompareInfo) As Integer
       Return Count
     End Function
 
+  End Class
+
+End Namespace
+
+Namespace Global.Microsoft.VisualBasic.CompilerServices
+
+  <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)>
+  Public NotInheritable Class StringType
+
+    ' Prevent creation.
+    Private Sub New()
+    End Sub
+
     Public Shared Sub MidStmtStr(ByRef sDest As String, StartPosition As Integer, MaxInsertLength As Integer, sInsert As String)
       Dim DestLength As Integer
       Dim InsertLength As Integer

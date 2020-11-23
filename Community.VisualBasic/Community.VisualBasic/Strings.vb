@@ -32,6 +32,7 @@ Namespace Global.Community.VisualBasic
   End Class
 
   Public Module Strings
+
     'Positive format strings
     '0      $n  
     '1      n$ 
@@ -80,8 +81,9 @@ Namespace Global.Community.VisualBasic
 
     Private Const CODEPAGE_SIMPLIFIED_CHINESE As Integer = 936
     Private Const CODEPAGE_TRADITIONAL_CHINESE As Integer = 950
-    Private Const STANDARD_COMPARE_FLAGS As CompareOptions =
-        CompareOptions.IgnoreCase Or CompareOptions.IgnoreWidth Or CompareOptions.IgnoreKanaType
+    Private Const STANDARD_COMPARE_FLAGS As CompareOptions = CompareOptions.IgnoreCase Or
+                                                             CompareOptions.IgnoreWidth Or
+                                                             CompareOptions.IgnoreKanaType
 
     Private Const NAMEDFORMAT_FIXED As String = "fixed"
     Private Const NAMEDFORMAT_YES_NO As String = "yes/no"
@@ -253,7 +255,7 @@ Namespace Global.Community.VisualBasic
 
         If enc.IsSingleByte Then
           If CharCode < 0 OrElse CharCode > 255 Then
-            Throw VbMakeException(vbErrors.IllegalFuncCall)
+            Throw VbMakeException(VbErrors.IllegalFuncCall)
           End If
         End If
 
@@ -689,7 +691,7 @@ EmptyMatchString:
         Return Length
       End If
 
-      Throw VbMakeException(vbErrors.TypeMismatch)
+      Throw VbMakeException(VbErrors.TypeMismatch)
     End Function
 
     Public Function Replace(Expression As String, Find As String, Replacement As String, Optional Start As Integer = 1, Optional Count As Integer = -1, <Microsoft.VisualBasic.CompilerServices.OptionCompareAttribute()> Optional [Compare] As CompareMethod = CompareMethod.Binary) As String
@@ -1449,7 +1451,7 @@ RedimAndExit:
               sFormat = "G"
             End If
           Case Else
-            Throw VbMakeException(vbErrors.IllegalFuncCall)
+            Throw VbMakeException(VbErrors.IllegalFuncCall)
         End Select
 
         Return Expression.ToString(sFormat, Nothing)
@@ -1495,8 +1497,8 @@ RedimAndExit:
     End Function
 
     Friend Function GetFormatString(NumDigitsAfterDecimal As Integer,
-IncludeLeadingDigit As TriState, UseParensForNegativeNumbers As TriState,
-GroupDigits As TriState, FormatTypeValue As FormatType) As String
+                                    IncludeLeadingDigit As TriState, UseParensForNegativeNumbers As TriState,
+                                    GroupDigits As TriState, FormatTypeValue As FormatType) As String
 
       Dim nfi As NumberFormatInfo
       Dim sb As StringBuilder
@@ -1511,7 +1513,7 @@ GroupDigits As TriState, FormatTypeValue As FormatType) As String
       nfi = CType(ci.GetFormat(GetType(System.Globalization.NumberFormatInfo)), NumberFormatInfo)
 
       If NumDigitsAfterDecimal < -1 Then
-        Throw VbMakeException(vbErrors.IllegalFuncCall)
+        Throw VbMakeException(VbErrors.IllegalFuncCall)
       ElseIf NumDigitsAfterDecimal = -1 Then
         If FormatTypeValue = FormatType.Percent Then
           'NOTE: We use NumberDecimalDigits, which is set in the 
@@ -1604,12 +1606,11 @@ GroupDigits As TriState, FormatTypeValue As FormatType) As String
       Return sb.ToString()
     End Function
 
-    Friend Function GetCurrencyFormatString(
-IncludeLeadingDigit As TriState,
-NumDigitsAfterDecimal As Integer,
-UseParensForNegativeNumbers As TriState,
-GroupDigits As TriState,
-        ByRef formatProvider As IFormatProvider) As String
+    Friend Function GetCurrencyFormatString(IncludeLeadingDigit As TriState,
+                                            NumDigitsAfterDecimal As Integer,
+                                            UseParensForNegativeNumbers As TriState,
+                                            GroupDigits As TriState,
+                                            ByRef formatProvider As IFormatProvider) As String
 
       Dim nfi As NumberFormatInfo
       Dim ci As CultureInfo
@@ -1720,11 +1721,10 @@ GroupDigits As TriState,
 
     End Function
 
-    Friend Function GetNumberFormatString(
-NumDigitsAfterDecimal As Integer,
-IncludeLeadingDigit As TriState,
-UseParensForNegativeNumbers As TriState,
-GroupDigits As TriState) As String
+    Friend Function GetNumberFormatString(NumDigitsAfterDecimal As Integer,
+                                          IncludeLeadingDigit As TriState,
+                                          UseParensForNegativeNumbers As TriState,
+                                          GroupDigits As TriState) As String
 
       Dim nfi As NumberFormatInfo
       Dim ci As CultureInfo
@@ -1816,10 +1816,10 @@ GroupDigits As TriState) As String
     End Function
 
     Public Function FormatPercent(Expression As Object,
-        Optional NumDigitsAfterDecimal As Integer = -1,
-        Optional IncludeLeadingDigit As TriState = TriState.UseDefault,
-        Optional UseParensForNegativeNumbers As TriState = TriState.UseDefault,
-        Optional GroupDigits As TriState = TriState.UseDefault) As String
+                                  Optional NumDigitsAfterDecimal As Integer = -1,
+                                  Optional IncludeLeadingDigit As TriState = TriState.UseDefault,
+                                  Optional UseParensForNegativeNumbers As TriState = TriState.UseDefault,
+                                  Optional GroupDigits As TriState = TriState.UseDefault) As String
 
       Dim ifmt As IFormattable
       Dim typ As Type
@@ -2266,7 +2266,7 @@ GroupDigits As TriState) As String
 
     Private Sub ValidateTriState(Param As TriState)
       If (Param <> vbTrue) AndAlso (Param <> vbFalse) AndAlso (Param <> vbUseDefault) Then
-        Throw VbMakeException(vbErrors.IllegalFuncCall)
+        Throw VbMakeException(VbErrors.IllegalFuncCall)
       End If
     End Sub
 
@@ -2276,6 +2276,7 @@ GroupDigits As TriState) As String
       End If
       Return (array.Length = 0)
     End Function
+
   End Module
 
 End Namespace

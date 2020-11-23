@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.Serialization
 Imports System.Runtime.CompilerServices
 
-Namespace Global.Community.VisualBasic
+Namespace Global.Microsoft.VisualBasic
 
   ' What appears to be available...
   '
