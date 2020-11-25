@@ -1,5 +1,10 @@
-﻿Imports System.Runtime.Serialization
+﻿Option Explicit On
+Option Strict On
+Option Infer On
+
+Imports System.Runtime.Serialization
 Imports System.Runtime.CompilerServices
+Imports System.Runtime.InteropServices
 
 Namespace Global.Microsoft.VisualBasic
 
@@ -492,13 +497,13 @@ Namespace Global.Microsoft.VisualBasic
     End Sub
   End Class
 
-  Friend Module Extensions
+  'Friend Module Extensions
 
-    Public Function IsWindows() As Boolean
-      Return True
-    End Function
+  '  Public Function IsWindows() As Boolean
+  '    Return True
+  '  End Function
 
-  End Module
+  'End Module
 
 End Namespace
 

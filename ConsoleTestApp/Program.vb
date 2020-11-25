@@ -45,7 +45,7 @@ Module Program
     'Console.WriteLine($"PATH={e1}")
     'Console.WriteLine($"PATH={e2}")
 
-    If RuntimeInformation.IsOSPlatform(OSPlatform.Windows) AndAlso
+    If OperatingSystem.IsWindows AndAlso
        Debugger.IsAttached Then
       Console.WriteLine()
       Console.WriteLine("Press enter to close.")

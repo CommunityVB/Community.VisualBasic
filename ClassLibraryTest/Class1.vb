@@ -25,6 +25,10 @@ Public Class Class1
     'CoverageStrings()
     'CoverageVBMath()
 
+    If OperatingSystem.IsWindows Then
+
+    End If
+
   End Sub
 
   Private Sub CoverageDateAndTime()
@@ -182,7 +186,7 @@ Public Class Class1
     Dim r1 = cVB.Filter(o, "match", True, cVB.CompareMethod.Binary)
     Dim r2 = cVB.Filter(s, "match", True, cVB.CompareMethod.Text)
 
-    Dim sa As String()
+    'Dim sa As String()
     Dim st As String
 
     Dim i = cVB.InStr(c1, c2)

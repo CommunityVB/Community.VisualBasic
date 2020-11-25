@@ -266,11 +266,7 @@ UseCallType As CallType)
         If UseCallType = CallType.Set Then
           flags = flags Or BindingFlags.PutRefDispProperty
           If args(args.GetUpperBound(0)) Is Nothing Then
-#If ORIGINAL Then
             Debug.Assert(OperatingSystem.IsWindows())
-#Else
-            Debug.Assert(IsWindows())
-#End If
 #Disable Warning BC40000 ' DispatchWrapper is marked obsolete.
             args(args.GetUpperBound(0)) = New DispatchWrapper(Nothing)
 #Enable Warning BC40000
