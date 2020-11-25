@@ -1303,6 +1303,7 @@ arguments As Object()) As Object
     '''     return site.Target.Invoke(site, instance, args(0), args(1), args(2))
     ''' End Function
     Private Shared Function CreateInvoker(ArgLength As Integer) As Func(Of CallSiteBinder, Object, Object(), Object)
+#If TARGET_WINDOWS Then
       ' Useful Types
       Dim ObjectType As Type = GetType(Object)
       Dim ObjectRefType As Type = ObjectType.MakeByRefType()
@@ -1345,6 +1346,9 @@ arguments As Object()) As Object
       il.Emit(OpCodes.Ret)
 
       Return DirectCast(InvokerMethod.CreateDelegate(GetType(Func(Of CallSiteBinder, Object, Object(), Object))), Func(Of CallSiteBinder, Object, Object(), Object))
+#Else
+      Throw New PlatformNotSupportedException()
+#End If
     End Function
 
     Public Shared Function CreateFuncCallSiteAndInvoke(

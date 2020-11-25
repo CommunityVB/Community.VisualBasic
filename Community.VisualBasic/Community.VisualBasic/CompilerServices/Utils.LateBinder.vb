@@ -349,7 +349,11 @@ GetSpecialValue:
 
     Friend Shared Function VBFriendlyName(typ As System.Type, o As Object) As String
       If typ.IsCOMObject AndAlso (typ.FullName = "System.__ComObject") Then
+#If WINDOWS Then
         Return TypeNameOfCOMObject(o, False)
+#Else
+        Throw New PlatformNotSupportedException
+#End If
       End If
 
       Return VBFriendlyNameOfType(typ)

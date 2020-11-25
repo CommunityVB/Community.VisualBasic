@@ -156,12 +156,16 @@ Namespace Global.Community.VisualBasic.FileIO
     End Function
 
     Private Shared Function GetWindowsFormsDirectory(typeName As String, propertyName As String) As String
+#If TARGET_WINDOWS Then
       Dim type As Type = Type.GetType($"{typeName}, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", throwOnError:=False)
       Dim [property] As PropertyInfo = type?.GetProperty(propertyName)
       If [property] Is Nothing Then
         Return ""
       End If
       Return DirectCast([property].GetValue(Nothing, BindingFlags.DoNotWrapExceptions, Nothing, Nothing, Nothing), String)
+#Else
+      Throw New PlatformNotSupportedException()
+#End If
     End Function
 
   End Class

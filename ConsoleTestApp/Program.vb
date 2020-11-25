@@ -4,6 +4,7 @@ Option Infer On
 
 Imports mVB = Microsoft.VisualBasic
 Imports cVB = Community.VisualBasic
+Imports System.Runtime.InteropServices
 
 Module Program
 
@@ -18,13 +19,34 @@ Module Program
     Console.WriteLine($"OS Type: {My.Computer.Info.OSPlatform}.")
     Console.WriteLine($"OS Version: {My.Computer.Info.OSVersion}.")
 
+    Dim v = mVB.Asc("a"c)
+
     Dim a3 = "This is a test"
     Dim l1 = Left(a3, 4)
 
     Dim c = New ClassLibraryTest.Class1()
-    c.CoverageInteraction()
+    c.Test()
 
-    If Debugger.IsAttached Then
+    Dim cl = cVB.Command
+    Dim cl1 = c.GetCommandLine
+
+    'Console.WriteLine(My.User.Name)
+
+    'Console.WriteLine($"Command Line: {cl}")
+    'Console.WriteLine($"Command Line: {cl1}")
+
+    'Environment.SetEnvironmentVariable("OURVARIABLE", "OURVALUE")
+    'For Each entry As DictionaryEntry In Environment.GetEnvironmentVariables()
+    '  Console.WriteLine($"{entry.Key}={entry.Value}")
+    'Next
+
+    'Dim e1 = cVB.Environ("PATH")
+    'Dim e2 = c.GetEnviron("PATH")
+    'Console.WriteLine($"PATH={e1}")
+    'Console.WriteLine($"PATH={e2}")
+
+    If RuntimeInformation.IsOSPlatform(OSPlatform.Windows) AndAlso
+       Debugger.IsAttached Then
       Console.WriteLine()
       Console.WriteLine("Press enter to close.")
       Console.ReadLine()

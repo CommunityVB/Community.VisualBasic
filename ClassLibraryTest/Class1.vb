@@ -1,3 +1,8 @@
+Option Explicit On
+Option Strict On
+Option Infer On
+
+Imports Community.VisualBasic
 Imports cVB = Community.VisualBasic
 Imports mVB = Microsoft.VisualBasic
 
@@ -13,11 +18,124 @@ Public Class Class1
     Dim aDouble = 1.1
     Dim cintFixTest = CInt(cVB.Fix(aDouble))
 
-    CoverageInteraction()
-    CoverageStrings()
-    CoverageVBMath()
+    CoverageFileSystem()
+    'CoverageDateAndTime()
+    'CoverageInformation()
+    'CoverageInteraction()
+    'CoverageStrings()
+    'CoverageVBMath()
 
   End Sub
+
+  Private Sub CoverageDateAndTime()
+
+    Console.WriteLine($"Today={Today}")
+    Console.WriteLine($"Now={Now}")
+    Console.WriteLine($"TimeOfDay={TimeOfDay}")
+    Console.WriteLine($"TimeString={TimeString}")
+    Console.WriteLine($"DateString={DateString}")
+    Console.WriteLine($"Timer={Timer}")
+    Console.WriteLine($"DateAdd(Day, 1, Today)={DateAdd(DateInterval.Day, 1, Today)}")
+    Console.WriteLine($"DateDiff(Day, Min, Max)={DateDiff(DateInterval.Day, Date.MinValue, Date.MaxValue)}")
+    Console.WriteLine($"DatePart(Day, Now)={DatePart(DateInterval.Day, Now)}")
+    Console.WriteLine($"DateSerial(2000, 12, 31)={DateSerial(2000, 12, 31)}")
+    Console.WriteLine($"TimeSerial(5, 30, 15)={TimeSerial(5, 30, 15)}")
+    Console.WriteLine($"DateValue={DateValue(Now.ToString)}")
+    Console.WriteLine($"TimeValue={TimeValue(Now.ToString)}")
+
+    Console.WriteLine($"Year={Year(Now)}")
+    Console.WriteLine($"Month={Month(Now)}")
+    Console.WriteLine($"Day={Day(Now)}")
+    Console.WriteLine($"Hour={Hour(Now)}")
+    Console.WriteLine($"Minute={Minute(Now)}")
+    Console.WriteLine($"Second={Second(Now)}")
+    Console.WriteLine($"Weekday={Weekday(Now)}")
+    Console.WriteLine($"MonthName={MonthName(Month(Now))}")
+    Console.WriteLine($"WeekdayName={WeekdayName(Weekday(Now))}")
+
+  End Sub
+
+  Private Sub CoverageFileSystem()
+
+    Console.WriteLine($"CurDir={CurDir()}")
+    'ChDir("..\..")
+    'Console.WriteLine($"CurDir={CurDir()}")
+    Dim result = Dir("*.dll")
+    Do
+      Console.WriteLine(result)
+      result = Dir()
+      If Not result <> "" Then
+        Exit Do
+      End If
+    Loop
+
+    If IO.File.Exists("test.txt") Then Kill("test.txt")
+
+    'Dim contents = ""
+    'IO.File.WriteAllText("test.txt", contents)
+    'FileOpen(1, "test.txt", OpenMode.Append, OpenAccess.Write, OpenShare.Shared)
+    'Print(1, "This is a test" & vbCrLf)
+    'Print(1, "This is another test" & vbCrLf)
+    'FileClose(1)
+    'contents = IO.File.ReadAllText("test.txt")
+    'Console.WriteLine(contents)
+
+    Dim fs As FileStructure
+    fs.Number = 1
+    fs.Money = 300.1
+
+    FileOpen(1, "test.txt", OpenMode.Random, OpenAccess.ReadWrite, OpenShare.Shared, Len(fs))
+    fs.Number = 1 : fs.Money = 300.1 : FilePut(1, fs, 1)
+    fs.Number = 2 : fs.Money = 700.2 : FilePut(1, fs, 2)
+    fs.Number = 3 : fs.Money = 754 : FilePut(1, fs, 3)
+    FileGet(1, fs, 1)
+    FileClose(1)
+
+    Console.WriteLine($"{fs.Number}={fs.Money}")
+
+  End Sub
+
+  Private Structure FileStructure
+    Public Number As Integer
+    Public Money As Double
+  End Structure
+
+
+  Private Sub CoverageInformation()
+
+    Dim err1 = Err.Erl
+    Dim erl1 = Erl()
+
+    Dim ar = {"a", "b", "c"}
+
+    Console.WriteLine($"IsArray={IsArray(ar)}")
+    Console.WriteLine($"IsDate={IsDate(ar)}")
+    Console.WriteLine($"IsDBNull={IsDBNull(ar)}")
+    Console.WriteLine($"IsNothing={IsNothing(ar)}")
+    Console.WriteLine($"IsError={IsError(ar)}")
+    Console.WriteLine($"IsReference={IsReference(ar)}")
+    Console.WriteLine($"IsNumeric={IsNumeric(ar)}")
+
+    Console.WriteLine($"LBound={LBound(ar)}")
+    Console.WriteLine($"UBound={UBound(ar)}")
+
+    Dim qbc = QBColor(15)
+    Dim rgb1 = RGB(100, 100, 100)
+
+    Console.WriteLine($"VarType={VarType(ar)}")
+    Console.WriteLine($"TypeName={TypeName(ar)}")
+    Console.WriteLine($"SystemTypeName={TypeName(ar)}")
+    Console.WriteLine($"VbTypeName={VbTypeName("String")}")
+
+  End Sub
+
+  Public Function GetCommandLine() As String
+    Return cVB.Command
+  End Function
+
+  Public Function GetEnviron(name As String) As String
+    Return cVB.Environ(name)
+  End Function
 
   Public Sub CoverageInteraction()
 
@@ -26,15 +144,35 @@ Public Class Class1
     'cVB.AppActivate("a title")
 
     Dim commandline = cVB.Command()
+    Dim evar = cVB.Environ("Path")
+    Dim choice = cVB.Choose(2, {"a", "b", "c", "d", "e"})
+    Dim iifresult1 = IIf(True, "A", "B")
+
+    Dim year As Long = 1984
+    Dim decade = Partition(year, 1950, 2049, 10)
+    Console.WriteLine($"Year {year} is in decade {decade}.")
+    Console.WriteLine($"Language (Switch Test): {MatchLanguage("Rome")}")
+
+    Dim col As New Collection()
+    'Store the string "Item One" in a collection by calling the Add method.
+    CallByName(col, "Add", CallType.Method, "Item One")
+    'Retrieve the first entry from the collection using the Item property and display it using Console.WriteLine().
+    Console.WriteLine(CallByName(col, "Item", CallType.Get, 1))
 
   End Sub
+
+  Function MatchLanguage(ByVal cityName As String) As String
+    Return $"{Switch(cityName = "London", "English",
+                     cityName = "Rome", "Italian",
+                     cityName = "Paris", "French")}"
+  End Function
 
   Private Sub CoverageStrings()
 
     Dim a1 = cVB.Asc("a"c)
     Dim a2 = cVB.Asc("a")
     Dim c1 = cVB.Chr(65)
-    Dim c2 = cVB.Chr("a")
+    Dim c2 = cVB.Chr(AscW("a"c))
     Dim ascValue = AscW("A")
     Dim chrValue = ChrW(ascValue)
 
@@ -44,14 +182,17 @@ Public Class Class1
     Dim r1 = cVB.Filter(o, "match", True, cVB.CompareMethod.Binary)
     Dim r2 = cVB.Filter(s, "match", True, cVB.CompareMethod.Text)
 
+    Dim sa As String()
+    Dim st As String
+
     Dim i = cVB.InStr(c1, c2)
     i = cVB.InStr(1, c1, c2)
     i = cVB.InStrRev(c1, c2)
-    c1 = cVB.Join(o)
-    c1 = cVB.Join(s)
+    st = cVB.Join(o)
+    st = cVB.Join(s)
 
-    c1 = cVB.LCase("A"c)
-    c1 = cVB.LCase("A")
+    st = cVB.LCase("A"c)
+    st = cVB.LCase("A")
 
     Dim aBoolean = True
     Dim aByte = CByte(1)
@@ -98,7 +239,7 @@ Public Class Class1
     aString = cVB.RSet("abc", 5)
 
     aString = cVB.StrDup(15, "a"c)
-    aString = cVB.StrDup(15, CObj("a"))
+    aString = CStr(cVB.StrDup(15, CObj("a")))
     aString = cVB.StrDup(15, "a")
 
     aString = cVB.StrReverse(aString)
@@ -138,7 +279,7 @@ Public Class Class1
     cVB.Randomize(cVB.Timer)
 
     Dim a = cVB.Rnd()
-    Dim b = cVB.Rnd(cVB.Timer)
+    Dim b = cVB.Rnd(CSng(cVB.Timer))
 
   End Sub
 

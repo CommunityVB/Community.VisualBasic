@@ -154,6 +154,7 @@ Namespace Global.Community.VisualBasic
 
     End Function
 
+#If WINDOWS Then
     Friend Function TypeNameOfCOMObject(VarName As Object, bThrowException As Boolean) As String
 
       Dim Result As String = COMObjectName
@@ -212,6 +213,7 @@ Namespace Global.Community.VisualBasic
 
       Return Result
     End Function
+#End If
 
     Public Function QBColor(Color As Integer) As Integer
       If (Color And &HFFF0I) <> 0 Then

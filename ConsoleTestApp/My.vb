@@ -2,6 +2,7 @@
 Option Strict On
 Option Infer On
 
+Imports System.Security.Principal
 Imports Community.VisualBasic
 
 Namespace My
@@ -11,7 +12,7 @@ Namespace My
 
     'Public Property Application As New Devices.Application
     Public Property Computer As New Devices.Computer
-    'Public Property User As New Devices.User
+    Public Property User As New Community.VisualBasic.ApplicationServices.User
 
   End Module
 

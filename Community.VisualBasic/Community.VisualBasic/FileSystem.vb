@@ -5,6 +5,7 @@ Imports System
 Imports System.Diagnostics
 Imports System.Globalization
 Imports System.IO
+Imports System.Runtime.InteropServices
 Imports System.Runtime.Versioning
 Imports System.Text
 
@@ -51,29 +52,34 @@ Namespace Global.Community.VisualBasic
     ' Directory/drive functions.
     '============================================================================
 
-    Public Sub ChDir(Path As String)
+    Public Sub ChDir(path As String)
       Debug.Assert(System.Reflection.Assembly.GetCallingAssembly() IsNot Utils.VBRuntimeAssembly,
           "Methods in Microsoft.VisualBasic should not call FileSystem public method.")
 
-      Path = RTrim(Path) 'VB6 accepted things like "\   ", so need to trim the trailing spaces
+      path = RTrim(path) 'VB6 accepted things like "\   ", so need to trim the trailing spaces
 
-      If (Path Is Nothing) OrElse (Path.Length = 0) Then
-        Throw VbMakeException(New ArgumentException(SR.Argument_PathNullOrEmpty), vbErrors.BadFileNameOrNumber)
+      If path Is Nothing OrElse path.Length = 0 Then
+        Throw VbMakeException(New ArgumentException(SR.Argument_PathNullOrEmpty), VbErrors.BadFileNameOrNumber)
       End If
 
       ' Do this since System.IO.Directory does not accept "\"
-      If Path = "\" Then
-        Path = Directory.GetDirectoryRoot(Directory.GetCurrentDirectory())
+      If path = "\" Then
+        path = Directory.GetDirectoryRoot(Directory.GetCurrentDirectory())
+      End If
+
+      If RuntimeInformation.IsOSPlatform(OSPlatform.Linux) Then
+        path = path.Replace("\", "/")
       End If
 
       Try
-        System.IO.Directory.SetCurrentDirectory(Path)
+        System.IO.Directory.SetCurrentDirectory(path)
       Catch ex As System.IO.FileNotFoundException
-        Throw VbMakeException(New FileNotFoundException(SR.Format(SR.FileSystem_PathNotFound1, Path)), vbErrors.PathNotFound)
+        Throw VbMakeException(New FileNotFoundException(SR.Format(SR.FileSystem_PathNotFound1, path)), VbErrors.PathNotFound)
       End Try
 
     End Sub
 
+#If WINDOWS Then
     <SupportedOSPlatform("windows")>
     Public Sub ChDrive(Drive As Char)
       Drive = System.Char.ToUpperInvariant(Drive)
@@ -83,12 +89,14 @@ Namespace Global.Community.VisualBasic
       End If
 
       If Not UnsafeValidDrive(Drive) Then
-        Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_DriveNotFound1, CStr(Drive))), vbErrors.DevUnavailable)
+        Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_DriveNotFound1, CStr(Drive))), VbErrors.DevUnavailable)
       End If
 
       IO.Directory.SetCurrentDirectory(Drive & Path.VolumeSeparatorChar)
     End Sub
+#End If
 
+#If WINDOWS Then
     <SupportedOSPlatform("windows")>
     Public Sub ChDrive(Drive As String)
       Debug.Assert(System.Reflection.Assembly.GetCallingAssembly() IsNot Utils.VBRuntimeAssembly,
@@ -100,6 +108,7 @@ Namespace Global.Community.VisualBasic
 
       ChDrive(Drive.Chars(0))
     End Sub
+#End If
 
     Public Function CurDir() As String
       Debug.Assert(System.Reflection.Assembly.GetCallingAssembly() IsNot Utils.VBRuntimeAssembly,
@@ -108,6 +117,7 @@ Namespace Global.Community.VisualBasic
       Return Directory.GetCurrentDirectory()
     End Function
 
+#If WINDOWS Then
     <SupportedOSPlatform("windows")>
     Public Function CurDir(Drive As Char) As String
       Debug.Assert(System.Reflection.Assembly.GetCallingAssembly() IsNot Utils.VBRuntimeAssembly,
@@ -115,17 +125,18 @@ Namespace Global.Community.VisualBasic
 
       Drive = System.Char.ToUpperInvariant(Drive)
       If (Drive < chLetterA OrElse Drive > chLetterZ) Then
-        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "Drive")), vbErrors.DevUnavailable)
+        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "Drive")), VbErrors.DevUnavailable)
       End If
 
       'GetFullPath("x:.") will return the full directory path
       Dim CurrentPath As String = Path.GetFullPath(Drive & Path.VolumeSeparatorChar & ".")
 
       If Not UnsafeValidDrive(Drive) Then
-        Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_DriveNotFound1, CStr(Drive))), vbErrors.DevUnavailable)
+        Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_DriveNotFound1, CStr(Drive))), VbErrors.DevUnavailable)
       End If
       Return CurrentPath
     End Function
+#End If
 
     Public Function Dir() As String
       Debug.Assert(System.Reflection.Assembly.GetCallingAssembly() IsNot Utils.VBRuntimeAssembly,
@@ -199,11 +210,11 @@ Namespace Global.Community.VisualBasic
           "Methods in Microsoft.VisualBasic should not call FileSystem public method.")
 
       If Path Is Nothing OrElse Path.Length = 0 Then
-        Throw VbMakeException(New ArgumentException(SR.Argument_PathNullOrEmpty), vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(New ArgumentException(SR.Argument_PathNullOrEmpty), VbErrors.BadFileNameOrNumber)
       End If
 
       If Directory.Exists(Path) Then
-        Throw VbMakeException(vbErrors.PathFileAccess)
+        Throw VbMakeException(VbErrors.PathFileAccess)
       Else
         Directory.CreateDirectory(Path)
       End If
@@ -215,19 +226,19 @@ Namespace Global.Community.VisualBasic
 
       'If null or empty directory, give error
       If Path Is Nothing OrElse Path.Length = 0 Then
-        Throw VbMakeException(New ArgumentException(SR.Argument_PathNullOrEmpty), vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(New ArgumentException(SR.Argument_PathNullOrEmpty), VbErrors.BadFileNameOrNumber)
       End If
 
       Try
         Directory.Delete(Path)
       Catch e1 As DirectoryNotFoundException
-        Throw VbMakeException(e1, vbErrors.PathNotFound)
+        Throw VbMakeException(e1, VbErrors.PathNotFound)
       Catch ex As StackOverflowException
         Throw ex
       Catch ex As OutOfMemoryException
         Throw ex
       Catch e2 As Exception
-        Throw VbMakeException(e2, vbErrors.PathFileAccess)
+        Throw VbMakeException(e2, VbErrors.PathFileAccess)
       End Try
     End Sub
 
@@ -253,30 +264,30 @@ Namespace Global.Community.VisualBasic
 
     Public Sub FileCopy(Source As String, Destination As String)
       If (Source Is Nothing) OrElse (Source.Length = 0) Then
-        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_PathNullOrEmpty1, "Source")), vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_PathNullOrEmpty1, "Source")), VbErrors.BadFileNameOrNumber)
       End If
 
       If (Destination Is Nothing) OrElse (Destination.Length = 0) Then
-        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_PathNullOrEmpty1, "Destination")), vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_PathNullOrEmpty1, "Destination")), VbErrors.BadFileNameOrNumber)
       End If
 
       '  Error if wildcard characters in name
       If PathContainsWildcards(Source) Then
-        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "Source")), vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "Source")), VbErrors.BadFileNameOrNumber)
       End If
 
       If PathContainsWildcards(Destination) Then
-        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "Destination")), vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "Destination")), VbErrors.BadFileNameOrNumber)
       End If
 
       Dim oAssemblyData As AssemblyData = ProjectData.GetProjectData().GetAssemblyData(System.Reflection.Assembly.GetCallingAssembly())
 
       If CheckFileOpen(oAssemblyData, Destination, OpenModeTypes.Output) Then
-        Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_FileAlreadyOpen1, Destination)), vbErrors.FileAlreadyOpen)
+        Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_FileAlreadyOpen1, Destination)), VbErrors.FileAlreadyOpen)
       End If
 
       If CheckFileOpen(oAssemblyData, Source, OpenModeTypes.Input) Then
-        Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_FileAlreadyOpen1, Source)), vbErrors.FileAlreadyOpen)
+        Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_FileAlreadyOpen1, Source)), VbErrors.FileAlreadyOpen)
       End If
 
       Try
@@ -287,9 +298,9 @@ Namespace Global.Community.VisualBasic
 
         'Need to emulate vb6 error codes as much as possible
       Catch ex As FileNotFoundException
-        Throw VbMakeException(ex, vbErrors.FileNotFound)
+        Throw VbMakeException(ex, VbErrors.FileNotFound)
       Catch ex As IOException
-        Throw VbMakeException(ex, vbErrors.FileAlreadyOpen)
+        Throw VbMakeException(ex, VbErrors.FileAlreadyOpen)
       Catch ex As Exception
         Throw ex
       End Try
@@ -300,7 +311,7 @@ Namespace Global.Community.VisualBasic
           "Methods in Microsoft.VisualBasic should not call FileSystem public method.")
 
       If PathContainsWildcards(PathName) Then
-        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "PathName")), vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "PathName")), VbErrors.BadFileNameOrNumber)
       End If
 
       If File.Exists(PathName) Then
@@ -346,7 +357,7 @@ Namespace Global.Community.VisualBasic
       Dim WildCards() As Char = {"*"c, "?"c}
 
       If PathName.IndexOfAny(WildCards) >= 0 Then
-        Throw VbMakeException(vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(VbErrors.BadFileNameOrNumber)
       End If
 
       Dim f As New FileInfo(PathName)
@@ -363,7 +374,7 @@ Namespace Global.Community.VisualBasic
       End If
 
       If Path.GetFileName(PathName).Length = 0 Then
-        Throw VbMakeException(vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(VbErrors.BadFileNameOrNumber)
       Else
         Throw New FileNotFoundException(SR.Format(SR.FileSystem_FileNotFound1, PathName))
       End If
@@ -406,7 +417,7 @@ Namespace Global.Community.VisualBasic
             '  error if file is presently open
             Dim oAssemblyData As AssemblyData = ProjectData.GetProjectData().GetAssemblyData(System.Reflection.Assembly.GetCallingAssembly())
             If CheckFileOpen(oAssemblyData, FileName, OpenModeTypes.Any) Then
-              Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_FileAlreadyOpen1, FileName)), vbErrors.FileAlreadyOpen)
+              Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_FileAlreadyOpen1, FileName)), VbErrors.FileAlreadyOpen)
             End If
 
             Try
@@ -415,7 +426,7 @@ Namespace Global.Community.VisualBasic
               DeleteCount += 1
             Catch ex As IOException
               'Need to emulate vb6 error codes as much as possible
-              Throw VbMakeException(ex, vbErrors.FileAlreadyOpen)
+              Throw VbMakeException(ex, VbErrors.FileAlreadyOpen)
 
             Catch ex As Exception
               Throw ex
@@ -451,7 +462,7 @@ Namespace Global.Community.VisualBasic
 
       'Check pathname for errors and if file is open for any mode except sequential input
       If (PathName Is Nothing) OrElse (PathName.Length = 0) Then
-        Throw VbMakeException(New ArgumentException(SR.Argument_PathNullOrEmpty), vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(New ArgumentException(SR.Argument_PathNullOrEmpty), VbErrors.BadFileNameOrNumber)
       End If
 
       Dim assem As System.Reflection.Assembly = System.Reflection.Assembly.GetCallingAssembly()
@@ -517,13 +528,12 @@ Namespace Global.Community.VisualBasic
     '======================================
     ' Public APIs
     '======================================
-    Public Sub FileOpen(
-FileNumber As Integer,
-FileName As String,
-Mode As OpenMode,
-        Optional Access As OpenAccess = OpenAccess.Default,
-        Optional Share As OpenShare = OpenShare.Default,
-        Optional RecordLength As Integer = -1)
+    Public Sub FileOpen(FileNumber As Integer,
+                        FileName As String,
+                        Mode As OpenMode,
+                        Optional Access As OpenAccess = OpenAccess.Default,
+                        Optional Share As OpenShare = OpenShare.Default,
+                        Optional RecordLength As Integer = -1)
 
       Try
         ValidateMode(Mode)
@@ -531,10 +541,10 @@ Mode As OpenMode,
         ValidateShare(Share)
 
         If (FileNumber < FIRST_LOCAL_CHANNEL OrElse FileNumber > LAST_LOCAL_CHANNEL) Then
-          Throw VbMakeException(vbErrors.BadFileNameOrNumber)
+          Throw VbMakeException(VbErrors.BadFileNameOrNumber)
         End If
         Dim assem As System.Reflection.Assembly = System.Reflection.Assembly.GetCallingAssembly()
-        vbIOOpenFile(assem, FileNumber, FileName, Mode, Access, Share, RecordLength)
+        VbIOOpenFile(assem, FileNumber, FileName, Mode, Access, Share, RecordLength)
       Catch ex As Exception
         Throw ex
       End Try
@@ -565,7 +575,7 @@ Mode As OpenMode,
 
     Private Sub ValidateGetPutRecordNumber(RecordNumber As Long)
       If RecordNumber < 1 AndAlso RecordNumber <> -1 Then
-        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "RecordNumber")), vbErrors.BadRecordNum)
+        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "RecordNumber")), VbErrors.BadRecordNum)
       End If
     End Sub
 
@@ -1032,7 +1042,7 @@ Mode As OpenMode,
       CheckInputCapable(oFile)
 
       If oFile.EOF() Then
-        Throw VbMakeException(vbErrors.EndOfFile)
+        Throw VbMakeException(VbErrors.EndOfFile)
       End If
 
       Return oFile.LineInput()
@@ -1090,7 +1100,7 @@ Mode As OpenMode,
         End If
       Next
 
-      Throw VbMakeException(vbErrors.TooManyFiles)
+      Throw VbMakeException(VbErrors.TooManyFiles)
     End Function
 
     'Function Seek
@@ -1218,14 +1228,14 @@ Mode As OpenMode,
     Private Function GetStream(assem As System.Reflection.Assembly, FileNumber As Integer, mode As OpenModeTypes) As VB6File
       Dim Result As VB6File
       If (FileNumber < FIRST_LOCAL_CHANNEL) OrElse (FileNumber > LAST_LOCAL_CHANNEL) Then
-        Throw VbMakeException(vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(VbErrors.BadFileNameOrNumber)
       End If
 
       Result = GetChannelObj(assem, FileNumber)
 
       If (OpenModeTypesFromOpenMode(Result.GetMode()) Or mode) = 0 Then
         Result = Nothing
-        Throw VbMakeException(vbErrors.BadFileMode)
+        Throw VbMakeException(VbErrors.BadFileMode)
       End If
 
       Return Result
@@ -1295,7 +1305,7 @@ Mode As OpenMode,
 
       '  Error if file is already open and conflicting mode
       If CheckFileOpen(oAssemblyData, Result, OpenModeTypesFromOpenMode(mode)) Then
-        Throw VbMakeException(vbErrors.FileAlreadyOpen)
+        Throw VbMakeException(VbErrors.FileAlreadyOpen)
       End If
 
       Return Result
@@ -1443,7 +1453,7 @@ Mode As OpenMode,
 
     Private Sub AddFileToList(oAssemblyData As AssemblyData, FileNumber As Integer, oFile As VB6File)
       If oFile Is Nothing Then
-        Throw VbMakeException(vbErrors.InternalError)
+        Throw VbMakeException(VbErrors.InternalError)
       Else
         oFile.OpenFile()
 
@@ -1462,7 +1472,7 @@ Mode As OpenMode,
       oFile = GetChannelOrNull(ProjectData.GetProjectData().GetAssemblyData(assem), FileNumber)
 
       If oFile Is Nothing Then
-        Throw VbMakeException(vbErrors.BadFileNameOrNumber)
+        Throw VbMakeException(VbErrors.BadFileNameOrNumber)
       End If
 
       Return oFile
@@ -1479,7 +1489,7 @@ Mode As OpenMode,
 
     Private Sub CheckInputCapable(oFile As VB6File)
       If Not oFile.CanInput() Then
-        Throw VbMakeException(vbErrors.BadFileMode)
+        Throw VbMakeException(VbErrors.BadFileMode)
       End If
     End Sub
 

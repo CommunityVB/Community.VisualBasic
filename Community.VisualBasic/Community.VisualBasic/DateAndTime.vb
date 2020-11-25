@@ -141,8 +141,8 @@ Namespace Global.Community.VisualBasic
     ' Date manipulation functions.
     '============================================================================
     Public Function DateAdd(Interval As DateInterval,
-Number As Double,
-DateValue As DateTime) As DateTime
+                            Number As Double,
+                            DateValue As DateTime) As DateTime
       Dim lNumber As Integer
 
       lNumber = CInt(Fix(Number))
@@ -172,10 +172,10 @@ DateValue As DateTime) As DateTime
     End Function
 
     Public Function DateDiff(Interval As DateInterval,
-Date1 As DateTime,
-Date2 As DateTime,
-        Optional DayOfWeek As FirstDayOfWeek = FirstDayOfWeek.Sunday,
-        Optional WeekOfYear As FirstWeekOfYear = FirstWeekOfYear.Jan1) As Long
+                             Date1 As DateTime,
+                             Date2 As DateTime,
+                             Optional DayOfWeek As FirstDayOfWeek = FirstDayOfWeek.Sunday,
+                             Optional WeekOfYear As FirstWeekOfYear = FirstWeekOfYear.Jan1) As Long
 
       If WeekOfYear <> FirstWeekOfYear.System Then
       End If
@@ -229,9 +229,10 @@ Date2 As DateTime,
       Return (dt.DayOfWeek - weekdayFirst + 8) Mod 7 + 1
     End Function
 
-    Public Function DatePart(Interval As DateInterval, DateValue As DateTime,
-        Optional FirstDayOfWeekValue As FirstDayOfWeek = vbSunday,
-        Optional FirstWeekOfYearValue As FirstWeekOfYear = vbFirstJan1) As Integer
+    Public Function DatePart(Interval As DateInterval,
+                             DateValue As DateTime,
+                             Optional FirstDayOfWeekValue As FirstDayOfWeek = vbSunday,
+                             Optional FirstWeekOfYearValue As FirstWeekOfYear = vbFirstJan1) As Integer
 
       'Get the part asked for
       Select Case Interval
@@ -281,8 +282,8 @@ Date2 As DateTime,
     End Function
 
     Public Function DateAdd(Interval As String,
-Number As Double,
-DateValue As Object) As DateTime
+                            Number As Double,
+                            DateValue As Object) As DateTime
 
       Dim dt1 As Date
 
@@ -300,10 +301,10 @@ DateValue As Object) As DateTime
     End Function
 
     Public Function DateDiff(Interval As String,
-Date1 As Object,
-Date2 As Object,
-        Optional DayOfWeek As FirstDayOfWeek = FirstDayOfWeek.Sunday,
-        Optional WeekOfYear As FirstWeekOfYear = FirstWeekOfYear.Jan1) As Long
+                             Date1 As Object,
+                             Date2 As Object,
+                             Optional DayOfWeek As FirstDayOfWeek = FirstDayOfWeek.Sunday,
+                             Optional WeekOfYear As FirstWeekOfYear = FirstWeekOfYear.Jan1) As Long
 
       Dim dt1, dt2 As Date
 
@@ -329,9 +330,10 @@ Date2 As Object,
       Return DateDiff(DateIntervalFromString(Interval), dt1, dt2, DayOfWeek, WeekOfYear)
     End Function
 
-    Public Function DatePart(Interval As String, DateValue As Object,
-        Optional DayOfWeek As FirstDayOfWeek = FirstDayOfWeek.Sunday,
-        Optional WeekOfYear As FirstWeekOfYear = FirstWeekOfYear.Jan1) As Integer
+    Public Function DatePart(Interval As String,
+                             DateValue As Object,
+                             Optional DayOfWeek As FirstDayOfWeek = FirstDayOfWeek.Sunday,
+                             Optional WeekOfYear As FirstWeekOfYear = FirstWeekOfYear.Jan1) As Integer
 
       Dim dt1 As Date
 

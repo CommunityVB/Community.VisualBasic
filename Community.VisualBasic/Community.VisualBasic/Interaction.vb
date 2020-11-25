@@ -20,25 +20,23 @@ Namespace Global.Community.VisualBasic
     ' Application/system interaction functions.
     '============================================================================
 
+#If WINDOWS Then
     Public Function Shell(PathName As String, Optional Style As AppWinStyle = AppWinStyle.MinimizedFocus, Optional Wait As Boolean = False, Optional Timeout As Integer = -1) As Integer
-#If TARGET_WINDOWS Then
       Return DirectCast(InvokeMethod("Shell", PathName, Style, Wait, Timeout), Integer)
-#Else
-      Throw New PlatformNotSupportedException()
-#End If
     End Function
-
-    Public Sub AppActivate(ProcessId As Integer)
-#If TARGET_WINDOWS Then
-      InvokeMethod("AppActivateByProcessId", ProcessId)
-#Else
-      Throw New PlatformNotSupportedException()
 #End If
-    End Sub
 
+#If WINDOWS Then
+    Public Sub AppActivate(ProcessId As Integer)
+      InvokeMethod("AppActivateByProcessId", ProcessId)
+    End Sub
+#End If
+
+#If WINDOWS Then
     Public Sub AppActivate(Title As String)
       InvokeMethod("AppActivateByTitle", Title)
     End Sub
+#End If
 
     Private m_CommandLine As String
 
@@ -125,6 +123,7 @@ Namespace Global.Community.VisualBasic
     ' User interaction functions.
     '============================================================================
 
+#If WINDOWS Then
     <SupportedOSPlatform("windows")>
     Public Sub Beep()
 #If TARGET_WINDOWS Then
@@ -133,15 +132,21 @@ Namespace Global.Community.VisualBasic
       Throw New PlatformNotSupportedException()
 #End If
     End Sub
+#End If
 
+#If WINDOWS Then
     Public Function InputBox(Prompt As String, Optional Title As String = "", Optional DefaultResponse As String = "", Optional XPos As Integer = -1, Optional YPos As Integer = -1) As String
       Return DirectCast(InvokeMethod("InputBox", Prompt, Title, DefaultResponse, XPos, YPos), String)
     End Function
+#End If
 
+#If WINDOWS Then
     Public Function MsgBox(Prompt As Object, Optional Buttons As MsgBoxStyle = MsgBoxStyle.OkOnly, Optional Title As Object = Nothing) As MsgBoxResult
       Return DirectCast(InvokeMethod("MsgBox", Prompt, Buttons, Title), MsgBoxResult)
     End Function
+#End If
 
+#If WINDOWS Then
     Private Function InvokeMethod(methodName As String, ParamArray args As Object()) As Object
       Dim type As Type = Type.GetType("Microsoft.VisualBasic._Interaction, Microsoft.VisualBasic.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", throwOnError:=False)
       Dim method As MethodInfo = type?.GetMethod(methodName)
@@ -150,6 +155,7 @@ Namespace Global.Community.VisualBasic
       End If
       Return method.Invoke(Nothing, BindingFlags.DoNotWrapExceptions, Nothing, args, Nothing)
     End Function
+#End If
 
     '============================================================================
     ' String functions.
@@ -320,7 +326,7 @@ Namespace Global.Community.VisualBasic
       Return Nothing 'If nothing matched above
     End Function
 
-#If UNSUPPORTED_REGISTRY Then
+#If WINDOWS Then
 
     '============================================================================
     ' Registry functions.
@@ -507,6 +513,7 @@ Namespace Global.Community.VisualBasic
       End If
     End Sub
 
+#If WINDOWS Then
     <SupportedOSPlatform("windows")>
     Public Function CreateObject(ProgId As String, Optional ServerName As String = "") As Object
       'Creates local or remote COM2 objects.  Should not be used to create COM+ objects.
@@ -585,6 +592,7 @@ Namespace Global.Community.VisualBasic
         End If
       End If
     End Function
+#End If
 
     '============================================================================
     ' Object/latebound functions.
