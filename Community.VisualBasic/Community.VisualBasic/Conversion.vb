@@ -1,21 +1,4 @@
-﻿'Namespace Global.Community.VisualBasic
-
-'  '<HideModuleName()>
-'  'Public Module DoesntMatterWhatThisIsCalled
-
-'  '  Public Function Fix(value As Double) As Integer
-'  '    Return Math.Floor(value)
-'  '  End Function
-
-'  '  Public Function DateAdd(a As Date, b As Integer) As Date
-'  '    Return Date.MinValue
-'  '  End Function
-
-'  'End Module
-
-'End Namespace
-
-' Licensed to the .NET Foundation under one or more agreements.
+﻿' Licensed to the .NET Foundation under one or more agreements.
 ' The .NET Foundation licenses this file to you under the MIT license.
 
 Imports System
@@ -29,6 +12,7 @@ Namespace Global.Community.VisualBasic
 
   Public Module Conversion
 
+#If TARGET_WINDOWS Then
     Private Const NUMPRS_LEADING_PLUS As Integer = &H4I
     Private Const NUMPRS_LEADING_MINUS As Integer = &H10I
     Private Const NUMPRS_HEX_OCT As Integer = &H40I
@@ -53,12 +37,14 @@ Namespace Global.Community.VisualBasic
     Private Const VTBIT_CHAR As Integer = &H40000
     Private Const VTBIT_LONG As Integer = &H100000
 
-    Private Const MAX_ERR_NUMBER As Integer = 65535
     Private Const LOCALE_NOUSEROVERRIDE As Integer = &H80000000I
     Private Const LCID_US_ENGLISH As Integer = &H409I
     Private Const PRSFLAGS As Integer _
             = (NUMPRS_LEADING_PLUS Or NUMPRS_LEADING_MINUS Or NUMPRS_HEX_OCT Or NUMPRS_DECIMAL Or NUMPRS_EXPONENT)
     Private Const VTBITS As Integer = (VTBIT_I2 Or VTBIT_I4 Or VTBIT_R8 Or VTBIT_DECIMAL)
+#End If
+
+    Private Const MAX_ERR_NUMBER As Integer = 65535
 
     Private Const TYPE_INDICATOR_INT16 As Char = "%"c
     Private Const TYPE_INDICATOR_INT32 As Char = "&"c
@@ -1058,6 +1044,7 @@ NextOctCharacter:
 #End If
     End Function
 
+#If TARGET_WINDOWS Then
     Private Function ShiftVTBits(vt As Integer) As Integer
       Select Case vt
                 'Case VariantType.Empty     
@@ -1098,6 +1085,7 @@ NextOctCharacter:
           Return 0
       End Select
     End Function
+#End If
 
     Public Function CTypeDynamic(Expression As Object, TargetType As System.Type) As Object
       Return Conversions.ChangeType(Expression, TargetType, True)

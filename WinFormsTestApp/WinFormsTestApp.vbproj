@@ -7,6 +7,13 @@
     <StartupObject>Sub Main</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
+    <PackageId>WinFormsTestPackage</PackageId>
+    <Authors>WinformsTestAuthors</Authors>
+    <Company>WinformsTestCompany</Company>
+    <Product>WinFormsTestProduct</Product>
+    <Description>WinFormsTest Description</Description>
+    <Copyright>(c) 2099, WinFormsTest</Copyright>
+    <Version>1.2.3</Version>
   </PropertyGroup>
 
   <ItemGroup>

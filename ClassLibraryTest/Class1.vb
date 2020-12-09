@@ -10,6 +10,31 @@ Public Class Class1
 
   Public Sub Test()
 
+    Dim z = CInt(1.1)
+
+    Dim commandLineArgs = My.Application.CommandLineArgs()
+    Dim culture = My.Application.Culture
+    Dim pathEnv = My.Application.GetEnvironmentVariable("PATH")
+    Dim hashCode = My.Application.GetHashCode
+    Dim assemblyName = My.Application.Info.AssemblyName
+    Dim companyName = My.Application.Info.CompanyName
+    Dim copyright = My.Application.Info.Copyright
+    Dim description = My.Application.Info.Description
+    Dim directoryPath = My.Application.Info.DirectoryPath
+    Dim loadedAssemblies = My.Application.Info.LoadedAssemblies
+    Dim productName = My.Application.Info.ProductName
+    Dim stackTrace = My.Application.Info.StackTrace
+    Dim title = My.Application.Info.Title
+    Dim trademark = My.Application.Info.Trademark
+    Dim version = My.Application.Info.Version
+    Dim workingSet = My.Application.Info.WorkingSet
+    Dim logWriter = My.Application.Log.DefaultFileLogWriter
+    Dim logPath = logWriter.FullLogFileName
+    Dim traceSource = My.Application.Log.TraceSource
+    My.Application.Log.WriteEntry("test - from LINUX!!!!")
+    'My.Application.Log.WriteException(New Exception("test"))
+    Dim uiCulture = My.Application.UICulture
+
     Dim aString = $"Computer Name: {My.Computer.Name}."
     aString = $"OS Name: {My.Computer.Info.OSFullName}."
     aString = $"OS Type: {My.Computer.Info.OSPlatform}."
@@ -18,11 +43,11 @@ Public Class Class1
     Dim aDouble = 1.1
     Dim cintFixTest = CInt(cVB.Fix(aDouble))
 
-    CoverageFileSystem()
+    'CoverageFileSystem()
     'CoverageDateAndTime()
     'CoverageInformation()
     'CoverageInteraction()
-    'CoverageStrings()
+    CoverageStrings()
     'CoverageVBMath()
 
     If OperatingSystem.IsWindows Then
@@ -252,7 +277,7 @@ Public Class Class1
     aString = cVB.UCase("a"c)
 
     aString = cVB.Format("abc")
-    aString = cVB.FormatCurrency("abc")
+    aString = cVB.FormatCurrency("1")
     aString = cVB.FormatDateTime(cVB.Today)
     aString = cVB.FormatNumber(35.1)
     aString = cVB.FormatPercent(1.1)

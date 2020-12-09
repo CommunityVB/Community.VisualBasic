@@ -1,12 +1,30 @@
-﻿Option Explicit On
+﻿'Namespace Global.Community.VisualBasic
+
+'  '<HideModuleName()>
+'  'Public Module DoesntMatterWhatThisIsCalled
+
+'  '  Public Function Fix(value As Double) As Integer
+'  '    Return Math.Floor(value)
+'  '  End Function
+
+'  '  Public Function DateAdd(a As Date, b As Integer) As Date
+'  '    Return Date.MinValue
+'  '  End Function
+
+'  'End Module
+
+'End Namespace
+
+Option Explicit On
 Option Strict On
 Option Infer On
 
 Imports System.Runtime.Serialization
 Imports System.Runtime.CompilerServices
 Imports System.Runtime.InteropServices
+Imports System.Reflection
 
-Namespace Global.Microsoft.VisualBasic
+Namespace Global.Community.VisualBasic
 
   ' What appears to be available...
   '
@@ -24,10 +42,59 @@ Namespace Global.Microsoft.VisualBasic
   '
   ' - Microsoft.VisualBasic.CompilerServices.Conversions
 
-  Friend Class SR
+  Friend NotInheritable Class Application
 
     Private Sub New()
     End Sub
+
+    Public Shared ReadOnly Property UserAppDataPath As String
+      Get
+        If OperatingSystem.IsWindows Then
+          'Return System.Application.UserAppDataPath
+          Dim a = New ApplicationServices.ConsoleApplicationBase
+          Dim p = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+          Return IO.Path.Combine(p, a.Info.CompanyName, a.Info.ProductName, $"{a.Info.Version.Major}.{a.Info.Version.Minor}.{a.Info.Version.Build}")
+        Else
+          Return IO.Path.GetDirectoryName(ExecutablePath)
+        End If
+      End Get
+    End Property
+
+    Public Shared ReadOnly Property ExecutablePath As String
+      Get
+        If OperatingSystem.IsWindows Then
+          'Return System.Application.ExecutablePath
+          Return Process.GetCurrentProcess.MainModule.FileName
+        Else
+          'Return AppDomain.CurrentDomain.BaseDirectory ' Recommended as "the right way"... but returns "blank" in WSL2???
+          Return Assembly.GetEntryAssembly.Location
+        End If
+      End Get
+    End Property
+
+    Public Shared ReadOnly Property CommonAppDataPath As String
+      Get
+        If OperatingSystem.IsWindows Then
+          'Return Application.CommonAppDataPath
+          Dim a = New ApplicationServices.ConsoleApplicationBase
+          Dim p = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
+          Return IO.Path.Combine(p, a.Info.CompanyName, a.Info.ProductName, $"{a.Info.Version.Major}.{a.Info.Version.Minor}.{a.Info.Version.Build}")
+        Else
+          Return IO.Path.GetDirectoryName(ExecutablePath)
+        End If
+      End Get
+    End Property
+
+  End Class
+
+  Public Class SR
+
+    Private Sub New()
+    End Sub
+
+    Friend Shared Function EnvVarNotFound_Name() As String
+      Throw New NotImplementedException()
+    End Function
 
     Friend Shared Function GetResourceString(v As String) As String
       Throw New NotImplementedException()
@@ -41,7 +108,7 @@ Namespace Global.Microsoft.VisualBasic
       Throw New NotImplementedException()
     End Function
 
-    Friend Shared Function Format(string1 As String, string2 As String) As String
+    Public Shared Function Format(string1 As String, string2 As String) As String
       Throw New NotImplementedException()
     End Function
 
@@ -497,17 +564,9 @@ Namespace Global.Microsoft.VisualBasic
     End Sub
   End Class
 
-  'Friend Module Extensions
-
-  '  Public Function IsWindows() As Boolean
-  '    Return True
-  '  End Function
-
-  'End Module
-
 End Namespace
 
-Namespace Global.Community.VisualBasic.Media
+Namespace Global.Community.Media
 
   Friend Class SoundPlayer
 
@@ -531,7 +590,9 @@ Namespace Global.Community.VisualBasic.Media
     End Sub
 
     Public Sub Play()
-
+      If String.IsNullOrWhiteSpace(m_filename) AndAlso
+         m_stream Is Nothing Then
+      End If
     End Sub
 
     Public Sub PlaySync()

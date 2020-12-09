@@ -14,6 +14,10 @@ Module Program
     Dim a2 = CInt(Fix(a1))
 
     Console.Clear()
+
+    'Console.WriteLine(My.Application.Info.DirectoryPath)
+    'Console.WriteLine()
+
     Console.WriteLine($"Computer Name: {My.Computer.Name}.")
     Console.WriteLine($"OS Name: {My.Computer.Info.OSFullName}.")
     Console.WriteLine($"OS Type: {My.Computer.Info.OSPlatform}.")
@@ -23,6 +27,8 @@ Module Program
 
     Dim a3 = "This is a test"
     Dim l1 = Left(a3, 4)
+
+    Mid(a3, 2, 1) = "X"
 
     Dim c = New ClassLibraryTest.Class1()
     c.Test()
