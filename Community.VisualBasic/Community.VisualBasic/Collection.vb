@@ -16,7 +16,7 @@ Namespace Global.Community.VisualBasic
   <DebuggerTypeProxy(GetType(Collection.CollectionDebugView))>
   <DebuggerDisplay("Count = {Count}")>
   Public NotInheritable Class Collection : Implements ICollection, IList
-    Private m_CultureInfo As CultureInfo 'The CultureInfo used for key comparisons
+    'Private m_CultureInfo As CultureInfo 'The CultureInfo used for key comparisons
     Private m_KeyedNodesHash As Generic.Dictionary(Of String, Node) 'Hashtable mapping key (string) -> Node, contains only items added to the collection with a key
     Private m_ItemsList As FastList 'Doubly-linked list of Node containing all items in the collection
     Private m_Iterators As List(Of Object) 'List of iterators currently iterating this collection
@@ -344,7 +344,7 @@ Namespace Global.Community.VisualBasic
       End If
       m_ItemsList = New FastList()
       m_Iterators = New List(Of Object)
-      m_CultureInfo = CultureInfo
+      'm_CultureInfo = CultureInfo
     End Sub
 
     Private NotInheritable Class FastList

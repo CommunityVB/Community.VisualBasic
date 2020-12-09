@@ -45,11 +45,11 @@ Namespace Global.Community.VisualBasic.CompilerServices
 
     <DebuggerHiddenAttribute(), DebuggerStepThroughAttribute()>
     Public Shared Function LateGet(o As Object,
-objType As Type,
-name As String,
-args() As Object,
-paramnames() As String,
-CopyBack() As Boolean) As Object
+                                   objType As Type,
+                                   name As String,
+                                   args() As Object,
+                                   paramnames() As String,
+                                   CopyBack() As Boolean) As Object
 
       Dim flags As BindingFlags
 
@@ -65,7 +65,7 @@ CopyBack() As Boolean) As Object
 
       If objType Is Nothing Then
         If o Is Nothing Then
-          Throw VbMakeException(vbErrors.ObjNotSet)
+          Throw VbMakeException(VbErrors.ObjNotSet)
         End If
 
         objType = o.GetType()
