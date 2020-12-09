@@ -1,18 +1,25 @@
 # Community.VisualBasic
 
-A very **experimental** alternate to the official Microsoft.VisualBasic runtime initially created to evaluate the support of the many ease-of-use features that makes Visual Basic, well, Visual Basic in .NET 5 development for non-WinForms projects - especially *netstandard2.0*, *netstandard2.1* and, to some degree, .NET 5 Console applications where cross-platform capability is desired.
+A very **experimental** alternate to the official [Microsoft.VisualBasic](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.VisualBasic.Core) runtime initially created to evaluate the support of the many ease-of-use features that makes Visual Basic, well, Visual Basic targetting .NET 5 development for non-WinForms projects - especially *netstandard2.0*, *netstandard2.1* and, to some degree, .NET 5 Console applications where cross-platform (Debian Linux / RaspPi) capability is desired.
 
-## Reason
+Much of the common functionality one would *expect* there to exist as part of Visual Basic is **missing** if you desire to build a reusable library targeting *netstardard 2.x* forcing you have to potentially rewrite a lot of code and missing out on a much of what makes VB approachable/usable.  A lot of this isn't necessarily tied to WinForms and it would be nice to have regardless of building a netstandard library, console application (Windows or Linux) or WinForms.
 
-There are actually a "few" Microsoft.VisualBasic runtimes depending on the type of project, type of platform target, etc.  There is a "core" version that has the absolute minimum necessary to compile a VB project.  Then there a is the slightly more robust (minimal) one that was originally utilized in .NET Core 1.x and growing (I believe) slightly for .NET Core 3.1 projects.  When the launch of .NET 5, a pretty complete version is available... if you are building a WinForms project.
+## Not a Fork
 
-However, much of the common functionality one would *expect* there to exist as part of Visual Basic is **missing** if you desire to build a reusable library targeting *netstardard* (at the time of this writing, any level) forcing you have to potentially rewrite a lot of code and missing out on a much of what makes VB approachable/usable.  A lot of this isn't necessarily tied to WinForms and would be nice to have whether you are building a netstandard library, console application for Linux or WinForms.
+As you may have noticed, this project is not a direct fork of [Microsoft.VisualBasic](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.VisualBasic.Core); this is on purpose.  This project is going to utilize the latest tools available to improve the code base as time progresses - meaning that some of the code will be "cleaned up" based on the suggestions provided directly in Visual Studio 2019 (and beyond).  Additionally, this project may eventually be split apart in order to better faciliate nuget packaging, cross-platform targeting, etc.  Trying to somehow maintain this codebase with the original source seems, at least to me, be impossible if these sorts of changes are desired in the long term.  Additionally, a different namespace across the project is needed order to publish this as a nuget package the namespace has to be something that isn't *reserved* - something else that I think pretty much breaks the possibility of having a fork maintained.
+
+## Goal
+
+The overall goal, at this stage, is to create a pretty complete implementation of the original [Microsoft.VisualBasic](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.VisualBasic.Core) namespace that works in .netstandard 2.x and, as much as possible, within a Console application running on Debian Linux.  I make sure to use the term *namespace* as *assembly*/*project* are probably a bit misleading given that functionality for this *namespace* appears to be implemented in at least three different projects (roslyn, dotnet and winforms).  Where possible, will try to implement everything that isn't on the following list:
+
+- My.Services
+- My.Forms
+- MsgBox()
+- *TBD*
+
+Currently the above list is more of an example... will update the list as we progress forward.
 
 ## Initial Observations
-
-- With the work already done, it is obvious that (a rough estimate of) 85% or more of the code will "just work". 
-- There are obviously areas of functionality that will not work *cross-platform* and, as such, will not work in a *netstandard2.0* project.  This includes anything that is WinForms-related related, Registry-related and other areas that are very Windows specific.  Other possibilities is functionality that just doesn't exist in .NET 5 (clearly legacy functionality).  I estimate that this is around 10% (or less).
-- The other percentage (5-10%) is functionality that is currently designed for Windows but could easily be adjusted to support cross-platform development.
 
 ## Ideas / Thoughts for moving forward...
 
@@ -20,11 +27,14 @@ However, much of the common functionality one would *expect* there to exist as p
 - Easily build using Visual Studio 16.8+.  
 - Easily leverage in any .NET 5 project... including targeting the Blazor platform.
 - It is a stated goal from the beginning that the project not be 100% compatible with .NET 5 WinForms VisualBasic library as some things will have to give considering we are attempting to reach cross-platform capability; with that said, where possible compatibility will be strived for and maintained.
-- Rather than throw a New PlatformNotSupportedException, will *ifdef* the functionality out for the time being; I suspect that it would be better to tell the consumer of the library that something doesn't work immediately rather than have to test everything for functionality.  With that said, will review this later and possibly leverage attributes.
+- In addition to throwing a New PlatformNotSupportedException, will leverage *obsolete* attributes for functionality that will not work so that the consumer of the package will no quickly that something will most likely fail.
 - Review all code for functionality on, at minimum, Windows and Debian Linux - with primary evaluation of Linux debugging taking place directly in Visual Studio thanks to WSL2.  
-- Evaluate using the same namespace as the original.  Currently experimenting with code under the Community.VisualBasic namespace; there is the possibility that could utilize Microsoft.VisualBasic as the namespace and do some substitution magic in the project file.  Need to explore this more.
 - During this process, refactoring the code (where possible - without breaking functionality) so that default Visual Studio settings code analysis warnings are fixed. 
 - Additional functionality may be added, TBD at a later date.
+
+## Future
+
+Once project is the a solid state regarding **existing functionality**, will be considering new functionality to take things into the future.  So if you have ideas that you think might be considered, please start the conversation in the discussions.
 
 ## Further Discussion
 
