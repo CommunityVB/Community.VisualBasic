@@ -185,7 +185,6 @@ Namespace Global.Community.VisualBasic.CompilerServices
 
       If hr > 0 AndAlso hr <= &HFFFFI Then
         sMsg = GetResourceString(CType(hr, vbErrors))
-        Throw New NotImplementedException
       Else
         sMsg = ""
       End If
@@ -193,12 +192,8 @@ Namespace Global.Community.VisualBasic.CompilerServices
     End Function
 
     Friend Shared Function VbMakeException(ex As Exception, hr As Integer) As System.Exception
-#If ORIGINAL Then
-      Err().SetUnmappedError(hr)
+      Err.SetUnmappedError(hr)
       Return ex
-#Else
-      Throw New NotImplementedException
-#End If
     End Function
 
     Friend Shared Function VbMakeExceptionEx(number As Integer, sMsg As String) As System.Exception

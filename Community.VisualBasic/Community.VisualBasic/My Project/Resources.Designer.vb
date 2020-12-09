@@ -61,11 +61,2486 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to TestValue.
+        '''  Looks up a localized string similar to No accessible overloaded &apos;{0}&apos; is most specific for these arguments: {1}.
         '''</summary>
-        Friend ReadOnly Property TestName() As String
+        Friend ReadOnly Property AmbiguousCall_ExactMatch2() As String
             Get
-                Return ResourceManager.GetString("TestName", resourceCulture)
+                Return ResourceManager.GetString("AmbiguousCall_ExactMatch2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No accessible overloaded &apos;{0}&apos; can be called with these arguments without a widening conversion: {1}.
+        '''</summary>
+        Friend ReadOnly Property AmbiguousCall_WideningConversion2() As String
+            Get
+                Return ResourceManager.GetString("AmbiguousCall_WideningConversion2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No accessible overloaded &apos;{0}&apos; can be called with these arguments without a narrowing conversion: {1}.
+        '''</summary>
+        Friend ReadOnly Property AmbiguousCall2() As String
+            Get
+                Return ResourceManager.GetString("AmbiguousCall2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Conversion from type &apos;{0}&apos; to type &apos;{1}&apos; is ambiguous..
+        '''</summary>
+        Friend ReadOnly Property AmbiguousCast2() As String
+            Get
+                Return ResourceManager.GetString("AmbiguousCast2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No accessible overloaded &apos;{0}&apos; can be called without a narrowing conversion..
+        '''</summary>
+        Friend ReadOnly Property AmbiguousMatch_NarrowingConversion1() As String
+            Get
+                Return ResourceManager.GetString("AmbiguousMatch_NarrowingConversion1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Array dimensions do not match those specified by the &apos;VBFixedArray&apos; attribute..
+        '''</summary>
+        Friend ReadOnly Property Argument_ArrayDimensionsDontMatch() As String
+            Get
+                Return ResourceManager.GetString("Argument_ArrayDimensionsDontMatch", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot determine array type because it is Nothing..
+        '''</summary>
+        Friend ReadOnly Property Argument_ArrayNotInitialized() As String
+            Get
+                Return ResourceManager.GetString("Argument_ArrayNotInitialized", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Collection index must be in the range 1 to the size of the collection..
+        '''</summary>
+        Friend ReadOnly Property Argument_CollectionIndex() As String
+            Get
+                Return ResourceManager.GetString("Argument_CollectionIndex", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be greater than or equal to -1..
+        '''</summary>
+        Friend ReadOnly Property Argument_GEMinusOne1() As String
+            Get
+                Return ResourceManager.GetString("Argument_GEMinusOne1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be greater than or equal to 1..
+        '''</summary>
+        Friend ReadOnly Property Argument_GEOne1() As String
+            Get
+                Return ResourceManager.GetString("Argument_GEOne1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be greater or equal to zero..
+        '''</summary>
+        Friend ReadOnly Property Argument_GEZero1() As String
+            Get
+                Return ResourceManager.GetString("Argument_GEZero1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be greater than zero..
+        '''</summary>
+        Friend ReadOnly Property Argument_GTZero1() As String
+            Get
+                Return ResourceManager.GetString("Argument_GTZero1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Loop control variable of type &apos;{1}&apos; does not implement the &apos;System.IComparable&apos; interface..
+        '''</summary>
+        Friend ReadOnly Property Argument_IComparable2() As String
+            Get
+                Return ResourceManager.GetString("Argument_IComparable2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to VbStrConv.Katakana and VbStrConv.Hiragana cannot be combined..
+        '''</summary>
+        Friend ReadOnly Property Argument_IllegalKataHira() As String
+            Get
+                Return ResourceManager.GetString("Argument_IllegalKataHira", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &apos;{0}&apos; is a type in &apos;{1}&apos; and cannot be used as an expression..
+        '''</summary>
+        Friend ReadOnly Property Argument_IllegalNestedType2() As String
+            Get
+                Return ResourceManager.GetString("Argument_IllegalNestedType2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to VbStrConv.Wide and VbStrConv.Narrow cannot be combined..
+        '''</summary>
+        Friend ReadOnly Property Argument_IllegalWideNarrow() As String
+            Get
+                Return ResourceManager.GetString("Argument_IllegalWideNarrow", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be less than or equal to the length of argument &apos;{1}&apos;..
+        '''</summary>
+        Friend ReadOnly Property Argument_IndexLELength2() As String
+            Get
+                Return ResourceManager.GetString("Argument_IndexLELength2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; cannot be converted to type &apos;Date&apos;..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidDateValue1() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidDateValue1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Length of fixed length string cannot be zero..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidFixedLengthString() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidFixedLengthString", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Method &apos;{1}&apos; has no parameter named &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidNamedArg2() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidNamedArg2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Named arguments are not valid as array subscripts..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidNamedArgs() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidNamedArgs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; is Nothing..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidNullValue1() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidNullValue1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument value &apos;{0}&apos; contains characters that are not valid in a path name..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidPathChars1() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidPathChars1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; is not valid for the array..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidRank1() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidRank1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Arguments are not valid..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidValue() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidValue", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; is not a valid value..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidValue1() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidValue1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; cannot be converted to type &apos;{1}&apos;..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidValueType2() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidValueType2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;Conversion&apos; is not valid..
+        '''</summary>
+        Friend ReadOnly Property Argument_InvalidVbStrConv() As String
+            Get
+                Return ResourceManager.GetString("Argument_InvalidVbStrConv", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This system does not contain support for the Japanese locale..
+        '''</summary>
+        Friend ReadOnly Property Argument_JPNNotSupported() As String
+            Get
+                Return ResourceManager.GetString("Argument_JPNNotSupported", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Locale id &apos;{0}&apos; is not supported on this system..
+        '''</summary>
+        Friend ReadOnly Property Argument_LCIDNotSupported1() As String
+            Get
+                Return ResourceManager.GetString("Argument_LCIDNotSupported1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Length of argument &apos;{0}&apos; must be greater than zero..
+        '''</summary>
+        Friend ReadOnly Property Argument_LengthGTZero1() As String
+            Get
+                Return ResourceManager.GetString("Argument_LengthGTZero1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This system does not contain support for the Locale specified..
+        '''</summary>
+        Friend ReadOnly Property Argument_LocalNotSupported() As String
+            Get
+                Return ResourceManager.GetString("Argument_LocalNotSupported", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be greater than 0 or equal to -1..
+        '''</summary>
+        Friend ReadOnly Property Argument_MinusOneOrGTZero1() As String
+            Get
+                Return ResourceManager.GetString("Argument_MinusOneOrGTZero1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Type of argument &apos;{0}&apos; is &apos;{1}&apos;, which is not numeric..
+        '''</summary>
+        Friend ReadOnly Property Argument_NotNumericType2() As String
+            Get
+                Return ResourceManager.GetString("Argument_NotNumericType2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;Path&apos; is Nothing or empty..
+        '''</summary>
+        Friend ReadOnly Property Argument_PathNullOrEmpty() As String
+            Get
+                Return ResourceManager.GetString("Argument_PathNullOrEmpty", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; is Nothing or empty..
+        '''</summary>
+        Friend ReadOnly Property Argument_PathNullOrEmpty1() As String
+            Get
+                Return ResourceManager.GetString("Argument_PathNullOrEmpty1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &apos;FilePutObject&apos; of structure &apos;{0}&apos; is not valid..
+        '''</summary>
+        Friend ReadOnly Property Argument_PutObjectOfValueType1() As String
+            Get
+                Return ResourceManager.GetString("Argument_PutObjectOfValueType1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be within the range 0 to 99..
+        '''</summary>
+        Friend ReadOnly Property Argument_Range0to99_1() As String
+            Get
+                Return ResourceManager.GetString("Argument_Range0to99_1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be within the range 1 to 255..
+        '''</summary>
+        Friend ReadOnly Property Argument_Range1toFF1() As String
+            Get
+                Return ResourceManager.GetString("Argument_Range1toFF1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be within the range of -32768 to 65535..
+        '''</summary>
+        Friend ReadOnly Property Argument_RangeTwoBytes1() As String
+            Get
+                Return ResourceManager.GetString("Argument_RangeTwoBytes1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; cannot be a multi-dimensional array..
+        '''</summary>
+        Friend ReadOnly Property Argument_RankEQOne1() As String
+            Get
+                Return ResourceManager.GetString("Argument_RankEQOne1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This system does not contain support for the Simplified Chinese locale..
+        '''</summary>
+        Friend ReadOnly Property Argument_SCNotSupported() As String
+            Get
+                Return ResourceManager.GetString("Argument_SCNotSupported", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to VbStrConv.SimplifiedChinese and VbStrConv.TraditionalChinese cannot be combined..
+        '''</summary>
+        Friend ReadOnly Property Argument_StrConvSCandTC() As String
+            Get
+                Return ResourceManager.GetString("Argument_StrConvSCandTC", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This system does not contain support for the Traditional Chinese locale..
+        '''</summary>
+        Friend ReadOnly Property Argument_TCNotSupported() As String
+            Get
+                Return ResourceManager.GetString("Argument_TCNotSupported", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Array argument cannot have more than 2 dimensions..
+        '''</summary>
+        Friend ReadOnly Property Argument_UnsupportedArrayDimensions() As String
+            Get
+                Return ResourceManager.GetString("Argument_UnsupportedArrayDimensions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File I/O of a structure with field &apos;{0}&apos; of type &apos;{1}&apos; is not valid..
+        '''</summary>
+        Friend ReadOnly Property Argument_UnsupportedFieldType2() As String
+            Get
+                Return ResourceManager.GetString("Argument_UnsupportedFieldType2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File I/O with type &apos;{0}&apos; is not valid..
+        '''</summary>
+        Friend ReadOnly Property Argument_UnsupportedIOType1() As String
+            Get
+                Return ResourceManager.GetString("Argument_UnsupportedIOType1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to VbStrConv.Wide and VbStrConv.Narrow are not applicable to the locale specified..
+        '''</summary>
+        Friend ReadOnly Property Argument_WideNarrowNotApplicable() As String
+            Get
+                Return ResourceManager.GetString("Argument_WideNarrowNotApplicable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument matching parameter &apos;{0}&apos; cannot convert from &apos;{1}&apos; to &apos;{2}&apos;..
+        '''</summary>
+        Friend ReadOnly Property ArgumentMismatch3() As String
+            Get
+                Return ResourceManager.GetString("ArgumentMismatch3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument matching parameter &apos;{0}&apos; cannot convert from &apos;{1}&apos; to &apos;{2}&apos; because the conversion is ambiguous..
+        '''</summary>
+        Friend ReadOnly Property ArgumentMismatchAmbiguous3() As String
+            Get
+                Return ResourceManager.GetString("ArgumentMismatchAmbiguous3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to ByRef parameter &apos;{0}&apos; cannot convert from &apos;{1}&apos; to &apos;{2}&apos; when assigning back to the matching argument because the conversion is ambiguous..
+        '''</summary>
+        Friend ReadOnly Property ArgumentMismatchAmbiguousCopyBack3() As String
+            Get
+                Return ResourceManager.GetString("ArgumentMismatchAmbiguousCopyBack3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to ByRef parameter &apos;{0}&apos; cannot convert from &apos;{1}&apos; to &apos;{2}&apos; when assigning back to the matching argument..
+        '''</summary>
+        Friend ReadOnly Property ArgumentMismatchCopyBack3() As String
+            Get
+                Return ResourceManager.GetString("ArgumentMismatchCopyBack3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument matching parameter &apos;{0}&apos; narrows from &apos;{1}&apos; to &apos;{2}&apos;..
+        '''</summary>
+        Friend ReadOnly Property ArgumentNarrowing3() As String
+            Get
+                Return ResourceManager.GetString("ArgumentNarrowing3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to ByRef parameter &apos;{0}&apos; narrows from &apos;{1}&apos; to &apos;{2}&apos; when assigning back to the matching argument..
+        '''</summary>
+        Friend ReadOnly Property ArgumentNarrowingCopyBack3() As String
+            Get
+                Return ResourceManager.GetString("ArgumentNarrowingCopyBack3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; cannot be converted to a numeric value..
+        '''</summary>
+        Friend ReadOnly Property ArgumentNotNumeric1() As String
+            Get
+                Return ResourceManager.GetString("ArgumentNotNumeric1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Operator &apos;{0}&apos; is not defined for {1} and {2}..
+        '''</summary>
+        Friend ReadOnly Property BinaryOperands3() As String
+            Get
+                Return ResourceManager.GetString("BinaryOperands3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &apos;Before&apos; and &apos;After&apos; arguments cannot be combined..
+        '''</summary>
+        Friend ReadOnly Property Collection_BeforeAfterExclusive() As String
+            Get
+                Return ResourceManager.GetString("Collection_BeforeAfterExclusive", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Add failed. Duplicate key value supplied..
+        '''</summary>
+        Friend ReadOnly Property Collection_DuplicateKey() As String
+            Get
+                Return ResourceManager.GetString("Collection_DuplicateKey", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &apos;Dir&apos; function must first be called with a &apos;PathName&apos; argument..
+        '''</summary>
+        Friend ReadOnly Property DIR_IllegalCall() As String
+            Get
+                Return ResourceManager.GetString("DIR_IllegalCall", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Empty placeholder to adjust for 1-based array..
+        '''</summary>
+        Friend ReadOnly Property EmptyPlaceHolderMessage() As String
+            Get
+                Return ResourceManager.GetString("EmptyPlaceHolderMessage", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Expression &apos;{0}&apos; is not a procedure, but occurs as the target of a procedure call..
+        '''</summary>
+        Friend ReadOnly Property ExpressionNotProcedure() As String
+            Get
+                Return ResourceManager.GetString("ExpressionNotProcedure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Substitution of type arguments failed..
+        '''</summary>
+        Friend ReadOnly Property FailedTypeArgumentBinding() As String
+            Get
+                Return ResourceManager.GetString("FailedTypeArgumentBinding", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to String length exceeds maximum length of 32767 characters for &apos;FileSystem&apos; APIs..
+        '''</summary>
+        Friend ReadOnly Property FileIO_StringLengthExceeded() As String
+            Get
+                Return ResourceManager.GetString("FileIO_StringLengthExceeded", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File is not opened for read access..
+        '''</summary>
+        Friend ReadOnly Property FileOpenedNoRead() As String
+            Get
+                Return ResourceManager.GetString("FileOpenedNoRead", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File is not opened for write access..
+        '''</summary>
+        Friend ReadOnly Property FileOpenedNoWrite() As String
+            Get
+                Return ResourceManager.GetString("FileOpenedNoWrite", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Drive &apos;{0}&apos; not found..
+        '''</summary>
+        Friend ReadOnly Property FileSystem_DriveNotFound1() As String
+            Get
+                Return ResourceManager.GetString("FileSystem_DriveNotFound1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File &apos;{0}&apos; cannot be deleted because it is open..
+        '''</summary>
+        Friend ReadOnly Property FileSystem_FileAlreadyOpen1() As String
+            Get
+                Return ResourceManager.GetString("FileSystem_FileAlreadyOpen1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File &apos;{0}&apos; not found..
+        '''</summary>
+        Friend ReadOnly Property FileSystem_FileNotFound1() As String
+            Get
+                Return ResourceManager.GetString("FileSystem_FileNotFound1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;Access&apos; is not valid. Valid values for Append mode are &apos;OpenAccess.Write&apos; and &apos;OpenAccess.Default&apos;..
+        '''</summary>
+        Friend ReadOnly Property FileSystem_IllegalAppendAccess() As String
+            Get
+                Return ResourceManager.GetString("FileSystem_IllegalAppendAccess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;Access&apos; is not valid. Valid values for Input mode are &apos;OpenAccess.Read&apos; and &apos;OpenAccess.Default&apos;..
+        '''</summary>
+        Friend ReadOnly Property FileSystem_IllegalInputAccess() As String
+            Get
+                Return ResourceManager.GetString("FileSystem_IllegalInputAccess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;Access&apos; is not valid. Valid values for Output mode are &apos;OpenAccess.Write&apos; and &apos;OpenAccess.Default&apos;..
+        '''</summary>
+        Friend ReadOnly Property FileSystem_IllegalOutputAccess() As String
+            Get
+                Return ResourceManager.GetString("FileSystem_IllegalOutputAccess", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Path &apos;{0}&apos; not found..
+        '''</summary>
+        Friend ReadOnly Property FileSystem_PathNotFound1() As String
+            Get
+                Return ResourceManager.GetString("FileSystem_PathNotFound1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be greater than or equal to zero..
+        '''</summary>
+        Friend ReadOnly Property Financial_ArgGEZero1() As String
+            Get
+                Return ResourceManager.GetString("Financial_ArgGEZero1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be greater than zero..
+        '''</summary>
+        Friend ReadOnly Property Financial_ArgGTZero1() As String
+            Get
+                Return ResourceManager.GetString("Financial_ArgGTZero1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Division by zero..
+        '''</summary>
+        Friend ReadOnly Property Financial_CalcDivByZero() As String
+            Get
+                Return ResourceManager.GetString("Financial_CalcDivByZero", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot calculate number of periods using the arguments provided..
+        '''</summary>
+        Friend ReadOnly Property Financial_CannotCalculateNPer() As String
+            Get
+                Return ResourceManager.GetString("Financial_CannotCalculateNPer", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot calculate rate using the arguments provided..
+        '''</summary>
+        Friend ReadOnly Property Financial_CannotCalculateRate() As String
+            Get
+                Return ResourceManager.GetString("Financial_CannotCalculateRate", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;Life&apos; cannot be zero..
+        '''</summary>
+        Friend ReadOnly Property Financial_LifeNEZero() As String
+            Get
+                Return ResourceManager.GetString("Financial_LifeNEZero", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;Period&apos; must be less than or equal to argument &apos;Life&apos;..
+        '''</summary>
+        Friend ReadOnly Property Financial_PeriodLELife() As String
+            Get
+                Return ResourceManager.GetString("Financial_PeriodLELife", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot convert start value of type &apos;{0}&apos; and step value of type &apos;{1}&apos; to a common numeric type..
+        '''</summary>
+        Friend ReadOnly Property ForLoop_CommonType2() As String
+            Get
+                Return ResourceManager.GetString("ForLoop_CommonType2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot convert start value of type &apos;{0}&apos;, limit value of type &apos;{1}&apos;, and step value of type &apos;{2}&apos; to a common numeric type..
+        '''</summary>
+        Friend ReadOnly Property ForLoop_CommonType3() As String
+            Get
+                Return ResourceManager.GetString("ForLoop_CommonType3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot convert argument &apos;{0}&apos; of type &apos;{1}&apos; to type &apos;{2}&apos;..
+        '''</summary>
+        Friend ReadOnly Property ForLoop_ConvertToType3() As String
+            Get
+                Return ResourceManager.GetString("ForLoop_ConvertToType3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Type &apos;{0}&apos; must define an operator &apos;{1}&apos;, with parameters of type &apos;{0}&apos;, to be used in a &apos;For&apos; statement..
+        '''</summary>
+        Friend ReadOnly Property ForLoop_OperatorRequired2() As String
+            Get
+                Return ResourceManager.GetString("ForLoop_OperatorRequired2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Return and parameter types of &apos;{0}&apos; must be of type &apos;{1}&apos; to be used in a &apos;For&apos; statement..
+        '''</summary>
+        Friend ReadOnly Property ForLoop_UnacceptableOperator2() As String
+            Get
+                Return ResourceManager.GetString("ForLoop_UnacceptableOperator2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Parameter types of &apos;{0}&apos; must be of type &apos;{1}&apos; to be used in a &apos;For&apos; statement..
+        '''</summary>
+        Friend ReadOnly Property ForLoop_UnacceptableRelOperator2() As String
+            Get
+                Return ResourceManager.GetString("ForLoop_UnacceptableRelOperator2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; cannot be an empty string or Nothing..
+        '''</summary>
+        Friend ReadOnly Property General_ArgumentEmptyOrNothing_Name() As String
+            Get
+                Return ResourceManager.GetString("General_ArgumentEmptyOrNothing_Name", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument cannot be Nothing..
+        '''</summary>
+        Friend ReadOnly Property General_ArgumentNullException() As String
+            Get
+                Return ResourceManager.GetString("General_ArgumentNullException", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This array is fixed or temporarily locked..
+        '''</summary>
+        Friend ReadOnly Property ID10() As String
+            Get
+                Return ResourceManager.GetString("ID10", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Class &apos;{0}&apos; does not implement the System.Collections.ICollection interface..
+        '''</summary>
+        Friend ReadOnly Property ID100() As String
+            Get
+                Return ResourceManager.GetString("ID100", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Division by zero..
+        '''</summary>
+        Friend ReadOnly Property ID11() As String
+            Get
+                Return ResourceManager.GetString("ID11", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Type mismatch..
+        '''</summary>
+        Friend ReadOnly Property ID13() As String
+            Get
+                Return ResourceManager.GetString("ID13", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Out of string space..
+        '''</summary>
+        Friend ReadOnly Property ID14() As String
+            Get
+                Return ResourceManager.GetString("ID14", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Expression too complex..
+        '''</summary>
+        Friend ReadOnly Property ID16() As String
+            Get
+                Return ResourceManager.GetString("ID16", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Can&apos;t perform requested operation..
+        '''</summary>
+        Friend ReadOnly Property ID17() As String
+            Get
+                Return ResourceManager.GetString("ID17", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to User interrupt occurred..
+        '''</summary>
+        Friend ReadOnly Property ID18() As String
+            Get
+                Return ResourceManager.GetString("ID18", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Resume without error..
+        '''</summary>
+        Friend ReadOnly Property ID20() As String
+            Get
+                Return ResourceManager.GetString("ID20", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Out of stack space..
+        '''</summary>
+        Friend ReadOnly Property ID28() As String
+            Get
+                Return ResourceManager.GetString("ID28", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This Error number is obsolete and no longer used..
+        '''</summary>
+        Friend ReadOnly Property ID3() As String
+            Get
+                Return ResourceManager.GetString("ID3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File format is not valid..
+        '''</summary>
+        Friend ReadOnly Property ID321() As String
+            Get
+                Return ResourceManager.GetString("ID321", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot create necessary temporary file..
+        '''</summary>
+        Friend ReadOnly Property ID322() As String
+            Get
+                Return ResourceManager.GetString("ID322", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Format in resource file is not valid..
+        '''</summary>
+        Friend ReadOnly Property ID325() As String
+            Get
+                Return ResourceManager.GetString("ID325", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Feature not yet implemented..
+        '''</summary>
+        Friend ReadOnly Property ID32768() As String
+            Get
+                Return ResourceManager.GetString("ID32768", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Sub or Function not defined..
+        '''</summary>
+        Friend ReadOnly Property ID35() As String
+            Get
+                Return ResourceManager.GetString("ID35", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Property value is not valid..
+        '''</summary>
+        Friend ReadOnly Property ID380() As String
+            Get
+                Return ResourceManager.GetString("ID380", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Property array index is not valid..
+        '''</summary>
+        Friend ReadOnly Property ID381() As String
+            Get
+                Return ResourceManager.GetString("ID381", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Set not supported at runtime..
+        '''</summary>
+        Friend ReadOnly Property ID382() As String
+            Get
+                Return ResourceManager.GetString("ID382", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Set not supported (read-only property)..
+        '''</summary>
+        Friend ReadOnly Property ID383() As String
+            Get
+                Return ResourceManager.GetString("ID383", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Need property array index..
+        '''</summary>
+        Friend ReadOnly Property ID385() As String
+            Get
+                Return ResourceManager.GetString("ID385", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Set not permitted..
+        '''</summary>
+        Friend ReadOnly Property ID387() As String
+            Get
+                Return ResourceManager.GetString("ID387", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Get not supported at runtime..
+        '''</summary>
+        Friend ReadOnly Property ID393() As String
+            Get
+                Return ResourceManager.GetString("ID393", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Get not supported (write-only property)..
+        '''</summary>
+        Friend ReadOnly Property ID394() As String
+            Get
+                Return ResourceManager.GetString("ID394", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Property not found..
+        '''</summary>
+        Friend ReadOnly Property ID422() As String
+            Get
+                Return ResourceManager.GetString("ID422", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Property or method not found..
+        '''</summary>
+        Friend ReadOnly Property ID423() As String
+            Get
+                Return ResourceManager.GetString("ID423", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Object required..
+        '''</summary>
+        Friend ReadOnly Property ID424() As String
+            Get
+                Return ResourceManager.GetString("ID424", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot create ActiveX component..
+        '''</summary>
+        Friend ReadOnly Property ID429() As String
+            Get
+                Return ResourceManager.GetString("ID429", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Class does not support Automation or does not support expected interface..
+        '''</summary>
+        Friend ReadOnly Property ID430() As String
+            Get
+                Return ResourceManager.GetString("ID430", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File name or class name not found during Automation operation..
+        '''</summary>
+        Friend ReadOnly Property ID432() As String
+            Get
+                Return ResourceManager.GetString("ID432", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Object does not support this property or method..
+        '''</summary>
+        Friend ReadOnly Property ID438() As String
+            Get
+                Return ResourceManager.GetString("ID438", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Automation error..
+        '''</summary>
+        Friend ReadOnly Property ID440() As String
+            Get
+                Return ResourceManager.GetString("ID440", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Connection to type library or object library for remote process has been lost. Press OK for dialog to remove reference..
+        '''</summary>
+        Friend ReadOnly Property ID442() As String
+            Get
+                Return ResourceManager.GetString("ID442", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Automation object does not have a default value..
+        '''</summary>
+        Friend ReadOnly Property ID443() As String
+            Get
+                Return ResourceManager.GetString("ID443", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Object does not support this action..
+        '''</summary>
+        Friend ReadOnly Property ID445() As String
+            Get
+                Return ResourceManager.GetString("ID445", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Object does not support named arguments..
+        '''</summary>
+        Friend ReadOnly Property ID446() As String
+            Get
+                Return ResourceManager.GetString("ID446", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Object does not support current locale setting..
+        '''</summary>
+        Friend ReadOnly Property ID447() As String
+            Get
+                Return ResourceManager.GetString("ID447", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Named argument not found..
+        '''</summary>
+        Friend ReadOnly Property ID448() As String
+            Get
+                Return ResourceManager.GetString("ID448", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument not optional..
+        '''</summary>
+        Friend ReadOnly Property ID449() As String
+            Get
+                Return ResourceManager.GetString("ID449", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Wrong number of arguments or property assignment was not valid..
+        '''</summary>
+        Friend ReadOnly Property ID450() As String
+            Get
+                Return ResourceManager.GetString("ID450", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Property let procedure not defined and property get procedure did not return an object..
+        '''</summary>
+        Friend ReadOnly Property ID451() As String
+            Get
+                Return ResourceManager.GetString("ID451", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Ordinal is not valid..
+        '''</summary>
+        Friend ReadOnly Property ID452() As String
+            Get
+                Return ResourceManager.GetString("ID452", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Specified DLL function not found..
+        '''</summary>
+        Friend ReadOnly Property ID453() As String
+            Get
+                Return ResourceManager.GetString("ID453", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Code resource not found..
+        '''</summary>
+        Friend ReadOnly Property ID454() As String
+            Get
+                Return ResourceManager.GetString("ID454", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Code resource lock error..
+        '''</summary>
+        Friend ReadOnly Property ID455() As String
+            Get
+                Return ResourceManager.GetString("ID455", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This key is already associated with an element of this collection..
+        '''</summary>
+        Friend ReadOnly Property ID457() As String
+            Get
+                Return ResourceManager.GetString("ID457", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Variable uses an Automation type not supported in Visual Basic..
+        '''</summary>
+        Friend ReadOnly Property ID458() As String
+            Get
+                Return ResourceManager.GetString("ID458", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Object or class does not support the set of events..
+        '''</summary>
+        Friend ReadOnly Property ID459() As String
+            Get
+                Return ResourceManager.GetString("ID459", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Clipboard format is not valid..
+        '''</summary>
+        Friend ReadOnly Property ID460() As String
+            Get
+                Return ResourceManager.GetString("ID460", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Method or data member not found..
+        '''</summary>
+        Friend ReadOnly Property ID461() As String
+            Get
+                Return ResourceManager.GetString("ID461", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The remote server machine does not exist or is unavailable..
+        '''</summary>
+        Friend ReadOnly Property ID462() As String
+            Get
+                Return ResourceManager.GetString("ID462", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Class not registered on local machine..
+        '''</summary>
+        Friend ReadOnly Property ID463() As String
+            Get
+                Return ResourceManager.GetString("ID463", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Too many DLL application clients..
+        '''</summary>
+        Friend ReadOnly Property ID47() As String
+            Get
+                Return ResourceManager.GetString("ID47", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Error in loading DLL..
+        '''</summary>
+        Friend ReadOnly Property ID48() As String
+            Get
+                Return ResourceManager.GetString("ID48", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Picture is not valid..
+        '''</summary>
+        Friend ReadOnly Property ID481() As String
+            Get
+                Return ResourceManager.GetString("ID481", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Printer error..
+        '''</summary>
+        Friend ReadOnly Property ID482() As String
+            Get
+                Return ResourceManager.GetString("ID482", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Bad DLL calling convention..
+        '''</summary>
+        Friend ReadOnly Property ID49() As String
+            Get
+                Return ResourceManager.GetString("ID49", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Procedure call or argument is not valid..
+        '''</summary>
+        Friend ReadOnly Property ID5() As String
+            Get
+                Return ResourceManager.GetString("ID5", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Internal error..
+        '''</summary>
+        Friend ReadOnly Property ID51() As String
+            Get
+                Return ResourceManager.GetString("ID51", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Bad file name or number..
+        '''</summary>
+        Friend ReadOnly Property ID52() As String
+            Get
+                Return ResourceManager.GetString("ID52", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File not found..
+        '''</summary>
+        Friend ReadOnly Property ID53() As String
+            Get
+                Return ResourceManager.GetString("ID53", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Bad file mode..
+        '''</summary>
+        Friend ReadOnly Property ID54() As String
+            Get
+                Return ResourceManager.GetString("ID54", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File already open..
+        '''</summary>
+        Friend ReadOnly Property ID55() As String
+            Get
+                Return ResourceManager.GetString("ID55", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Device I/O error..
+        '''</summary>
+        Friend ReadOnly Property ID57() As String
+            Get
+                Return ResourceManager.GetString("ID57", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to File already exists..
+        '''</summary>
+        Friend ReadOnly Property ID58() As String
+            Get
+                Return ResourceManager.GetString("ID58", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Bad record length..
+        '''</summary>
+        Friend ReadOnly Property ID59() As String
+            Get
+                Return ResourceManager.GetString("ID59", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Overflow..
+        '''</summary>
+        Friend ReadOnly Property ID6() As String
+            Get
+                Return ResourceManager.GetString("ID6", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Disk full..
+        '''</summary>
+        Friend ReadOnly Property ID61() As String
+            Get
+                Return ResourceManager.GetString("ID61", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Input past end of file..
+        '''</summary>
+        Friend ReadOnly Property ID62() As String
+            Get
+                Return ResourceManager.GetString("ID62", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Bad record number..
+        '''</summary>
+        Friend ReadOnly Property ID63() As String
+            Get
+                Return ResourceManager.GetString("ID63", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Too many files..
+        '''</summary>
+        Friend ReadOnly Property ID67() As String
+            Get
+                Return ResourceManager.GetString("ID67", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Device unavailable..
+        '''</summary>
+        Friend ReadOnly Property ID68() As String
+            Get
+                Return ResourceManager.GetString("ID68", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Out of memory..
+        '''</summary>
+        Friend ReadOnly Property ID7() As String
+            Get
+                Return ResourceManager.GetString("ID7", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Permission denied..
+        '''</summary>
+        Friend ReadOnly Property ID70() As String
+            Get
+                Return ResourceManager.GetString("ID70", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Disk not ready..
+        '''</summary>
+        Friend ReadOnly Property ID71() As String
+            Get
+                Return ResourceManager.GetString("ID71", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot save file to TEMP..
+        '''</summary>
+        Friend ReadOnly Property ID735() As String
+            Get
+                Return ResourceManager.GetString("ID735", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot rename with different drive..
+        '''</summary>
+        Friend ReadOnly Property ID74() As String
+            Get
+                Return ResourceManager.GetString("ID74", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Search text not found..
+        '''</summary>
+        Friend ReadOnly Property ID744() As String
+            Get
+                Return ResourceManager.GetString("ID744", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Replacements too long..
+        '''</summary>
+        Friend ReadOnly Property ID746() As String
+            Get
+                Return ResourceManager.GetString("ID746", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Path/File access error..
+        '''</summary>
+        Friend ReadOnly Property ID75() As String
+            Get
+                Return ResourceManager.GetString("ID75", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Path not found..
+        '''</summary>
+        Friend ReadOnly Property ID76() As String
+            Get
+                Return ResourceManager.GetString("ID76", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Subscript out of range..
+        '''</summary>
+        Friend ReadOnly Property ID9() As String
+            Get
+                Return ResourceManager.GetString("ID9", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Object variable or With block variable not set..
+        '''</summary>
+        Friend ReadOnly Property ID91() As String
+            Get
+                Return ResourceManager.GetString("ID91", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to For loop not initialized..
+        '''</summary>
+        Friend ReadOnly Property ID92() As String
+            Get
+                Return ResourceManager.GetString("ID92", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Pattern string is not valid..
+        '''</summary>
+        Friend ReadOnly Property ID93() As String
+            Get
+                Return ResourceManager.GetString("ID93", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to This Error number is obsolete and no longer used..
+        '''</summary>
+        Friend ReadOnly Property ID94() As String
+            Get
+                Return ResourceManager.GetString("ID94", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Application-defined or object-defined error..
+        '''</summary>
+        Friend ReadOnly Property ID95() As String
+            Get
+                Return ResourceManager.GetString("ID95", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unable to sink events of object because the object is already firing events to the maximum number of event receivers that it supports..
+        '''</summary>
+        Friend ReadOnly Property ID96() As String
+            Get
+                Return ResourceManager.GetString("ID96", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cannot call friend function on object that is not an instance of defining class..
+        '''</summary>
+        Friend ReadOnly Property ID97() As String
+            Get
+                Return ResourceManager.GetString("ID97", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A property or method call cannot include a reference to a private object, either as an argument or as a return value..
+        '''</summary>
+        Friend ReadOnly Property ID98() As String
+            Get
+                Return ResourceManager.GetString("ID98", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Stop statement encountered..
+        '''</summary>
+        Friend ReadOnly Property ID999() As String
+            Get
+                Return ResourceManager.GetString("ID999", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Registry key &apos;{0}&apos; could not be created..
+        '''</summary>
+        Friend ReadOnly Property Interaction_ResKeyNotCreated1() As String
+            Get
+                Return ResourceManager.GetString("Interaction_ResKeyNotCreated1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Invocation of &apos;{0}&apos; on type &apos;{1}&apos; returned Nothing..
+        '''</summary>
+        Friend ReadOnly Property IntermediateLateBoundNothingResult1() As String
+            Get
+                Return ResourceManager.GetString("IntermediateLateBoundNothingResult1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Internal error in the Microsoft Visual Basic runtime..
+        '''</summary>
+        Friend ReadOnly Property InternalError_VisualBasicRuntime() As String
+            Get
+                Return ResourceManager.GetString("InternalError_VisualBasicRuntime", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Arguments to &apos;VBFixedArrayAttribute&apos; are not valid..
+        '''</summary>
+        Friend ReadOnly Property Invalid_VBFixedArray() As String
+            Get
+                Return ResourceManager.GetString("Invalid_VBFixedArray", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Arguments to &apos;VBFixedStringAttribute&apos; are not valid..
+        '''</summary>
+        Friend ReadOnly Property Invalid_VBFixedString() As String
+            Get
+                Return ResourceManager.GetString("Invalid_VBFixedString", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Conversion from string &quot;{0}&quot; to type &apos;{1}&apos; is not valid..
+        '''</summary>
+        Friend ReadOnly Property InvalidCast_FromStringTo() As String
+            Get
+                Return ResourceManager.GetString("InvalidCast_FromStringTo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Conversion from type &apos;{0}&apos; to type &apos;{1}&apos; is not valid..
+        '''</summary>
+        Friend ReadOnly Property InvalidCast_FromTo() As String
+            Get
+                Return ResourceManager.GetString("InvalidCast_FromTo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument {1} to method &apos;{0}&apos; has type &apos;{2}&apos; and cannot be converted to &apos;{3}&apos;..
+        '''</summary>
+        Friend ReadOnly Property InvalidCast_FromToArg4() As String
+            Get
+                Return ResourceManager.GetString("InvalidCast_FromToArg4", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;{0}&apos; must be a name, and not a relative or absolute path: &apos;{1}&apos;..
+        '''</summary>
+        Friend ReadOnly Property IO_ArgumentIsPath_Name_Path() As String
+            Get
+                Return ResourceManager.GetString("IO_ArgumentIsPath_Name_Path", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Could not complete operation on some files and directories. See the Data property of the exception for more details..
+        '''</summary>
+        Friend ReadOnly Property IO_CopyMoveRecursive() As String
+            Get
+                Return ResourceManager.GetString("IO_CopyMoveRecursive", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Could not complete operation since target directory is under source directory..
+        '''</summary>
+        Friend ReadOnly Property IO_CyclicOperation() As String
+            Get
+                Return ResourceManager.GetString("IO_CyclicOperation", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The given path is a Win32 device path. Don&apos;t use paths starting with &apos;\\.\&apos;..
+        '''</summary>
+        Friend ReadOnly Property IO_DevicePath() As String
+            Get
+                Return ResourceManager.GetString("IO_DevicePath", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Could not complete operation since a directory already exists in this path &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property IO_DirectoryExists_Path() As String
+            Get
+                Return ResourceManager.GetString("IO_DirectoryExists_Path", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Could not complete operation since directory is a root directory: &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property IO_DirectoryIsRoot_Path() As String
+            Get
+                Return ResourceManager.GetString("IO_DirectoryIsRoot_Path", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Could not find directory &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property IO_DirectoryNotFound_Path() As String
+            Get
+                Return ResourceManager.GetString("IO_DirectoryNotFound_Path", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Could not complete operation since a file already exists in this path &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property IO_FileExists_Path() As String
+            Get
+                Return ResourceManager.GetString("IO_FileExists_Path", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Could not find file &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property IO_FileNotFound_Path() As String
+            Get
+                Return ResourceManager.GetString("IO_FileNotFound_Path", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The given file path ends with a directory separator character..
+        '''</summary>
+        Friend ReadOnly Property IO_FilePathException() As String
+            Get
+                Return ResourceManager.GetString("IO_FilePathException", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to One of the wildcards is Nothing or empty string..
+        '''</summary>
+        Friend ReadOnly Property IO_GetFiles_NullPattern() As String
+            Get
+                Return ResourceManager.GetString("IO_GetFiles_NullPattern", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Could not get parent path since the given path is a root directory: &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property IO_GetParentPathIsRoot_Path() As String
+            Get
+                Return ResourceManager.GetString("IO_GetParentPathIsRoot_Path", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Could not complete operation since source directory and target directory are the same..
+        '''</summary>
+        Friend ReadOnly Property IO_SourceEqualsTargetDirectory() As String
+            Get
+                Return ResourceManager.GetString("IO_SourceEqualsTargetDirectory", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to All users&apos; application data.
+        '''</summary>
+        Friend ReadOnly Property IO_SpecialDirectory_AllUserAppData() As String
+            Get
+                Return ResourceManager.GetString("IO_SpecialDirectory_AllUserAppData", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Desktop.
+        '''</summary>
+        Friend ReadOnly Property IO_SpecialDirectory_Desktop() As String
+            Get
+                Return ResourceManager.GetString("IO_SpecialDirectory_Desktop", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to My Documents.
+        '''</summary>
+        Friend ReadOnly Property IO_SpecialDirectory_MyDocuments() As String
+            Get
+                Return ResourceManager.GetString("IO_SpecialDirectory_MyDocuments", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to My Music.
+        '''</summary>
+        Friend ReadOnly Property IO_SpecialDirectory_MyMusic() As String
+            Get
+                Return ResourceManager.GetString("IO_SpecialDirectory_MyMusic", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to My Pictures.
+        '''</summary>
+        Friend ReadOnly Property IO_SpecialDirectory_MyPictures() As String
+            Get
+                Return ResourceManager.GetString("IO_SpecialDirectory_MyPictures", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Program Files.
+        '''</summary>
+        Friend ReadOnly Property IO_SpecialDirectory_ProgramFiles() As String
+            Get
+                Return ResourceManager.GetString("IO_SpecialDirectory_ProgramFiles", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Programs.
+        '''</summary>
+        Friend ReadOnly Property IO_SpecialDirectory_Programs() As String
+            Get
+                Return ResourceManager.GetString("IO_SpecialDirectory_Programs", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Temporary directory.
+        '''</summary>
+        Friend ReadOnly Property IO_SpecialDirectory_Temp() As String
+            Get
+                Return ResourceManager.GetString("IO_SpecialDirectory_Temp", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Current user&apos;s application data.
+        '''</summary>
+        Friend ReadOnly Property IO_SpecialDirectory_UserAppData() As String
+            Get
+                Return ResourceManager.GetString("IO_SpecialDirectory_UserAppData", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Could not find special directory &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property IO_SpecialDirectoryNotExist() As String
+            Get
+                Return ResourceManager.GetString("IO_SpecialDirectoryNotExist", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No files found matching &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property KILL_NoFilesFound1() As String
+            Get
+                Return ResourceManager.GetString("KILL_NoFilesFound1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Managed classes derived from a COM class cannot be called late bound..
+        '''</summary>
+        Friend ReadOnly Property LateboundCallToInheritedComClass() As String
+            Get
+                Return ResourceManager.GetString("LateboundCallToInheritedComClass", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &apos;StrConv.LinguisticCasing&apos; requires &apos;StrConv.Lowercase&apos; or &apos;StrConv.Uppercase&apos;..
+        '''</summary>
+        Friend ReadOnly Property LinguisticRequirements() As String
+            Get
+                Return ResourceManager.GetString("LinguisticRequirements", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Method invocation failed because &apos;{0}&apos; cannot be called with these arguments:{1}.
+        '''</summary>
+        Friend ReadOnly Property MatchArgumentFailure2() As String
+            Get
+                Return ResourceManager.GetString("MatchArgumentFailure2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Error number must be within the range 0 to 65535..
+        '''</summary>
+        Friend ReadOnly Property MaxErrNumber() As String
+            Get
+                Return ResourceManager.GetString("MaxErrNumber", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Method &apos;{0}&apos; cannot be the target of an assignment..
+        '''</summary>
+        Friend ReadOnly Property MethodAssignment1() As String
+            Get
+                Return ResourceManager.GetString("MethodAssignment1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Method requires System.Windows.Forms..
+        '''</summary>
+        Friend ReadOnly Property MethodRequiresSystemWindowsForms() As String
+            Get
+                Return ResourceManager.GetString("MethodRequiresSystemWindowsForms", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Public Let &apos;{0}&apos; on type &apos;{1}&apos; not found.  Use &apos;CallByName&apos; function with &apos;CallType.Set&apos;..
+        '''</summary>
+        Friend ReadOnly Property MissingMember_MemberLetNotFoundOnType2() As String
+            Get
+                Return ResourceManager.GetString("MissingMember_MemberLetNotFoundOnType2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Public member &apos;{0}&apos; on type &apos;{1}&apos; not found..
+        '''</summary>
+        Friend ReadOnly Property MissingMember_MemberNotFoundOnType2() As String
+            Get
+                Return ResourceManager.GetString("MissingMember_MemberNotFoundOnType2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Public Set &apos;{0}&apos; on type &apos;{1}&apos; not found.  Use &apos;CallByName&apos; function with &apos;CallType.Let&apos;..
+        '''</summary>
+        Friend ReadOnly Property MissingMember_MemberSetNotFoundOnType2() As String
+            Get
+                Return ResourceManager.GetString("MissingMember_MemberSetNotFoundOnType2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No default member found for type &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property MissingMember_NoDefaultMemberFound1() As String
+            Get
+                Return ResourceManager.GetString("MissingMember_NoDefaultMemberFound1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Field &apos;{0}&apos; of type &apos;{1}&apos; is &apos;ReadOnly&apos;..
+        '''</summary>
+        Friend ReadOnly Property MissingMember_ReadOnlyField2() As String
+            Get
+                Return ResourceManager.GetString("MissingMember_ReadOnlyField2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Named argument &apos;{0}&apos; specified multiple times..
+        '''</summary>
+        Friend ReadOnly Property NamedArgumentAlreadyUsed1() As String
+            Get
+                Return ResourceManager.GetString("NamedArgumentAlreadyUsed1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Named arguments cannot match ParamArray parameters..
+        '''</summary>
+        Friend ReadOnly Property NamedArgumentOnParamArray() As String
+            Get
+                Return ResourceManager.GetString("NamedArgumentOnParamArray", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Parameter &apos;{0}&apos; of &apos;{1}&apos; already has a matching argument..
+        '''</summary>
+        Friend ReadOnly Property NamedArgUsedTwice2() As String
+            Get
+                Return ResourceManager.GetString("NamedArgUsedTwice2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Named argument &apos;{0}&apos; cannot match a ParamArray parameter..
+        '''</summary>
+        Friend ReadOnly Property NamedParamArrayArgument1() As String
+            Get
+                Return ResourceManager.GetString("NamedParamArrayArgument1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Named argument &apos;{0}&apos; matches no parameter of &apos;{1}&apos;..
+        '''</summary>
+        Friend ReadOnly Property NamedParamNotFound2() As String
+            Get
+                Return ResourceManager.GetString("NamedParamNotFound2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Overload resolution failed because no accessible &apos;{0}&apos; accepts this number of arguments..
+        '''</summary>
+        Friend ReadOnly Property NoArgumentCountOverloadCandidates1() As String
+            Get
+                Return ResourceManager.GetString("NoArgumentCountOverloadCandidates1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Overload resolution failed because no Public &apos;{0}&apos; can be called with these arguments:{1}.
+        '''</summary>
+        Friend ReadOnly Property NoCallableOverloadCandidates2() As String
+            Get
+                Return ResourceManager.GetString("NoCallableOverloadCandidates2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Property &apos;{0}&apos; is WriteOnly..
+        '''</summary>
+        Friend ReadOnly Property NoGetProperty1() As String
+            Get
+                Return ResourceManager.GetString("NoGetProperty1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Method &apos;{0}&apos; cannot be called with {1} argument(s)..
+        '''</summary>
+        Friend ReadOnly Property NoMethodTakingXArguments2() As String
+            Get
+                Return ResourceManager.GetString("NoMethodTakingXArguments2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Overload resolution failed because no Public &apos;{0}&apos; is most specific for these arguments:{1}.
+        '''</summary>
+        Friend ReadOnly Property NoMostSpecificOverload2() As String
+            Get
+                Return ResourceManager.GetString("NoMostSpecificOverload2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Overload resolution failed because no Public &apos;{0}&apos; can be called without a narrowing conversion:{1}.
+        '''</summary>
+        Friend ReadOnly Property NoNonNarrowingOverloadCandidates2() As String
+            Get
+                Return ResourceManager.GetString("NoNonNarrowingOverloadCandidates2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Property &apos;{0}&apos; is ReadOnly..
+        '''</summary>
+        Friend ReadOnly Property NoSetProperty1() As String
+            Get
+                Return ResourceManager.GetString("NoSetProperty1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to UI not available for copy or move.
+        '''</summary>
+        Friend ReadOnly Property NoShellCopyOrMove() As String
+            Get
+                Return ResourceManager.GetString("NoShellCopyOrMove", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Not most specific..
+        '''</summary>
+        Friend ReadOnly Property NotMostSpecificOverload() As String
+            Get
+                Return ResourceManager.GetString("NotMostSpecificOverload", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Overload resolution failed because no accessible &apos;{0}&apos; accepts this number of type arguments..
+        '''</summary>
+        Friend ReadOnly Property NoTypeArgumentCountOverloadCandidates1() As String
+            Get
+                Return ResourceManager.GetString("NoTypeArgumentCountOverloadCandidates1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to type &apos;{0}&apos;.
+        '''</summary>
+        Friend ReadOnly Property NoValidOperator_NonStringType1() As String
+            Get
+                Return ResourceManager.GetString("NoValidOperator_NonStringType1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Operator is not defined for type &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property NoValidOperator_OneOperand() As String
+            Get
+                Return ResourceManager.GetString("NoValidOperator_OneOperand", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to string &quot;{0}&quot;.
+        '''</summary>
+        Friend ReadOnly Property NoValidOperator_StringType1() As String
+            Get
+                Return ResourceManager.GetString("NoValidOperator_StringType1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Operator is not defined for {0} and {1}..
+        '''</summary>
+        Friend ReadOnly Property NoValidOperator_TwoOperands() As String
+            Get
+                Return ResourceManager.GetString("NoValidOperator_TwoOperands", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Overload resolution failed because no &apos;{0}&apos; is Public..
+        '''</summary>
+        Friend ReadOnly Property NoViableOverloadCandidates1() As String
+            Get
+                Return ResourceManager.GetString("NoViableOverloadCandidates1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Reference to non-shared member &apos;{0}&apos; requires an object reference..
+        '''</summary>
+        Friend ReadOnly Property NullReference_InstanceReqToAccessMember1() As String
+            Get
+                Return ResourceManager.GetString("NullReference_InstanceReqToAccessMember1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument not specified for parameter &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property OmittedArgument1() As String
+            Get
+                Return ResourceManager.GetString("OmittedArgument1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Omitted argument cannot match a ParamArray parameter..
+        '''</summary>
+        Friend ReadOnly Property OmittedParamArrayArgument() As String
+            Get
+                Return ResourceManager.GetString("OmittedParamArrayArgument", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to On;On;Off.
+        '''</summary>
+        Friend ReadOnly Property OnOffFormatStyle() As String
+            Get
+                Return ResourceManager.GetString("OnOffFormatStyle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;Per&apos; is not valid..
+        '''</summary>
+        Friend ReadOnly Property PPMT_PerGT0AndLTNPer() As String
+            Get
+                Return ResourceManager.GetString("PPMT_PerGT0AndLTNPer", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Call to set property &apos;{0}&apos; requires at least one argument..
+        '''</summary>
+        Friend ReadOnly Property PropertySetMissingArgument1() As String
+            Get
+                Return ResourceManager.GetString("PropertySetMissingArgument1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Argument &apos;NPer&apos; must be greater than zero..
+        '''</summary>
+        Friend ReadOnly Property Rate_NPerMustBeGTZero() As String
+            Get
+                Return ResourceManager.GetString("Rate_NPerMustBeGTZero", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Late-bound assignment to a field of value type &apos;{0}&apos; is not valid when &apos;{1}&apos; is the result of a late-bound expression..
+        '''</summary>
+        Friend ReadOnly Property RValueBaseForValueType() As String
+            Get
+                Return ResourceManager.GetString("RValueBaseForValueType", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Late bound calls to file system methods in the Visual Basic runtime are not permitted..
+        '''</summary>
+        Friend ReadOnly Property Security_LateBoundCallsNotPermitted() As String
+            Get
+                Return ResourceManager.GetString("Security_LateBoundCallsNotPermitted", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Insufficient security permissions to set the system date..
+        '''</summary>
+        Friend ReadOnly Property SetLocalDateFailure() As String
+            Get
+                Return ResourceManager.GetString("SetLocalDateFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Insufficient security permissions to set the system time..
+        '''</summary>
+        Friend ReadOnly Property SetLocalTimeFailure() As String
+            Get
+                Return ResourceManager.GetString("SetLocalTimeFailure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to False.
+        '''</summary>
+        Friend ReadOnly Property StringFalse() As String
+            Get
+                Return ResourceManager.GetString("StringFalse", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to True.
+        '''</summary>
+        Friend ReadOnly Property StringTrue() As String
+            Get
+                Return ResourceManager.GetString("StringTrue", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to &apos;SyncLock&apos; operand cannot be of type &apos;{0}&apos; because &apos;{0}&apos; is not a reference type..
+        '''</summary>
+        Friend ReadOnly Property SyncLockRequiresReferenceType1() As String
+            Get
+                Return ResourceManager.GetString("SyncLockRequiresReferenceType1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to TextFieldParser is unable to complete the read operation because maximum buffer size has been exceeded..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_BufferExceededMaxSize() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_BufferExceededMaxSize", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A delimiter cannot be Nothing or an empty String..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_DelimiterNothing() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_DelimiterNothing", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unable to read delimited fields because Delimiters is Nothing or empty..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_DelimitersNothing() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_DelimitersNothing", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to TextFieldParser does not support delimiters that contain end-of-line characters..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_EndCharsInDelimiter() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_EndCharsInDelimiter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to All field widths, except the last element, must be greater than zero. A field width less than or equal to zero in the last element indicates the last field is of variable length..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_FieldWidthsMustPositive() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_FieldWidthsMustPositive", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unable to read fixed width fields because FieldWidths is Nothing or empty..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_FieldWidthsNothing() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_FieldWidthsNothing", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unable to read delimited fields because a double quote is not a legal delimiter when HasFieldsEnclosedInQuotes is set to True..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_IllegalDelimiter() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_IllegalDelimiter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to A double quote is not a valid comment token for delimited fields where HasFieldsEnclosedInQuotes is set to True..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_InvalidComment() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_InvalidComment", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Line {0} cannot be parsed using the current Delimiters..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_MalFormedDelimitedLine() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_MalFormedDelimitedLine", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Line Number:{0}.
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_MalformedExtraData() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_MalformedExtraData", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Line {0} cannot be parsed using the current FieldWidths..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_MalFormedFixedWidthLine() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_MalFormedFixedWidthLine", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Line {0} cannot be read because it exceeds the maximum line size..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_MaxLineSizeExceeded() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_MaxLineSizeExceeded", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to NumberOfChars must be greater than zero..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_NumberOfCharsMustBePositive() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_NumberOfCharsMustBePositive", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The stream passed to TextFieldParser cannot be read..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_StreamNotReadable() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_StreamNotReadable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to TextFieldParser does not support comment tokens that contain white space..
+        '''</summary>
+        Friend ReadOnly Property TextFieldParser_WhitespaceInToken() As String
+            Get
+                Return ResourceManager.GetString("TextFieldParser_WhitespaceInToken", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to True;True;False.
+        '''</summary>
+        Friend ReadOnly Property TrueFalseFormatStyle() As String
+            Get
+                Return ResourceManager.GetString("TrueFalseFormatStyle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Type argument inference fails for argument matching parameter &apos;{0}&apos;..
+        '''</summary>
+        Friend ReadOnly Property TypeInferenceFails1() As String
+            Get
+                Return ResourceManager.GetString("TypeInferenceFails1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Operator &apos;{0}&apos; is not defined for type &apos;{1}&apos;..
+        '''</summary>
+        Friend ReadOnly Property UnaryOperand2() As String
+            Get
+                Return ResourceManager.GetString("UnaryOperand2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Type parameter &apos;{0}&apos; cannot be determined..
+        '''</summary>
+        Friend ReadOnly Property UnboundTypeParam1() As String
+            Get
+                Return ResourceManager.GetString("UnboundTypeParam1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Use &apos;FilePutObject&apos; instead of &apos;FilePut&apos; when using argument of type &apos;Object&apos;..
+        '''</summary>
+        Friend ReadOnly Property UseFilePutObject() As String
+            Get
+                Return ResourceManager.GetString("UseFilePutObject", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Yes;Yes;No.
+        '''</summary>
+        Friend ReadOnly Property YesNoFormatStyle() As String
+            Get
+                Return ResourceManager.GetString("YesNoFormatStyle", resourceCulture)
             End Get
         End Property
     End Module

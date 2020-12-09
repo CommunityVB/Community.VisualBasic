@@ -3,7 +3,7 @@
 
 Option Compare Text
 Option Explicit On
-Option Infer Off
+Option Infer On
 Option Strict On
 
 Imports System.Collections.Generic
@@ -91,6 +91,7 @@ Namespace Global.Community.VisualBasic.Tests
       Assert.Throws(Of OverflowException)(Function() Conversions.ToByte(value1))
     End Sub
     Public Shared Iterator Function ToByte_Object_TestData() As IEnumerable(Of Object())
+
       ' byte.
       Yield New Object() {Byte.MinValue, Byte.MinValue}
       Yield New Object() {CByte(1), CByte(1)}
@@ -158,7 +159,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, Byte.MaxValue}
       Yield New Object() {False, Byte.MinValue}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, Byte.MinValue}
       End If
 
@@ -315,7 +316,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, CSByte((-1))}
       Yield New Object() {False, CSByte(0)}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, CSByte(0)}
       End If
 
@@ -465,7 +466,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, UShort.MaxValue}
       Yield New Object() {False, UShort.MinValue}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, UShort.MinValue}
       End If
 
@@ -625,7 +626,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, CShort(Fix((-1)))}
       Yield New Object() {False, CShort(Fix(0))}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, CShort(Fix(0))}
       End If
 
@@ -779,7 +780,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, UInteger.MaxValue}
       Yield New Object() {False, UInteger.MinValue}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, UInteger.MinValue}
       End If
 
@@ -945,7 +946,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, -1}
       Yield New Object() {False, 0}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, 0}
       End If
 
@@ -1105,7 +1106,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, ULong.MaxValue}
       Yield New Object() {False, ULong.MinValue}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, ULong.MinValue}
       End If
 
@@ -1307,7 +1308,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, CLng(Fix((-1)))}
       Yield New Object() {False, CLng(Fix(0))}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, CLng(Fix(0))}
       End If
 
@@ -1507,7 +1508,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, CSng((-1))}
       Yield New Object() {False, CSng(0)}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, CSng(0)}
       End If
 
@@ -1680,7 +1681,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, CDbl((-1))}
       Yield New Object() {False, CDbl(0)}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, CDbl(0)}
       End If
 
@@ -1852,7 +1853,7 @@ Namespace Global.Community.VisualBasic.Tests
       ' bool.
       Yield New Object() {True, CDec((-1))}
       Yield New Object() {False, CDec(0)}
-      If ReflectionEmitSupported Then
+      If False AndAlso ReflectionEmitSupported Then
         Yield New Object() {BoolEnum, CDec(0)}
       End If
 
@@ -2365,14 +2366,15 @@ Namespace Global.Community.VisualBasic.Tests
     <Theory>
     <MemberData(NameOf(ToString_IConvertible_TestData))>
     Public Sub ToString_IConvertible_ReturnsExpected(value1 As IConvertible, expected As String)
-      AssertEqual(expected, Conversions.ToString(value1))
+      'TODO: Test when value1 is Nothing and expected is CStr(Nothing).
       If value1 IsNot Nothing Then
+        AssertEqual(expected, Conversions.ToString(value1))
         AssertEqual(expected, Conversions.ToString(New ConvertibleWrapper(value1)))
       End If
     End Sub
     Public Shared Iterator Function ToString_Object_TestData() As IEnumerable(Of Object())
       ' char[]
-      Yield New Object() {New Char() {}, ""}
+      Yield New Object() {Array.Empty(Of Char)(), ""}
       Yield New Object() {New Char() {ChrW(0)}, vbNullChar}
       Yield New Object() {New Char() {"A"c, "B"c}, "AB"}
     End Function
@@ -2486,16 +2488,16 @@ Namespace Global.Community.VisualBasic.Tests
     Private Shared Sub AssertEqual(expected As Object, actual As Object)
       Dim TempVar As Boolean = TypeOf expected Is Single
       Dim expectedFloat As Single
-      Single.TryParse(expected.ToString, expectedFloat)
+      Dim tempSingle = Single.TryParse(expected.ToString, expectedFloat)
       Dim TempVar1 As Boolean = TypeOf actual Is Single
       Dim actualFloat As Single
-      Single.TryParse(actual.ToString, actualFloat)
+      tempSingle = Single.TryParse(actual.ToString, actualFloat)
       Dim TempVar2 As Boolean = TypeOf expected Is Double
       Dim expectedDouble As Double
-      Double.TryParse(expected.ToString, expectedDouble)
+      Dim tempDouble = Double.TryParse(expected.ToString, expectedDouble)
       Dim TempVar3 As Boolean = TypeOf actual Is Double
       Dim actualDouble As Double
-      Double.TryParse(actual.ToString, actualDouble)
+      tempDouble = Double.TryParse(actual.ToString, actualDouble)
 
       If TempVar2 AndAlso TempVar3 Then
         Assert.Equal(expected.ToString(), actual.ToString())

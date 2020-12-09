@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TARGET_WINDOWS=False, DEBUGRESOURCES=True</DefineConstants>
+    <DefineConstants>TARGET_WINDOWS=False, DEBUGRESOURCES=False</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

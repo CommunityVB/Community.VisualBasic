@@ -19,7 +19,7 @@ Namespace Global.Community.VisualBasic.CompilerServices
     Friend Const FACILITY_RPC As Integer = &H10000I
     Friend Const FACILITY_ITF As Integer = &H40000I
     Friend Const SCODE_FACILITY As Integer = &H1FFF0000I
-    Private Const ERROR_INVALID_PARAMETER As Integer = 87
+    'Private Const ERROR_INVALID_PARAMETER As Integer = 87
 
     Friend Const chPeriod As Char = "."c
     Friend Const chSpace As Char = ChrW(32)
@@ -65,7 +65,7 @@ Namespace Global.Community.VisualBasic.CompilerServices
     <System.ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)>
     Friend Shared Function GetResourceString(ResourceKey As String) As String
 
-      Dim s As String = Nothing
+      Dim s As String '= Nothing
 
       Try
         s = SR.GetResourceString(ResourceKey)
@@ -641,7 +641,7 @@ GetSpecialValue:
 
       Dim resultString As String = ""
 
-      Dim kind As PropertyKind = PropertyKind.ReadWrite
+      Dim kind As PropertyKind '= PropertyKind.ReadWrite
       Dim parameters As ParameterInfo()
       Dim propertyType As Type
 

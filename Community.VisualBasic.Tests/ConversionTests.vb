@@ -10,7 +10,6 @@ Imports System.Collections.Generic
 Imports Xunit
 
 Namespace Global.Community.VisualBasic.Tests
-
   Public Class ConversionTests
     <Theory>
     <MemberData(NameOf(CTypeDynamic_Byte_TestData))>
@@ -393,13 +392,19 @@ Namespace Global.Community.VisualBasic.Tests
       Yield New Object() {Long.MaxValue, "7FFFFFFFFFFFFFFF"}
     End Function
     Public Shared Iterator Function Hex_Single_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
+      Yield New Object() {CSng(0), "0"}
+      Yield New Object() {CSng(1), "1"}
+      Yield New Object() {CSng(15), "F"}
     End Function
     Public Shared Iterator Function Hex_Double_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
+      Yield New Object() {CDbl(0), "0"}
+      Yield New Object() {CDbl(1), "1"}
+      Yield New Object() {CDbl(15), "F"}
     End Function
     Public Shared Iterator Function Hex_Decimal_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
+      Yield New Object() {CDec(0), "0"}
+      Yield New Object() {CDec(1), "1"}
+      Yield New Object() {CDec(15), "F"}
     End Function
     <Theory>
     <InlineData(True, 1)>
@@ -649,13 +654,19 @@ Namespace Global.Community.VisualBasic.Tests
       Yield New Object() {Long.MaxValue, "777777777777777777777"}
     End Function
     Public Shared Iterator Function Oct_Single_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
+      Yield New Object() {CSng(0), "0"}
+      Yield New Object() {CSng(1), "1"}
+      Yield New Object() {CSng(15), "17"}
     End Function
     Public Shared Iterator Function Oct_Double_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
+      Yield New Object() {CDbl(0), "0"}
+      Yield New Object() {CDbl(1), "1"}
+      Yield New Object() {CDbl(15), "17"}
     End Function
     Public Shared Iterator Function Oct_Decimal_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
+      Yield New Object() {CDec(0), "0"}
+      Yield New Object() {CDec(1), "1"}
+      Yield New Object() {CDec(15), "17"}
     End Function
     <Theory>
     <MemberData(NameOf(Str_TestData))>
@@ -708,24 +719,9 @@ Namespace Global.Community.VisualBasic.Tests
       Assert.Equal(expected, Conversion.Val(value))
     End Sub
     <Theory>
-    <MemberData(NameOf(Val_Char_ArgumentException_TestData))>
-    Public Sub Val_ArgumentException_Char(value As Char)
-      Assert.Throws(Of ArgumentException)(Function() Conversion.Val(value))
-    End Sub
-    <Theory>
-    <MemberData(NameOf(Val_Char_OverflowException_TestData))>
-    Public Sub Val_OverflowException_Char(value As Char)
-      Assert.Throws(Of OverflowException)(Function() Conversion.Val(value))
-    End Sub
-    <Theory>
     <MemberData(NameOf(Val_String_TestData))>
     Public Sub Val_String_Double(value As String, expected As Double)
       Assert.Equal(expected, Conversion.Val(value))
-    End Sub
-    <Theory>
-    <MemberData(NameOf(Val_String_ArgumentException_TestData))>
-    Public Sub Val_ArgumentException_String(value As String)
-      Assert.Throws(Of ArgumentException)(Function() Conversion.Val(value))
     End Sub
     <Theory>
     <MemberData(NameOf(Val_String_InvalidCastException_TestData))>
@@ -742,10 +738,10 @@ Namespace Global.Community.VisualBasic.Tests
       Yield New Object() {1, " 1"}
     End Function
     Public Shared Iterator Function Val_Object_ArgumentException_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
+      Yield New Object() {New Object}
     End Function
     Public Shared Iterator Function Val_Object_OverflowException_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
+      Yield New Object() {"123456e789"}
     End Function
     Public Shared Iterator Function Val_Char_TestData() As IEnumerable(Of Object())
       Yield New Object() {ChrW(0), 0}
@@ -761,12 +757,6 @@ Namespace Global.Community.VisualBasic.Tests
       Yield New Object() {"9"c, 9}
       Yield New Object() {"A"c, 0}
       Yield New Object() {Char.MaxValue, 0}
-    End Function
-    Public Shared Iterator Function Val_Char_ArgumentException_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
-    End Function
-    Public Shared Iterator Function Val_Char_OverflowException_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
     End Function
     Public Shared Iterator Function Val_String_TestData() As IEnumerable(Of Object())
       Yield New Object() {Nothing, 0.0}
@@ -806,9 +796,6 @@ Namespace Global.Community.VisualBasic.Tests
       Yield New Object() {"&HFFFFFFFFFFFFFFFF", -1.0}
       Yield New Object() {"&O177777%", -1.0}
       Yield New Object() {"&O37777777777&", -1.0}
-    End Function
-    Public Shared Iterator Function Val_String_ArgumentException_TestData() As IEnumerable(Of Object())
-      Return ' Add more...
     End Function
     Public Shared Iterator Function Val_String_InvalidCastException_TestData() As IEnumerable(Of Object())
       Yield New Object() {"1.0%"}

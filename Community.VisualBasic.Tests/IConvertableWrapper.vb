@@ -56,7 +56,7 @@ Namespace Global.Community.VisualBasic.Tests
     Public Function ToSingle(provider As IFormatProvider) As Single Implements System.IConvertible.ToSingle
       Return Value.ToSingle(provider)
     End Function
-    Public Function ToString(provider As IFormatProvider) As String Implements System.IConvertible.ToString
+    Public Shadows Function ToString(provider As IFormatProvider) As String Implements System.IConvertible.ToString
       Return Value.ToString(provider)
     End Function
     Public Function ToType(conversionType As Type, provider As IFormatProvider) As Object Implements System.IConvertible.ToType

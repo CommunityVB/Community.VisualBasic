@@ -848,7 +848,7 @@ parameters As ParameterInfo(),
         End If
 
         Dim validMemberCount As Integer = 0
-        Dim memberIndex As Integer = 0
+        Dim memberIndex As Integer '= 0
 
         For memberIndex = 0 To members.Length - 1
           Dim parameters As ParameterInfo() = Nothing

@@ -238,7 +238,7 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
       Yield New Object() {Char.MaxValue, Char.MaxValue.ToString()}
     End Function
     Public Shared Iterator Function FromCharArray_TestData() As IEnumerable(Of Object())
-      Yield New Object() {New Char() {}, ""}
+      Yield New Object() {Array.Empty(Of Char)(), ""}
       Yield New Object() {New Char() {ChrW(0)}, vbNullChar}
       Yield New Object() {New Char() {"A"c, "B"c}, "AB"}
     End Function
