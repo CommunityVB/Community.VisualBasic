@@ -4,6 +4,14 @@ A very **experimental** alternate to the official [Microsoft.VisualBasic](https:
 
 Much of the common functionality one would *expect* there to exist as part of Visual Basic is **missing** if you desire to build a reusable library targeting *netstardard 2.x* forcing you have to potentially rewrite a lot of code and missing out on a much of what makes VB approachable/usable.  A lot of this isn't necessarily tied to WinForms and it would be nice to have regardless of building a netstandard library, console application (Windows or Linux) or WinForms.
 
+## Why?
+
+~~"We are not accepting feature contributions to Microsoft.VisualBasic.Core. The library is effectively archived.~~
+
+~~The library and supporting language features are mature and no longer evolving, and the risk of code change likely exceeds the benefit. We will consider changes that address significant bugs or regressions, or changes that are necessary to continue shipping the binaries. Other changes will be rejected."~~
+
+Unlike the project(s) that this is based upon, contributions are encouraged!  This isn't meant to be a knock on what Microsoft is or is not doing; to the contrary.  I envision this as an opportunity for the Visual Basic community to accept ownership in their own future.  I understand that Microsoft has limited resources (contrary to what commentors may think) and, ultimately, I believe strongly that the Visual Basic runtime is a great place for us to explore what the future of Visual Basic might mean (beyond core language structure).
+
 ## Not a Fork
 
 As you may have noticed, this project is not a direct fork of [Microsoft.VisualBasic](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.VisualBasic.Core); this is on purpose.  This project is going to utilize the latest tools available to improve the code base as time progresses - meaning that some of the code will be "cleaned up" based on the suggestions provided directly in Visual Studio 2019 (and beyond).  Additionally, this project may eventually be split apart in order to better faciliate nuget packaging, cross-platform targeting, etc.  Trying to somehow maintain this codebase with the original source seems, at least to me, be impossible if these sorts of changes are desired in the long term.  Additionally, a different namespace across the project is needed order to publish this as a nuget package the namespace has to be something that isn't *reserved* - something else that I think pretty much breaks the possibility of having a fork maintained.
