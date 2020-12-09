@@ -19,8 +19,6 @@ The overall goal, at this stage, is to create a pretty complete implementation o
 
 Currently the above list is more of an example... will update the list as we progress forward.
 
-## Initial Observations
-
 ## Ideas / Thoughts for moving forward...
 
 - Be able to create a new *netstardard2.0* project.  
