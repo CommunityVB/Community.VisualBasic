@@ -2031,238 +2031,236 @@ RedimAndExit:
       End Try
     End Function
 
-    <SupportedOSPlatform("windows")>
+    '<SupportedOSPlatform("windows")>
     Public Function StrConv([str] As String, Conversion As VbStrConv, Optional LocaleID As Integer = 0) As String
-#If TARGET_WINDOWS Then
+      If OperatingSystem.IsWindows Then
+        Try
+          Const LANG_CHINESE As Integer = &H4I
+          Const LANG_JAPANESE As Integer = &H11I
+          Const LANG_KOREAN As Integer = &H12I
+          Dim dwMapFlags As Integer
+          Dim loc As CultureInfo
+          Dim langid As Integer
+
+          If (LocaleID = 0 OrElse LocaleID = 1) Then
+            loc = GetCultureInfo()
+            LocaleID = loc.LCID()
+          Else
             Try
-                Const LANG_CHINESE As Integer = &H4I
-                Const LANG_JAPANESE As Integer = &H11I
-                Const LANG_KOREAN As Integer = &H12I
-                Dim dwMapFlags As Integer
-                Dim loc As CultureInfo
-                Dim langid As Integer
-
-                If (LocaleID = 0 OrElse LocaleID = 1) Then
-                    loc = GetCultureInfo()
-                    LocaleID = loc.LCID()
-                Else
-                    Try
-                        loc = New CultureInfo(LocaleID And &HFFFFI)
-                    Catch ex As StackOverflowException
-                        Throw ex
-                    Catch ex As OutOfMemoryException
-                        Throw ex
-                    Catch
-                        Throw New ArgumentException(SR.Format(SR.Argument_LCIDNotSupported1, CStr(LocaleID)))
-                    End Try
-                End If
-
-                langid = PRIMARYLANGID(LocaleID)
-
-                'Ensure only valid bits for Conversion are passed in.
-                If (Conversion And Not (VbStrConv.Uppercase Or VbStrConv.Lowercase Or VbStrConv.Wide Or VbStrConv.Narrow _
-                    Or VbStrConv.Katakana Or VbStrConv.Hiragana Or VbStrConv.SimplifiedChinese Or VbStrConv.TraditionalChinese _
-                    Or VbStrConv.LinguisticCasing)) <> 0 Then
-                    Throw New ArgumentException(SR.Argument_InvalidVbStrConv)
-                End If
-
-                '*** VbStrConv.SimplifiedChinese/VbStrConv.TraditionalChinese handling
-                Select Case (Conversion And (VbStrConv.SimplifiedChinese + VbStrConv.TraditionalChinese))
-
-                    Case 0
-                        'Flags not used
-                    Case (VbStrConv.SimplifiedChinese + VbStrConv.TraditionalChinese)
-                        Throw New ArgumentException(SR.Argument_StrConvSCandTC)
-                    Case VbStrConv.SimplifiedChinese
-                        If IsValidCodePage(CODEPAGE_SIMPLIFIED_CHINESE) AndAlso IsValidCodePage(CODEPAGE_TRADITIONAL_CHINESE) Then
-                            dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_SIMPLIFIED_CHINESE
-                        Else
-                            Throw New ArgumentException(SR.Argument_SCNotSupported)
-                        End If
-                    Case VbStrConv.TraditionalChinese
-                        If IsValidCodePage(CODEPAGE_SIMPLIFIED_CHINESE) AndAlso IsValidCodePage(CODEPAGE_TRADITIONAL_CHINESE) Then
-                            dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_TRADITIONAL_CHINESE
-                        Else
-                            Throw New ArgumentException(SR.Argument_TCNotSupported)
-                        End If
-                End Select
-
-                '*** Upper/Lowercase handling
-                Select Case (Conversion And (VbStrConv.Uppercase Or VbStrConv.Lowercase))
-                    Case VbStrConv.None
-                        'No conversion
-                        If (Conversion And VbStrConv.LinguisticCasing) <> 0 Then
-                            Throw New ArgumentException(SR.LinguisticRequirements)
-                        End If
-
-                    Case (VbStrConv.Uppercase Or VbStrConv.Lowercase)       '  VbStrConv.ProperCase is special: see below    
-                        'Proper casing gets done below
-                        dwMapFlags = 0
-                    Case VbStrConv.Uppercase
-                        If Conversion = VbStrConv.Uppercase Then
-                            Return loc.TextInfo.ToUpper(str)
-                        Else
-                            dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_UPPERCASE
-                        End If
-                    Case VbStrConv.Lowercase
-                        If Conversion = VbStrConv.Lowercase Then
-                            Return loc.TextInfo.ToLower(str)
-                        Else
-                            dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_LOWERCASE
-                        End If
-                End Select
-
-                If ((Conversion And (VbStrConv.Katakana + VbStrConv.Hiragana)) <> 0) Then
-                    If (langid <> LANG_JAPANESE) OrElse (Not ValidLCID(LocaleID)) Then
-                        Throw New ArgumentException(SR.Argument_JPNNotSupported)
-                    Else
-                        'Locale is ok
-                    End If
-                End If
-
-                If (Conversion And (VbStrConv.Wide Or VbStrConv.Narrow)) <> 0 Then
-                    If (langid = LANG_JAPANESE) OrElse
-                       (langid = LANG_KOREAN) OrElse
-                       (langid = LANG_CHINESE) Then
-                        If Not ValidLCID(LocaleID) Then
-                            Throw New ArgumentException(SR.Argument_LocalNotSupported)
-                        End If
-                    Else
-                        Throw New ArgumentException(SR.Argument_WideNarrowNotApplicable)
-                    End If
-                End If
-
-                '***  Width handling
-                Select Case (Conversion And (VbStrConv.Wide Or VbStrConv.Narrow))
-                    Case VbStrConv.None
-                    Case VbStrConv.Wide Or VbStrConv.Narrow  '  VbStrConv.Wide+VbStrConv.Narrow is reserved
-                        Throw New ArgumentException(SR.Argument_IllegalWideNarrow)
-                    Case VbStrConv.Wide             '  VbStrConv.Wide
-                        dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_FULLWIDTH
-                    Case VbStrConv.Narrow           '  VbStrConv.Narrow
-                        dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_HALFWIDTH
-                End Select
-
-                '*** Kana handling
-                Select Case (Conversion And (VbStrConv.Katakana Or VbStrConv.Hiragana))
-                    Case VbStrConv.None
-                    Case (VbStrConv.Katakana Or VbStrConv.Hiragana)  '  VbStrConv.Katakana+VbStrConv.Hiragana is reserved
-                        Throw New ArgumentException(SR.Argument_IllegalKataHira)
-                    Case VbStrConv.Katakana '  VbStrConv.Katakana
-                        dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_KATAKANA
-                    Case VbStrConv.Hiragana '  VbStrConv.Hiragana
-                        dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_HIRAGANA
-                End Select
-
-                ' accents field (Conversion And 192) in Conversion is reserved
-                If ((Conversion And VbStrConv.ProperCase) = VbStrConv.ProperCase) Then
-                    Return ProperCaseString(loc, dwMapFlags, [str])
-                ElseIf dwMapFlags <> 0 Then
-                    Return vbLCMapString(loc, dwMapFlags, [str])
-                Else
-                    Return [str]
-                End If
-            Catch ex As Exception
-                Throw ex
+              loc = New CultureInfo(LocaleID And &HFFFFI)
+            Catch ex As StackOverflowException
+              Throw ex
+            Catch ex As OutOfMemoryException
+              Throw ex
+            Catch
+              Throw New ArgumentException(SR.Format(SR.Argument_LCIDNotSupported1, CStr(LocaleID)))
             End Try
-#Else
-      Throw New PlatformNotSupportedException()
-#End If
+          End If
+
+          langid = PRIMARYLANGID(LocaleID)
+
+          'Ensure only valid bits for Conversion are passed in.
+          If (Conversion And Not (VbStrConv.Uppercase Or VbStrConv.Lowercase Or VbStrConv.Wide Or VbStrConv.Narrow _
+                      Or VbStrConv.Katakana Or VbStrConv.Hiragana Or VbStrConv.SimplifiedChinese Or VbStrConv.TraditionalChinese _
+                      Or VbStrConv.LinguisticCasing)) <> 0 Then
+            Throw New ArgumentException(SR.Argument_InvalidVbStrConv)
+          End If
+
+          '*** VbStrConv.SimplifiedChinese/VbStrConv.TraditionalChinese handling
+          Select Case (Conversion And (VbStrConv.SimplifiedChinese + VbStrConv.TraditionalChinese))
+
+            Case 0
+                        'Flags not used
+            Case (VbStrConv.SimplifiedChinese + VbStrConv.TraditionalChinese)
+              Throw New ArgumentException(SR.Argument_StrConvSCandTC)
+            Case VbStrConv.SimplifiedChinese
+              If IsValidCodePage(CODEPAGE_SIMPLIFIED_CHINESE) AndAlso IsValidCodePage(CODEPAGE_TRADITIONAL_CHINESE) Then
+                dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_SIMPLIFIED_CHINESE
+              Else
+                Throw New ArgumentException(SR.Argument_SCNotSupported)
+              End If
+            Case VbStrConv.TraditionalChinese
+              If IsValidCodePage(CODEPAGE_SIMPLIFIED_CHINESE) AndAlso IsValidCodePage(CODEPAGE_TRADITIONAL_CHINESE) Then
+                dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_TRADITIONAL_CHINESE
+              Else
+                Throw New ArgumentException(SR.Argument_TCNotSupported)
+              End If
+          End Select
+
+          '*** Upper/Lowercase handling
+          Select Case (Conversion And (VbStrConv.Uppercase Or VbStrConv.Lowercase))
+            Case VbStrConv.None
+              'No conversion
+              If (Conversion And VbStrConv.LinguisticCasing) <> 0 Then
+                Throw New ArgumentException(SR.LinguisticRequirements)
+              End If
+
+            Case (VbStrConv.Uppercase Or VbStrConv.Lowercase)       '  VbStrConv.ProperCase is special: see below    
+              'Proper casing gets done below
+              dwMapFlags = 0
+            Case VbStrConv.Uppercase
+              If Conversion = VbStrConv.Uppercase Then
+                Return loc.TextInfo.ToUpper(str)
+              Else
+                dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_UPPERCASE
+              End If
+            Case VbStrConv.Lowercase
+              If Conversion = VbStrConv.Lowercase Then
+                Return loc.TextInfo.ToLower(str)
+              Else
+                dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_LOWERCASE
+              End If
+          End Select
+
+          If ((Conversion And (VbStrConv.Katakana + VbStrConv.Hiragana)) <> 0) Then
+            If (langid <> LANG_JAPANESE) OrElse (Not ValidLCID(LocaleID)) Then
+              Throw New ArgumentException(SR.Argument_JPNNotSupported)
+            Else
+              'Locale is ok
+            End If
+          End If
+
+          If (Conversion And (VbStrConv.Wide Or VbStrConv.Narrow)) <> 0 Then
+            If (langid = LANG_JAPANESE) OrElse
+                         (langid = LANG_KOREAN) OrElse
+                         (langid = LANG_CHINESE) Then
+              If Not ValidLCID(LocaleID) Then
+                Throw New ArgumentException(SR.Argument_LocalNotSupported)
+              End If
+            Else
+              Throw New ArgumentException(SR.Argument_WideNarrowNotApplicable)
+            End If
+          End If
+
+          '***  Width handling
+          Select Case (Conversion And (VbStrConv.Wide Or VbStrConv.Narrow))
+            Case VbStrConv.None
+            Case VbStrConv.Wide Or VbStrConv.Narrow  '  VbStrConv.Wide+VbStrConv.Narrow is reserved
+              Throw New ArgumentException(SR.Argument_IllegalWideNarrow)
+            Case VbStrConv.Wide             '  VbStrConv.Wide
+              dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_FULLWIDTH
+            Case VbStrConv.Narrow           '  VbStrConv.Narrow
+              dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_HALFWIDTH
+          End Select
+
+          '*** Kana handling
+          Select Case (Conversion And (VbStrConv.Katakana Or VbStrConv.Hiragana))
+            Case VbStrConv.None
+            Case (VbStrConv.Katakana Or VbStrConv.Hiragana)  '  VbStrConv.Katakana+VbStrConv.Hiragana is reserved
+              Throw New ArgumentException(SR.Argument_IllegalKataHira)
+            Case VbStrConv.Katakana '  VbStrConv.Katakana
+              dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_KATAKANA
+            Case VbStrConv.Hiragana '  VbStrConv.Hiragana
+              dwMapFlags = dwMapFlags Or NativeTypes.LCMAP_HIRAGANA
+          End Select
+
+          ' accents field (Conversion And 192) in Conversion is reserved
+          If ((Conversion And VbStrConv.ProperCase) = VbStrConv.ProperCase) Then
+            Return ProperCaseString(loc, dwMapFlags, [str])
+          ElseIf dwMapFlags <> 0 Then
+            Return vbLCMapString(loc, dwMapFlags, [str])
+          Else
+            Return [str]
+          End If
+        Catch ex As Exception
+          Throw ex
+        End Try
+      Else
+        Throw New PlatformNotSupportedException()
+      End If
     End Function
 
-#If TARGET_WINDOWS Then
-        Friend Function ValidLCID(ByVal LocaleID As Integer) As Boolean
-            Try
-                Dim loc As CultureInfo = New CultureInfo(LocaleID)
-                ValidLCID = True
-            Catch ex As StackOverflowException
-                Throw ex
-            Catch ex As OutOfMemoryException
-                Throw ex
-            Catch
-                ValidLCID = False
-            End Try
-        End Function
+    Friend Function ValidLCID(ByVal LocaleID As Integer) As Boolean
+      Try
+        Dim loc As CultureInfo = New CultureInfo(LocaleID)
+        ValidLCID = True
+      Catch ex As StackOverflowException
+        Throw ex
+      Catch ex As OutOfMemoryException
+        Throw ex
+      Catch
+        ValidLCID = False
+      End Try
+    End Function
 
-        Private Function ProperCaseString(ByVal loc As CultureInfo, ByVal dwMapFlags As Integer, ByVal sSrc As String) As String
-            Dim iSrcLen As Integer
-            Dim sb As StringBuilder
+    Private Function ProperCaseString(ByVal loc As CultureInfo, ByVal dwMapFlags As Integer, ByVal sSrc As String) As String
+      Dim iSrcLen As Integer
+      Dim sb As StringBuilder
 
-            If sSrc Is Nothing Then
-                iSrcLen = 0
-            Else
-                iSrcLen = sSrc.Length
-            End If
+      If sSrc Is Nothing Then
+        iSrcLen = 0
+      Else
+        iSrcLen = sSrc.Length
+      End If
 
-            If iSrcLen = 0 Then
-                Return ""
-            End If
+      If iSrcLen = 0 Then
+        Return ""
+      End If
 
-            '   do the mapping specified by dwMapFlags, and at the same time, lowercase
-            '   the whole string
-            sb = New StringBuilder(vbLCMapString(loc, dwMapFlags Or NativeTypes.LCMAP_LOWERCASE, sSrc))
+      '   do the mapping specified by dwMapFlags, and at the same time, lowercase
+      '   the whole string
+      sb = New StringBuilder(vbLCMapString(loc, dwMapFlags Or NativeTypes.LCMAP_LOWERCASE, sSrc))
 
-            'ToTitleCase is a more linguistically correct casing for the current locale
-            Return loc.TextInfo.ToTitleCase(sb.ToString())
+      'ToTitleCase is a more linguistically correct casing for the current locale
+      Return loc.TextInfo.ToTitleCase(sb.ToString())
 
-        End Function
+    End Function
 
-        <ResourceExposure(ResourceScope.None)>
-        <ResourceConsumption(ResourceScope.Machine, ResourceScope.Machine)>
-        Friend Function vbLCMapString(ByVal loc As CultureInfo, ByVal dwMapFlags As Integer, ByVal sSrc As String) As String
-            Dim length As Integer
+    <ResourceExposure(ResourceScope.None)>
+    <ResourceConsumption(ResourceScope.Machine, ResourceScope.Machine)>
+    Friend Function vbLCMapString(ByVal loc As CultureInfo, ByVal dwMapFlags As Integer, ByVal sSrc As String) As String
+      Dim length As Integer
 
-            If sSrc Is Nothing Then
-                length = 0
-            Else
-                length = sSrc.Length
-            End If
+      If sSrc Is Nothing Then
+        length = 0
+      Else
+        length = sSrc.Length
+      End If
 
-            If length = 0 Then
-                Return ""
-            End If
+      If length = 0 Then
+        Return ""
+      End If
 
-            Dim sDest As String
-            Dim lenDest As Integer
-            Dim lcid As Integer = loc.LCID
-            Dim enc As Text.Encoding = Text.Encoding.GetEncoding(loc.TextInfo.ANSICodePage)
+      Dim sDest As String
+      Dim lenDest As Integer
+      Dim lcid As Integer = loc.LCID
+      Dim enc As Text.Encoding = Text.Encoding.GetEncoding(loc.TextInfo.ANSICodePage)
 
-            If Not enc.IsSingleByte Then
+      If Not enc.IsSingleByte Then
 
-                'VB6 syntax note: ByVal String in Declare statements is really a ByRef String syntax
-                'So sTemp will always be updated here on copyback 
-                Dim sTemp As String = sSrc
-                Dim bytesSrc, bytesDest As Byte()
+        'VB6 syntax note: ByVal String in Declare statements is really a ByRef String syntax
+        'So sTemp will always be updated here on copyback 
+        Dim sTemp As String = sSrc
+        Dim bytesSrc, bytesDest As Byte()
 
-                'Forced to use ANSI here
-                'Char count can actual increase or decrease
+        'Forced to use ANSI here
+        'Char count can actual increase or decrease
 
-                'Get byte array
-                bytesSrc = enc.GetBytes(sTemp)
+        'Get byte array
+        bytesSrc = enc.GetBytes(sTemp)
 
-                'Get required byte length for new destination
-                lenDest = UnsafeNativeMethods.LCMapStringA(lcid, dwMapFlags, bytesSrc, bytesSrc.Length, Nothing, 0)
+        'Get required byte length for new destination
+        lenDest = UnsafeNativeMethods.LCMapStringA(lcid, dwMapFlags, bytesSrc, bytesSrc.Length, Nothing, 0)
 
-                'Create destination byte array of required length
-                bytesDest = New Byte(lenDest - 1) {}
+        'Create destination byte array of required length
+        bytesDest = New Byte(lenDest - 1) {}
 
-                'Call again to do the actual translation
-                lenDest = UnsafeNativeMethods.LCMapStringA(lcid, dwMapFlags, bytesSrc, bytesSrc.Length, bytesDest, lenDest)
+        'Call again to do the actual translation
+        lenDest = UnsafeNativeMethods.LCMapStringA(lcid, dwMapFlags, bytesSrc, bytesSrc.Length, bytesDest, lenDest)
 
-                'Now convert back to a string
-                sDest = enc.GetString(bytesDest)
+        'Now convert back to a string
+        sDest = enc.GetString(bytesDest)
 
-                Return sDest
+        Return sDest
 
-            Else
-                'We do not use StringBuilder here because embedded NULLs cause an early termination of the string
-                sDest = New String(" "c, length)
-                lenDest = UnsafeNativeMethods.LCMapString(lcid, dwMapFlags, sSrc, length, sDest, length)
-                Return sDest
-            End If
+      Else
+        'We do not use StringBuilder here because embedded NULLs cause an early termination of the string
+        sDest = New String(" "c, length)
+        lenDest = UnsafeNativeMethods.LCMapString(lcid, dwMapFlags, sSrc, length, sDest, length)
+        Return sDest
+      End If
 
-        End Function
-#End If
+    End Function
 
     Private Sub ValidateTriState(Param As TriState)
       If (Param <> vbTrue) AndAlso (Param <> vbFalse) AndAlso (Param <> vbUseDefault) Then

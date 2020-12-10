@@ -9,6 +9,7 @@ Option Strict On
 Imports System.Threading
 Imports System.Threading.Tasks
 Imports System.Runtime.CompilerServices
+Imports System
 
 Namespace Global.Community.IOx
 
@@ -17,7 +18,7 @@ Namespace Global.Community.IOx
     <Extension()>
     Public Async Function ReadByteAsync(stream1 As System.IO.Stream, Optional cancellationToken1 As CancellationToken = CType(Nothing, CancellationToken)) As Task(Of Integer)
       Dim buffer As Byte() = New Byte(0) {}
-      Dim numBytesRead As Integer = Await stream1.ReadAsync(buffer, 0, 1, cancellationToken1)
+      Dim numBytesRead As Integer = Await stream1.ReadAsync(buffer.AsMemory(0, 1), cancellationToken1)
       If numBytesRead = 0 Then
         Return -1 ' EOF
       End If

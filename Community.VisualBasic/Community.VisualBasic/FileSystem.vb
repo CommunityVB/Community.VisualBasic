@@ -39,12 +39,10 @@ Namespace Global.Community.VisualBasic
 
     Friend ReadOnly m_WriteDateFormatInfo As DateTimeFormatInfo = InitializeWriteDateFormatInfo() ' Call static initializer due to FxCop InitializeReferenceTypeStaticFieldsInline.
     Private Function InitializeWriteDateFormatInfo() As DateTimeFormatInfo
-      Dim dfi As New DateTimeFormatInfo With {
-        .DateSeparator = "-",
-        .ShortDatePattern = "\#yyyy-MM-dd\#",
-        .LongTimePattern = "\#HH:mm:ss\#",
-        .FullDateTimePattern = "\#yyyy-MM-dd HH:mm:ss\#"
-      }
+      Dim dfi As New DateTimeFormatInfo With {.DateSeparator = "-",
+                                              .ShortDatePattern = "\#yyyy-MM-dd\#",
+                                              .LongTimePattern = "\#HH:mm:ss\#",
+                                              .FullDateTimePattern = "\#yyyy-MM-dd HH:mm:ss\#"}
       Return dfi
     End Function
 
@@ -79,64 +77,91 @@ Namespace Global.Community.VisualBasic
 
     End Sub
 
-#If WINDOWS Then
-    <SupportedOSPlatform("windows")>
+    '<SupportedOSPlatform("windows")>
     Public Sub ChDrive(Drive As Char)
-      Drive = System.Char.ToUpperInvariant(Drive)
 
-      If (Drive < chLetterA) OrElse (Drive > chLetterZ) Then
-        Throw New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "Drive"))
+      If OperatingSystem.IsWindows Then
+
+        Drive = System.Char.ToUpperInvariant(Drive)
+
+        If (Drive < chLetterA) OrElse (Drive > chLetterZ) Then
+          Throw New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "Drive"))
+        End If
+
+        If Not UnsafeValidDrive(Drive) Then
+          Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_DriveNotFound1, CStr(Drive))), VbErrors.DevUnavailable)
+        End If
+
+        IO.Directory.SetCurrentDirectory(Drive & Path.VolumeSeparatorChar)
+
+      Else
+
+        Throw New PlatformNotSupportedException
+
       End If
 
-      If Not UnsafeValidDrive(Drive) Then
-        Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_DriveNotFound1, CStr(Drive))), VbErrors.DevUnavailable)
-      End If
-
-      IO.Directory.SetCurrentDirectory(Drive & Path.VolumeSeparatorChar)
     End Sub
-#End If
 
-#If WINDOWS Then
-    <SupportedOSPlatform("windows")>
+    '<SupportedOSPlatform("windows")>
     Public Sub ChDrive(Drive As String)
+
       Debug.Assert(System.Reflection.Assembly.GetCallingAssembly() IsNot Utils.VBRuntimeAssembly,
           "Methods in Microsoft.VisualBasic should not call FileSystem public method.")
 
-      If Drive Is Nothing OrElse Drive.Length = 0 Then
-        Exit Sub
+      If OperatingSystem.IsWindows Then
+
+        If Drive Is Nothing OrElse Drive.Length = 0 Then
+          Exit Sub
+        End If
+
+        ChDrive(Drive.Chars(0))
+
+      Else
+
+        Throw New PlatformNotSupportedException
+
       End If
 
-      ChDrive(Drive.Chars(0))
     End Sub
-#End If
 
     Public Function CurDir() As String
+
       Debug.Assert(System.Reflection.Assembly.GetCallingAssembly() IsNot Utils.VBRuntimeAssembly,
           "Methods in Microsoft.VisualBasic should not call FileSystem public method.")
 
       Return Directory.GetCurrentDirectory()
+
     End Function
 
-#If WINDOWS Then
-    <SupportedOSPlatform("windows")>
+    '<SupportedOSPlatform("windows")>
     Public Function CurDir(Drive As Char) As String
+
       Debug.Assert(System.Reflection.Assembly.GetCallingAssembly() IsNot Utils.VBRuntimeAssembly,
           "Methods in Microsoft.VisualBasic should not call FileSystem public method.")
 
-      Drive = System.Char.ToUpperInvariant(Drive)
-      If (Drive < chLetterA OrElse Drive > chLetterZ) Then
-        Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "Drive")), VbErrors.DevUnavailable)
+      If OperatingSystem.IsWindows Then
+
+        Drive = System.Char.ToUpperInvariant(Drive)
+        If (Drive < chLetterA OrElse Drive > chLetterZ) Then
+          Throw VbMakeException(New ArgumentException(SR.Format(SR.Argument_InvalidValue1, "Drive")), VbErrors.DevUnavailable)
+        End If
+
+        'GetFullPath("x:.") will return the full directory path
+        Dim CurrentPath As String = Path.GetFullPath(Drive & Path.VolumeSeparatorChar & ".")
+
+        If Not UnsafeValidDrive(Drive) Then
+          Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_DriveNotFound1, CStr(Drive))), VbErrors.DevUnavailable)
+        End If
+
+        Return CurrentPath
+
+      Else
+
+        Throw New PlatformNotSupportedException
+
       End If
 
-      'GetFullPath("x:.") will return the full directory path
-      Dim CurrentPath As String = Path.GetFullPath(Drive & Path.VolumeSeparatorChar & ".")
-
-      If Not UnsafeValidDrive(Drive) Then
-        Throw VbMakeException(New IOException(SR.Format(SR.FileSystem_DriveNotFound1, CStr(Drive))), VbErrors.DevUnavailable)
-      End If
-      Return CurrentPath
     End Function
-#End If
 
     Public Function Dir() As String
       Debug.Assert(System.Reflection.Assembly.GetCallingAssembly() IsNot Utils.VBRuntimeAssembly,
@@ -173,36 +198,45 @@ Namespace Global.Community.VisualBasic
           "Methods in Microsoft.VisualBasic should not call FileSystem public method.")
 
       If Attributes = FileAttribute.Volume Then
-#If TARGET_WINDOWS Then
-                Dim Result As Integer
-                Dim VolumeName As StringBuilder = New StringBuilder(256)
-                Dim RootName As String = Nothing
 
-                If (PathName.Length > 0) Then
-                    RootName = Path.GetPathRoot(PathName)
+        If OperatingSystem.IsWindows Then
 
-                    'Add a backslash if one isn't there. This is required by GetVolumeInformation
-                    If RootName.Chars(RootName.Length - 1) <> Path.DirectorySeparatorChar Then
-                        RootName &= Path.DirectorySeparatorChar
-                    End If
-                End If
+          Dim Result As Integer
+          Dim VolumeName As StringBuilder = New StringBuilder(256)
+          Dim RootName As String = Nothing
 
-                Result = NativeMethods.GetVolumeInformation(RootName, VolumeName, 256, 0, 0, 0, Nothing, 0)
+          If (PathName.Length > 0) Then
+            RootName = Path.GetPathRoot(PathName)
 
-                If Result <> 0 Then
-                    Return VolumeName.ToString
-                Else
-                    Return ""
-                End If
-#Else
-        Throw New PlatformNotSupportedException()
-#End If
+            'Add a backslash if one isn't there. This is required by GetVolumeInformation
+            If RootName.Chars(RootName.Length - 1) <> Path.DirectorySeparatorChar Then
+              RootName &= Path.DirectorySeparatorChar
+            End If
+          End If
+
+          Result = NativeMethods.GetVolumeInformation(RootName, VolumeName, 256, 0, 0, 0, Nothing, 0)
+
+          If Result <> 0 Then
+            Return VolumeName.ToString
+          Else
+            Return ""
+          End If
+
+        Else
+
+          Throw New PlatformNotSupportedException()
+
+        End If
+
       Else
+
         'Dir function always returns files with Normal attribute in addition to others specified.
         Dim URTAttributes As System.IO.FileAttributes = CType(Attributes, FileAttributes) Or FileAttributes.Normal
 
         Return FindFirstFile(System.Reflection.Assembly.GetCallingAssembly(), PathName, URTAttributes)
+
       End If
+
     End Function
 
     Public Sub MkDir(Path As String)
@@ -382,6 +416,7 @@ Namespace Global.Community.VisualBasic
     End Function
 
     Public Sub Kill(PathName As String)
+
       Debug.Assert(System.Reflection.Assembly.GetCallingAssembly() IsNot Utils.VBRuntimeAssembly,
           "Methods in Microsoft.VisualBasic should not call FileSystem public method.")
 
@@ -404,7 +439,7 @@ Namespace Global.Community.VisualBasic
 
       dir = New DirectoryInfo(DirName)
       files = dir.GetFiles(FileName)
-      DirName &= Path.PathSeparator
+      'DirName &= Path.PathSeparator
 
       If (files IsNot Nothing) Then
         For i = 0 To files.GetUpperBound(0)
@@ -439,6 +474,7 @@ Namespace Global.Community.VisualBasic
       If DeleteCount = 0 Then
         Throw New IO.FileNotFoundException(SR.Format(SR.KILL_NoFilesFound1, PathName))
       End If
+
     End Sub
 
     Public Sub SetAttr(PathName As String, Attributes As FileAttribute)
@@ -482,12 +518,12 @@ Namespace Global.Community.VisualBasic
 
     'IMPORTANT: This call provides sensitive information whether a device exists and should be used with extreme care
     Private Function UnsafeValidDrive(cDrive As Char) As Boolean 'Return of True means not a valid drive
-#If TARGET_WINDOWS Then
-            Dim iDrive As Integer = AscW(cDrive) - AscW(chLetterA)
-            Return (CLng(UnsafeNativeMethods.GetLogicalDrives()) And CLng(&H2 ^ iDrive)) <> 0
-#Else
-      Throw New PlatformNotSupportedException()
-#End If
+      If OperatingSystem.IsWindows Then
+        Dim iDrive As Integer = AscW(cDrive) - AscW(chLetterA)
+        Return (CLng(UnsafeNativeMethods.GetLogicalDrives()) And CLng(&H2 ^ iDrive)) <> 0
+      Else
+        Throw New PlatformNotSupportedException()
+      End If
     End Function
 
     '*****************************************
@@ -1179,39 +1215,45 @@ Namespace Global.Community.VisualBasic
     <ResourceExposure(ResourceScope.Machine)>
     <ResourceConsumption(ResourceScope.Machine)>
     Public Sub Rename(OldPath As String, NewPath As String)
+
       Dim oAssemblyData As AssemblyData = ProjectData.GetProjectData().GetAssemblyData(System.Reflection.Assembly.GetCallingAssembly())
       OldPath = VB6CheckPathname(oAssemblyData, OldPath, CType(OpenModeTypes.Any, OpenMode))
       NewPath = VB6CheckPathname(oAssemblyData, NewPath, CType(OpenModeTypes.Any, OpenMode))
 
-#If TARGET_WINDOWS Then
-            Dim Result As Integer
-            Dim ErrCode As Integer
+      If OperatingSystem.IsWindows Then
 
-            Result = UnsafeNativeMethods.MoveFile(OldPath, NewPath)
-            If Result = 0 Then
-                ErrCode = System.Runtime.InteropServices.Marshal.GetLastWin32Error()
+        Dim Result As Integer
+        Dim ErrCode As Integer
 
-                Select Case ErrCode
-                    Case ERROR_FILE_NOT_FOUND
-                        Throw VbMakeException(vbErrors.FileNotFound)
+        Result = UnsafeNativeMethods.MoveFile(OldPath, NewPath)
+        If Result = 0 Then
+          ErrCode = System.Runtime.InteropServices.Marshal.GetLastWin32Error()
 
-                    Case ERROR_FILE_EXISTS,
+          Select Case ErrCode
+            Case ERROR_FILE_NOT_FOUND
+              Throw VbMakeException(vbErrors.FileNotFound)
+
+            Case ERROR_FILE_EXISTS,
                          ERROR_ALREADY_EXISTS
-                        Throw VbMakeException(vbErrors.FileAlreadyExists)
+              Throw VbMakeException(vbErrors.FileAlreadyExists)
 
-                    Case ERROR_INVALID_ACCESS
-                        Throw VbMakeException(vbErrors.PathFileAccess)
+            Case ERROR_INVALID_ACCESS
+              Throw VbMakeException(vbErrors.PathFileAccess)
 
-                    Case ERROR_NOT_SAME_DEVICE
-                        Throw VbMakeException(vbErrors.DifferentDrive)
+            Case ERROR_NOT_SAME_DEVICE
+              Throw VbMakeException(vbErrors.DifferentDrive)
 
-                    Case Else
-                        Throw VbMakeException(vbErrors.IllegalFuncCall)
-                End Select
-            End If
-#Else
-      Throw New PlatformNotSupportedException()
-#End If
+            Case Else
+              Throw VbMakeException(vbErrors.IllegalFuncCall)
+          End Select
+        End If
+
+      Else
+
+        Throw New PlatformNotSupportedException()
+
+      End If
+
     End Sub
 
     '======================================
@@ -1234,7 +1276,7 @@ Namespace Global.Community.VisualBasic
       Result = GetChannelObj(assem, FileNumber)
 
       If (OpenModeTypesFromOpenMode(Result.GetMode()) Or mode) = 0 Then
-        Result = Nothing
+        'Result = Nothing
         Throw VbMakeException(VbErrors.BadFileMode)
       End If
 
@@ -1242,6 +1284,7 @@ Namespace Global.Community.VisualBasic
     End Function
 
     Private Function OpenModeTypesFromOpenMode(om As OpenMode) As OpenModeTypes
+
       If (om = OpenMode.Input) Then
         Return OpenModeTypes.Input
       ElseIf (om = OpenMode.Output) Then
@@ -1259,6 +1302,7 @@ Namespace Global.Community.VisualBasic
       ' This exception should never be hit.
       ' We will throw Arguments are not valid.
       Throw New ArgumentException(SR.Argument_InvalidValue, NameOf(om))
+
     End Function
 
     Friend Sub CloseAllFiles(assem As System.Reflection.Assembly)

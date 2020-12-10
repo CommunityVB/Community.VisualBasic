@@ -963,7 +963,9 @@ overwrite As Boolean, showUI As UIOptionInternal, onUserCancel As UICancelOption
     ''' <param name="Overwrite">True to overwrite the files. Otherwise, False.</param>
     ''' <exception cref="IO.IOException">Some files or directories cannot be copied or moved.</exception>
     Private Shared Sub FxCopyOrMoveDirectory(operation As CopyOrMove,
-sourceDirectoryPath As String, targetDirectoryPath As String, overwrite As Boolean)
+                                             sourceDirectoryPath As String,
+                                             targetDirectoryPath As String,
+                                             overwrite As Boolean)
 
       Debug.Assert(System.Enum.IsDefined(GetType(CopyOrMove), operation), "Invalid Operation")
       Debug.Assert(sourceDirectoryPath <> "" And IO.Path.IsPathRooted(sourceDirectoryPath), "Invalid Source")
@@ -996,7 +998,6 @@ sourceDirectoryPath As String, targetDirectoryPath As String, overwrite As Boole
 
       ' Throw the final exception if there were exceptions during copy / move.
       If Exceptions.Count > 0 Then
-        Throw New NotImplementedException
         Dim IOException As New IO.IOException(SR.IO_CopyMoveRecursive)
         For Each Entry As DictionaryEntry In Exceptions
           IOException.Data.Add(Entry.Key, Entry.Value)
@@ -1602,8 +1603,13 @@ NewName As String, ArgumentName As String) As String
     ''' Copy/MoveFile will call this directly. Copy/MoveDirectory will call ShellCopyOrMoveDirectory first
     ''' to change the path if needed.
     ''' </remarks>
-    Private Shared Sub ShellCopyOrMove(Operation As CopyOrMove, TargetType As FileOrDirectory,
-FullSourcePath As String, FullTargetPath As String, ShowUI As UIOptionInternal, OnUserCancel As UICancelOption)
+    Private Shared Sub ShellCopyOrMove(Operation As CopyOrMove,
+                                       TargetType As FileOrDirectory,
+                                       FullSourcePath As String,
+                                       FullTargetPath As String,
+                                       ShowUI As UIOptionInternal,
+                                       OnUserCancel As UICancelOption)
+
       Debug.Assert(System.Enum.IsDefined(GetType(CopyOrMove), Operation))
       Debug.Assert(System.Enum.IsDefined(GetType(FileOrDirectory), TargetType))
       Debug.Assert(FullSourcePath <> "" And IO.Path.IsPathRooted(FullSourcePath), "Invalid FullSourcePath")
@@ -1669,7 +1675,10 @@ FullSourcePath As String, FullTargetPath As String, ShowUI As UIOptionInternal, 
     ''' We don't need to consider Recursive flag here since we already verify that in DeleteDirectory.
     ''' </remarks>
     Private Shared Sub ShellDelete(FullPath As String,
-ShowUI As UIOptionInternal, recycle As RecycleOption, OnUserCancel As UICancelOption, FileOrDirectory As FileOrDirectory)
+                                   ShowUI As UIOptionInternal,
+                                   recycle As RecycleOption,
+                                   OnUserCancel As UICancelOption,
+                                   FileOrDirectory As FileOrDirectory)
 
       Debug.Assert(FullPath <> "" And IO.Path.IsPathRooted(FullPath), "FullPath must be a full path")
       Debug.Assert(ShowUI <> UIOptionInternal.NoUI, "Why call ShellDelete if ShowUI is NoUI???")

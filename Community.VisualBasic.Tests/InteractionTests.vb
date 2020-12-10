@@ -52,7 +52,7 @@ Namespace Global.Community.VisualBasic.Tests
     Public Shared Iterator Function CallByName_TestData() As IEnumerable(Of Object())
       Yield New Object() {New [Class], "Method", CallType.Method, New Object() {1, 2}, Nothing, 3}
       Yield New Object() {New [Class], "Method", CallType.[Get], New Object() {2, 3}, Nothing, 5}
-      Yield New Object() {New [Class], "P", CallType.[Get], New Object() {}, Nothing, 0}
+      Yield New Object() {New [Class], "P", CallType.[Get], Array.Empty(Of Object)(), Nothing, 0}
       Yield New Object() {New [Class], "Item", CallType.[Get], New Object() {2}, Nothing, 2}
 #If WINDOWS Then
       Yield New Object() {New [Class], "P", CallType.[Set], New Object() {3}, New Func(Of Object, Object)(Function(obj) CType(obj, [Class]).Value), 3}
@@ -61,14 +61,14 @@ Namespace Global.Community.VisualBasic.Tests
     End Function
 
     Public Shared Iterator Function CallByName_ArgumentException_TestData() As IEnumerable(Of Object())
-      Yield New Object() {Nothing, Nothing, CType(Nothing, CallType), New Object() {}}
+      Yield New Object() {Nothing, Nothing, CType(Nothing, CallType), Array.Empty(Of Object)()}
       Yield New Object() {New [Class], "Method", CType(Nothing, CallType), New Object() {1, 2}}
       Yield New Object() {New [Class], "Method", CType(Integer.MaxValue, CallType), New Object() {1, 2}}
     End Function
 
     Public Shared Iterator Function CallByName_MissingMemberException_TestData() As IEnumerable(Of Object())
-      Yield New Object() {New [Class], "Method", CallType.Method, New Object() {}}
-      Yield New Object() {New [Class], "Q", CallType.[Get], New Object() {}}
+      Yield New Object() {New [Class], "Method", CallType.Method, Array.Empty(Of Object)()}
+      Yield New Object() {New [Class], "Q", CallType.[Get], Array.Empty(Of Object)()}
     End Function
 
     Private NotInheritable Class [Class]

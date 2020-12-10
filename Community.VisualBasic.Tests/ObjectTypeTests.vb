@@ -260,7 +260,7 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Shared Iterator Function LikeObj_TestData() As IEnumerable(Of Object())
       Yield New Object() {Nothing, Nothing, True, True}
-      Yield New Object() {New Char() {}, Nothing, True, True}
+      Yield New Object() {Array.Empty(Of Char)(), Nothing, True, True}
       Yield New Object() {"", Nothing, True, True}
       Yield New Object() {"a3", New Char() {"A"c, "#"c}, False, True}
       Yield New Object() {New Char() {"A"c, "3"c}, "a#", False, True}

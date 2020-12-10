@@ -54,18 +54,16 @@ Namespace Global.Community.VisualBasic.CompilerServices
     ' A sentinel returned when no such member is found.
     Friend Shared ReadOnly missingMemberSentinel As Object = New Object()
 
-
     Friend Shared Function GetCopyBack() As Boolean()
       Return SaveCopyBack.GetCopyBack()
     End Function
 
-    Friend Shared Function IDOCall(
-instance As IDynamicMetaObjectProvider,
-memberName As String,
-arguments As Object(),
-argumentNames As String(),
-copyBack As Boolean(),
-ignoreReturn As Boolean) As Object
+    Friend Shared Function IDOCall(instance As IDynamicMetaObjectProvider,
+                                   memberName As String,
+                                   arguments As Object(),
+                                   argumentNames As String(),
+                                   copyBack As Boolean(),
+                                   ignoreReturn As Boolean) As Object
 
       Dim s As New SaveCopyBack(copyBack)
       Using s
@@ -80,14 +78,14 @@ ignoreReturn As Boolean) As Object
           IDOUtils.CopyBackArguments(callInfo, packedArguments, arguments)
         End Try
       End Using
+
     End Function
 
-    Friend Shared Function IDOGet(
-instance As IDynamicMetaObjectProvider,
-memberName As String,
-arguments As Object(),
-argumentNames As String(),
-copyBack As Boolean()) As Object
+    Friend Shared Function IDOGet(instance As IDynamicMetaObjectProvider,
+                                  memberName As String,
+                                  arguments As Object(),
+                                  argumentNames As String(),
+                                  copyBack As Boolean()) As Object
 
       Dim s As New SaveCopyBack(copyBack)
       Using s
@@ -102,14 +100,14 @@ copyBack As Boolean()) As Object
           IDOUtils.CopyBackArguments(callInfo, packedArguments, arguments)
         End Try
       End Using
+
     End Function
 
-    Friend Shared Function IDOInvokeDefault(
-instance As IDynamicMetaObjectProvider,
-arguments As Object(),
-argumentNames As String(),
-reportErrors As Boolean,
-copyBack As Boolean()) As Object
+    Friend Shared Function IDOInvokeDefault(instance As IDynamicMetaObjectProvider,
+                                            arguments As Object(),
+                                            argumentNames As String(),
+                                            reportErrors As Boolean,
+                                            copyBack As Boolean()) As Object
 
       Dim s As New SaveCopyBack(copyBack)
       Using s
@@ -124,14 +122,14 @@ copyBack As Boolean()) As Object
           IDOUtils.CopyBackArguments(callInfo, packedArguments, arguments)
         End Try
       End Using
+
     End Function
 
-    Friend Shared Function IDOFallbackInvokeDefault(
-instance As IDynamicMetaObjectProvider,
-arguments As Object(),
-argumentNames As String(),
-reportErrors As Boolean,
-copyBack As Boolean()) As Object
+    Friend Shared Function IDOFallbackInvokeDefault(instance As IDynamicMetaObjectProvider,
+                                                    arguments As Object(),
+                                                    argumentNames As String(),
+                                                    reportErrors As Boolean,
+                                                    copyBack As Boolean()) As Object
 
       Dim s As New SaveCopyBack(copyBack)
       Using s
@@ -149,24 +147,20 @@ copyBack As Boolean()) As Object
 
     End Function
 
-    Friend Shared Sub IDOSet(
-instance As IDynamicMetaObjectProvider,
-memberName As String,
-argumentNames() As String,
-arguments As Object())
+    Friend Shared Sub IDOSet(instance As IDynamicMetaObjectProvider,
+                             memberName As String,
+                             argumentNames() As String,
+                             arguments As Object())
 
       Dim s As New SaveCopyBack(Nothing)
       Using s
         If arguments.Length = 1 Then
-          IDOUtils.CreateFuncCallSiteAndInvoke(
-              New VBSetBinder(memberName), instance, arguments)
+          IDOUtils.CreateFuncCallSiteAndInvoke(New VBSetBinder(memberName), instance, arguments)
         Else
           ' Look for a DLR member that might be an array
-          Dim member As Object = IDOUtils.CreateFuncCallSiteAndInvoke(
-              New VBGetMemberBinder(memberName), instance, NoArguments)
+          Dim member As Object = IDOUtils.CreateFuncCallSiteAndInvoke(New VBGetMemberBinder(memberName), instance, NoArguments)
           If member Is IDOBinder.missingMemberSentinel Then ' found no DLR member by this name
-            NewLateBinding.ObjectLateSet(
-                instance, Nothing, memberName, arguments, argumentNames, NoTypeArguments)
+            NewLateBinding.ObjectLateSet(instance, Nothing, memberName, arguments, argumentNames, NoTypeArguments)
           Else
             ' Treat the found DLR member as an array
             NewLateBinding.LateIndexSet(member, arguments, argumentNames)
@@ -175,82 +169,70 @@ arguments As Object())
       End Using
     End Sub
 
-    Friend Shared Sub IDOSetComplex(
-instance As IDynamicMetaObjectProvider,
-memberName As String,
-arguments As Object(),
-argumentNames As String(),
-optimisticSet As Boolean,
-rValueBase As Boolean)
+    Friend Shared Sub IDOSetComplex(instance As IDynamicMetaObjectProvider,
+                                    memberName As String,
+                                    arguments As Object(),
+                                    argumentNames As String(),
+                                    optimisticSet As Boolean,
+                                    rValueBase As Boolean)
 
       Dim s As New SaveCopyBack(Nothing)
       Using s
         If arguments.Length = 1 Then
-          IDOUtils.CreateFuncCallSiteAndInvoke(
-              New VBSetComplexBinder(memberName, optimisticSet, rValueBase), instance, arguments)
+          IDOUtils.CreateFuncCallSiteAndInvoke(New VBSetComplexBinder(memberName, optimisticSet, rValueBase), instance, arguments)
         Else
           ' Look for a DLR member that might be an array
-          Dim member As Object = IDOUtils.CreateFuncCallSiteAndInvoke(
-              New VBGetMemberBinder(memberName), instance, NoArguments)
+          Dim member As Object = IDOUtils.CreateFuncCallSiteAndInvoke(New VBGetMemberBinder(memberName), instance, NoArguments)
           If member Is IDOBinder.missingMemberSentinel Then ' found no DLR member by this name
-            NewLateBinding.ObjectLateSetComplex(
-                instance, Nothing, memberName, arguments,
-                argumentNames, NoTypeArguments, optimisticSet, rValueBase)
+            NewLateBinding.ObjectLateSetComplex(instance, Nothing, memberName, arguments, argumentNames, NoTypeArguments, optimisticSet, rValueBase)
           Else
             ' Treat the found DLR member as an array
-            NewLateBinding.LateIndexSetComplex(
-                member, arguments, argumentNames, optimisticSet, rValueBase)
+            NewLateBinding.LateIndexSetComplex(member, arguments, argumentNames, optimisticSet, rValueBase)
           End If
         End If
       End Using
+
     End Sub
 
-    Friend Shared Sub IDOIndexSet(
-instance As IDynamicMetaObjectProvider,
-arguments As Object(),
-argumentNames As String())
+    Friend Shared Sub IDOIndexSet(instance As IDynamicMetaObjectProvider,
+                                  arguments As Object(),
+                                  argumentNames As String())
 
       Dim s As New SaveCopyBack(Nothing)
       Using s
         Dim packedArguments As Object() = Nothing
         Dim callInfo As CallInfo = Nothing
         IDOUtils.PackArguments(1, argumentNames, arguments, packedArguments, callInfo)
-        IDOUtils.CreateFuncCallSiteAndInvoke(
-            New VBIndexSetBinder(callInfo),
-            instance, packedArguments)
+        IDOUtils.CreateFuncCallSiteAndInvoke(New VBIndexSetBinder(callInfo), instance, packedArguments)
       End Using
+
     End Sub
 
-    Friend Shared Sub IDOIndexSetComplex(
-instance As IDynamicMetaObjectProvider,
-arguments As Object(),
-argumentNames As String(),
-optimisticSet As Boolean,
-rValueBase As Boolean)
+    Friend Shared Sub IDOIndexSetComplex(instance As IDynamicMetaObjectProvider,
+                                         arguments As Object(),
+                                         argumentNames As String(),
+                                         optimisticSet As Boolean,
+                                         rValueBase As Boolean)
 
       Dim s As New SaveCopyBack(Nothing)
       Using s
         Dim packedArguments As Object() = Nothing
         Dim callInfo As CallInfo = Nothing
         IDOUtils.PackArguments(1, argumentNames, arguments, packedArguments, callInfo)
-        IDOUtils.CreateFuncCallSiteAndInvoke(
-            New VBIndexSetComplexBinder(callInfo, optimisticSet, rValueBase),
-            instance, packedArguments)
+        IDOUtils.CreateFuncCallSiteAndInvoke(New VBIndexSetComplexBinder(callInfo, optimisticSet, rValueBase), instance, packedArguments)
       End Using
+
     End Sub
 
-    Friend Shared Function UserDefinedConversion(
-expression As IDynamicMetaObjectProvider,
-targetType As System.Type) As Object
+    Friend Shared Function UserDefinedConversion(expression As IDynamicMetaObjectProvider,
+                                                 targetType As System.Type) As Object
 
-      Return IDOUtils.CreateConvertCallSiteAndInvoke(
-          New VBConversionBinder(targetType),
-          expression)
+      Return IDOUtils.CreateConvertCallSiteAndInvoke(New VBConversionBinder(targetType), expression)
+
     End Function
 
-    Friend Shared Function InvokeUserDefinedOperator(
-op As UserDefinedOperator,
-arguments As Object()) As Object
+    Friend Shared Function InvokeUserDefinedOperator(op As UserDefinedOperator,
+                                                     arguments As Object()) As Object
 
       Dim linqOp As ExpressionType? = IDOUtils.LinqOperator(op)
       If linqOp Is Nothing Then
@@ -264,11 +246,12 @@ arguments As Object()) As Object
           opBinder = New VBBinaryOperatorBinder(op, linqOperator)
         End If
         Dim instance As Object = arguments(0)
-        Dim args As Object() =
-            If(arguments.Length = 1, NoArguments, New Object() {arguments(1)})
+        Dim args As Object() = If(arguments.Length = 1, NoArguments, New Object() {arguments(1)})
         Return IDOUtils.CreateFuncCallSiteAndInvoke(opBinder, instance, args)
       End If
+
     End Function
+
   End Class
 
   Friend Class VBCallBinder
@@ -276,18 +259,14 @@ arguments As Object()) As Object
 
     Private ReadOnly _ignoreReturn As Boolean
 
-    Public Sub New(memberName As String,
-callInfo As CallInfo,
-ignoreReturn As Boolean)
-
+    Public Sub New(memberName As String, callInfo As CallInfo, ignoreReturn As Boolean)
       MyBase.New(memberName, True, callInfo)
       _ignoreReturn = ignoreReturn
     End Sub
 
-    Public Overloads Overrides Function FallbackInvokeMember(
-target As DynamicMetaObject,
-packedArgs() As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overloads Overrides Function FallbackInvokeMember(target As DynamicMetaObject,
+                                                             packedArgs() As DynamicMetaObject,
+                                                             errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target, packedArgs) Then
         Return Defer(target, packedArgs)
@@ -306,34 +285,26 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       Dim array As ParameterExpression = Expression.Variable(GetType(Object()), "array")
 
       Dim fallback As Expression =
-          Expression.Call(
-              GetType(NewLateBinding).GetMethod("FallbackCall"),
-              target.Expression(),
-              Expression.Constant(Name, GetType(String)),
-              Expression.Assign(
-                  array,
-                  Expression.NewArrayInit(GetType(Object), arguments)
-              ),
-              Expression.Constant(argNames, GetType(String())),
-              Expression.Constant(_ignoreReturn, GetType(Boolean))
-          )
+          Expression.Call(GetType(NewLateBinding).GetMethod("FallbackCall"),
+                          target.Expression(),
+                          Expression.Constant(Name, GetType(String)),
+                          Expression.Assign(array,
+                                            Expression.NewArrayInit(GetType(Object), arguments)),
+                          Expression.Constant(argNames, GetType(String())),
+                          Expression.Constant(_ignoreReturn, GetType(Boolean)))
 
       Return New DynamicMetaObject(
-          Expression.Block(
-              New ParameterExpression() {result, array},
-              Expression.Assign(result, fallback),
-              IDOUtils.GetWriteBack(arguments, array),
-              result
-          ),
-          IDOUtils.CreateRestrictions(target, packedArgs)
-      )
+          Expression.Block(New ParameterExpression() {result, array},
+                           Expression.Assign(result, fallback),
+                           IDOUtils.GetWriteBack(arguments, array),
+                           result),
+          IDOUtils.CreateRestrictions(target, packedArgs))
+
     End Function
 
-    Public Overloads Overrides Function FallbackInvoke(
-target As DynamicMetaObject,
-packedArgs() As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
-
+    Public Overloads Overrides Function FallbackInvoke(target As DynamicMetaObject,
+                                                       packedArgs() As DynamicMetaObject,
+                                                       errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       Return New VBInvokeBinder(CallInfo, True).FallbackInvoke(target, packedArgs, errorSuggestion)
     End Function
 
@@ -348,20 +319,19 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor Name.GetHashCode() Xor CallInfo.GetHashCode() Xor _ignoreReturn.GetHashCode()
     End Function
+
   End Class
 
   Friend Class VBGetBinder
     Inherits InvokeMemberBinder
 
-    Public Sub New(memberName As String,
-callInfo As CallInfo)
+    Public Sub New(memberName As String, callInfo As CallInfo)
       MyBase.New(memberName, True, callInfo)
     End Sub
 
-    Public Overloads Overrides Function FallbackInvokeMember(
-target As DynamicMetaObject,
-packedArgs() As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overloads Overrides Function FallbackInvokeMember(target As DynamicMetaObject,
+                                                             packedArgs() As DynamicMetaObject,
+                                                             errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target, packedArgs) Then
         Return Defer(target, packedArgs)
@@ -400,13 +370,12 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
           ),
           IDOUtils.CreateRestrictions(target, packedArgs)
       )
+
     End Function
 
-    Public Overrides Function FallbackInvoke(
-target As DynamicMetaObject,
-packedArgs() As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
-
+    Public Overrides Function FallbackInvoke(target As DynamicMetaObject,
+                                             packedArgs() As DynamicMetaObject,
+                                             errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       Return New VBInvokeBinder(CallInfo, False).FallbackInvoke(target, packedArgs, errorSuggestion)
     End Function
 
@@ -418,11 +387,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBGetBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor Name.GetHashCode() Xor CallInfo.GetHashCode()
     End Function
   End Class
-
 
   ' Implements FallbackInvoke for VBCallBinder and VBGetBinder
   Friend Class VBInvokeBinder
@@ -436,10 +405,9 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       _lateCall = lateCall
     End Sub
 
-    Public Overloads Overrides Function FallbackInvoke(
-target As DynamicMetaObject,
-packedArgs() As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overloads Overrides Function FallbackInvoke(target As DynamicMetaObject,
+                                                       packedArgs() As DynamicMetaObject,
+                                                       errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target, packedArgs) Then
         Return Defer(target, packedArgs)
@@ -482,6 +450,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
           ),
           IDOUtils.CreateRestrictions(target, packedArgs)
       )
+
     End Function
 
     ' Implement value equality. This is used so we can discover previously produced rules.
@@ -492,9 +461,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBGetBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor CallInfo.GetHashCode() Xor _lateCall.GetHashCode()
     End Function
+
   End Class
 
   Friend Class VBInvokeDefaultBinder
@@ -507,10 +478,9 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       _reportErrors = reportErrors
     End Sub
 
-    Public Overloads Overrides Function FallbackInvoke(
-target As DynamicMetaObject,
-packedArgs As DynamicMetaObject(),
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overloads Overrides Function FallbackInvoke(target As DynamicMetaObject,
+                                                       packedArgs As DynamicMetaObject(),
+                                                       errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target, packedArgs) Then
         Return Defer(target, packedArgs)
@@ -548,6 +518,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
           ),
           IDOUtils.CreateRestrictions(target, packedArgs)
       )
+
     End Function
 
     ' Implement value equality. This is used so we can discover previously produced rules.
@@ -558,9 +529,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBInvokeDefaultBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor CallInfo.GetHashCode() Xor _reportErrors.GetHashCode()
     End Function
+
   End Class
 
   Friend Class VBInvokeDefaultFallbackBinder
@@ -573,10 +546,9 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       _reportErrors = reportErrors
     End Sub
 
-    Public Overrides Function FallbackGetIndex(
-target As DynamicMetaObject,
-packedArgs As DynamicMetaObject(),
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overrides Function FallbackGetIndex(target As DynamicMetaObject,
+                                               packedArgs As DynamicMetaObject(),
+                                               errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target, packedArgs) Then
         Return Defer(target, packedArgs)
@@ -614,6 +586,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
           ),
           IDOUtils.CreateRestrictions(target, packedArgs)
       )
+
     End Function
 
     ' Implement value equality. This is used so we can discover previously produced rules.
@@ -624,9 +597,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBInvokeDefaultFallbackBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor CallInfo.GetHashCode() Xor _reportErrors.GetHashCode()
     End Function
+
   End Class
 
   Friend Class VBSetBinder
@@ -636,10 +611,9 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       MyBase.New(name:=memberName, ignoreCase:=True)
     End Sub
 
-    Public Overloads Overrides Function FallbackSetMember(
-target As DynamicMetaObject,
-value As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overloads Overrides Function FallbackSetMember(target As DynamicMetaObject,
+                                                          value As DynamicMetaObject,
+                                                          errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target, value:=value) Then
         Return Defer(target, value)
@@ -663,6 +637,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
           Expression.Block(fallback, valueExpression),
           IDOUtils.CreateRestrictions(target, value:=value)
       )
+
     End Function
 
     ' Implement value equality. This is used so we can discover previously produced rules.
@@ -673,9 +648,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBSetBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor Name.GetHashCode()
     End Function
+
   End Class
 
   Friend Class VBSetComplexBinder
@@ -690,10 +667,9 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       _rValueBase = rValueBase
     End Sub
 
-    Public Overloads Overrides Function FallbackSetMember(
-target As DynamicMetaObject,
-value As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overloads Overrides Function FallbackSetMember(target As DynamicMetaObject,
+                                                          value As DynamicMetaObject,
+                                                          errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target, value:=value) Then
         Return Defer(target, value)
@@ -719,6 +695,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
           Expression.Block(fallback, valueExpression),
           IDOUtils.CreateRestrictions(target, value:=value)
       )
+
     End Function
 
     ' Implement value equality. This is used so we can discover previously produced rules.
@@ -729,22 +706,24 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBSetComplexBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor Name.GetHashCode() Xor _optimisticSet.GetHashCode() Xor _rValueBase.GetHashCode()
     End Function
+
   End Class
 
   ' Used to fetch a DLR field
   Friend Class VBGetMemberBinder
     Inherits GetMemberBinder
     Implements IInvokeOnGetBinder
+
     Public Sub New(name As String)
       MyBase.New(name, True)
     End Sub
 
-    Public Overrides Function FallbackGetMember(
-target As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overrides Function FallbackGetMember(target As DynamicMetaObject,
+                                                errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If errorSuggestion IsNot Nothing Then
         Return errorSuggestion
@@ -752,6 +731,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       ' Return a flag indicating no such DLR field exists
       Return New DynamicMetaObject(Expression.Constant(IDOBinder.missingMemberSentinel), IDOUtils.CreateRestrictions(target))
+
     End Function
 
     ' Implement value equality. This is used so we can discover previously produced rules.
@@ -762,6 +742,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBGetMemberBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor Name.GetHashCode()
     End Function
@@ -773,6 +754,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
         Return False
       End Get
     End Property
+
   End Class
 
   Friend Class VBConversionBinder
@@ -782,9 +764,8 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       MyBase.New(t, True)
     End Sub
 
-    Public Overrides Function FallbackConvert(
-target As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overrides Function FallbackConvert(target As DynamicMetaObject,
+                                              errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target) Then
         Return Defer(target)
@@ -813,9 +794,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBConversionBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor Type.GetHashCode()
     End Function
+
   End Class
 
   Friend Class VBUnaryOperatorBinder
@@ -828,9 +811,8 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       _Op = op
     End Sub
 
-    Public Overrides Function FallbackUnaryOperation(
-target As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overrides Function FallbackUnaryOperation(target As DynamicMetaObject,
+                                                     errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target) Then
         Return Defer(target)
@@ -858,9 +840,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBUnaryOperatorBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor _Op.GetHashCode() Xor Operation.GetHashCode()
     End Function
+
   End Class
 
   Friend Class VBBinaryOperatorBinder
@@ -873,10 +857,9 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       _Op = op
     End Sub
 
-    Public Overrides Function FallbackBinaryOperation(
-target As DynamicMetaObject,
-arg As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overrides Function FallbackBinaryOperation(target As DynamicMetaObject,
+                                                      arg As DynamicMetaObject,
+                                                      errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target, value:=arg) Then
         Return Defer(target, arg)
@@ -896,6 +879,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       )
 
       Return New DynamicMetaObject(fallback, IDOUtils.CreateRestrictions(target, value:=arg))
+
     End Function
 
     ' Implement value equality. This is used so we can discover previously produced rules.
@@ -906,9 +890,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBBinaryOperatorBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor _Op.GetHashCode() Xor Operation.GetHashCode()
     End Function
+
   End Class
 
   Friend Class VBIndexSetBinder
@@ -918,11 +904,10 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       MyBase.New(callInfo)
     End Sub
 
-    Public Overrides Function FallbackSetIndex(
-target As DynamicMetaObject,
-packedIndexes As DynamicMetaObject(),
-value As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overrides Function FallbackSetIndex(target As DynamicMetaObject,
+                                               packedIndexes As DynamicMetaObject(),
+                                               value As DynamicMetaObject,
+                                               errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target, packedIndexes, value) Then
         Array.Resize(packedIndexes, packedIndexes.Length + 1)
@@ -961,6 +946,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
           Expression.Block(fallback, valueExpression),
           IDOUtils.CreateRestrictions(target, packedIndexes, value)
       )
+
     End Function
 
     ' Implement value equality. This is used so we can discover previously produced rules.
@@ -971,9 +957,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBIndexSetBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor CallInfo.GetHashCode()
     End Function
+
   End Class
 
   Friend Class VBIndexSetComplexBinder
@@ -988,11 +976,10 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
       _rValueBase = rValueBase
     End Sub
 
-    Public Overrides Function FallbackSetIndex(
-target As DynamicMetaObject,
-packedIndexes As DynamicMetaObject(),
-value As DynamicMetaObject,
-errorSuggestion As DynamicMetaObject) As DynamicMetaObject
+    Public Overrides Function FallbackSetIndex(target As DynamicMetaObject,
+                                               packedIndexes As DynamicMetaObject(),
+                                               value As DynamicMetaObject,
+                                               errorSuggestion As DynamicMetaObject) As DynamicMetaObject
 
       If IDOUtils.NeedsDeferral(target, packedIndexes, value) Then
         Array.Resize(packedIndexes, packedIndexes.Length + 1)
@@ -1033,6 +1020,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
           Expression.Block(fallback, valueExpression),
           IDOUtils.CreateRestrictions(target, packedIndexes, value)
       )
+
     End Function
 
     ' Implement value equality. This is used so we can discover previously produced rules.
@@ -1043,9 +1031,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Function
 
     Private Shared ReadOnly s_hash As Integer = GetType(VBIndexSetComplexBinder).GetHashCode()
+
     Public Overrides Function GetHashCode() As Integer
       Return s_hash Xor CallInfo.GetHashCode() Xor _optimisticSet.GetHashCode() Xor _rValueBase.GetHashCode()
     End Function
+
   End Class
 
   Friend Class IDOUtils
@@ -1145,6 +1135,7 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
         Case Else
           Return Nothing
       End Select
+
     End Function
 
     'If the CallSite had byref arguments, the values in packedArgs may be updated
@@ -1169,12 +1160,11 @@ errorSuggestion As DynamicMetaObject) As DynamicMetaObject
     End Sub
 
     'Pack arguments from VB libraries for DLR
-    Public Shared Sub PackArguments(
-valueArgs As Integer,
-argNames As String(),
-args As Object(),
-            ByRef packedArgs As Object(),
-            ByRef callInfo As CallInfo)
+    Public Shared Sub PackArguments(valueArgs As Integer,
+                                    argNames As String(),
+                                    args As Object(),
+                                    ByRef packedArgs As Object(),
+                                    ByRef callInfo As CallInfo)
 
       'There is some inconsistency in the handling of argNames, sometimes it
       'has been normalized to non-null by this point, sometimes not.
@@ -1205,15 +1195,15 @@ args As Object(),
       Else
         packedArgs = args
       End If
+
     End Sub
 
     'Unpack arguments from DLR for VB libraries
-    Public Shared Sub UnpackArguments(
-packedArgs As DynamicMetaObject(),
-callInfo As CallInfo,
-            ByRef args As Expression(),
-            ByRef argNames As String(),
-            ByRef argValues As Object())
+    Public Shared Sub UnpackArguments(packedArgs As DynamicMetaObject(),
+                                      callInfo As CallInfo,
+                                      ByRef args As Expression(),
+                                      ByRef argNames As String(),
+                                      ByRef argValues As Object())
 
       'See comment for PackArguments
       'We need to reorder the args if we have any named args so it matches
@@ -1245,6 +1235,7 @@ callInfo As CallInfo,
       ' Binding functions expect non-null names
       argNames = New String(namedArgCount - 1) {}
       callInfo.ArgumentNames.CopyTo(argNames, 0)
+
     End Sub
 
     Public Shared Function GetWriteBack(arguments() As Expression, array As ParameterExpression) As Expression
@@ -1273,10 +1264,9 @@ callInfo As CallInfo,
     ' MRU Dictionary of invoker delegates. We keep 16 most recently used ones, rest is GC'd
     Private Shared ReadOnly Invokers As New CacheDict(Of Integer, Func(Of CallSiteBinder, Object, Object(), Object))(16)
 
-    Public Shared Function CreateRefCallSiteAndInvoke(
-action As CallSiteBinder,
-instance As Object,
-arguments As Object()) As Object
+    Public Shared Function CreateRefCallSiteAndInvoke(action As CallSiteBinder,
+                                                      instance As Object,
+                                                      arguments As Object()) As Object
 
       action = GetCachedBinder(action)
 
@@ -1290,6 +1280,7 @@ arguments As Object()) As Object
       End SyncLock
 
       Return Invoker.Invoke(action, instance, arguments)
+
     End Function
 
     ''' Creates an invoker, a function such as:
@@ -1303,58 +1294,69 @@ arguments As Object()) As Object
     '''     return site.Target.Invoke(site, instance, args(0), args(1), args(2))
     ''' End Function
     Private Shared Function CreateInvoker(ArgLength As Integer) As Func(Of CallSiteBinder, Object, Object(), Object)
+
 #If TARGET_WINDOWS Then
-      ' Useful Types
-      Dim ObjectType As Type = GetType(Object)
-      Dim ObjectRefType As Type = ObjectType.MakeByRefType()
-      Dim CallSiteBinderType As Type = GetType(CallSiteBinder)
 
-      ' Call Site Delegate Signature
-      Dim CallSiteSignature(ArgLength + 2) As Type
-      CallSiteSignature(0) = GetType(CallSite)                        ' CallSite must go first
-      CallSiteSignature(1) = ObjectType                               ' Instance: Object
-      For i As Integer = 2 To CallSiteSignature.Length - 2            ' Arguments: Object&
-        CallSiteSignature(i) = ObjectRefType
-      Next
-      CallSiteSignature(CallSiteSignature.Length - 1) = ObjectType    ' Result: Object
+      If OperatingSystem.IsWindows Then
 
-      ' Call Site Delegate
-      Dim CallSiteDelegate As Type = Expression.GetDelegateType(CallSiteSignature)
-      Dim CallSiteType As Type = GetType(CallSite(Of )).MakeGenericType(CallSiteDelegate)
+        ' Useful Types
+        Dim ObjectType As Type = GetType(Object)
+        Dim ObjectRefType As Type = ObjectType.MakeByRefType()
+        Dim CallSiteBinderType As Type = GetType(CallSiteBinder)
 
-      ' Invoker(CallSiteBinder, Instance as Object, Args as Object())
-      Dim InvokerMethod As New DynamicMethod("Invoker", ObjectType, {CallSiteBinderType, ObjectType, GetType(Object())}, True)
+        ' Call Site Delegate Signature
+        Dim CallSiteSignature(ArgLength + 2) As Type
+        CallSiteSignature(0) = GetType(CallSite)                        ' CallSite must go first
+        CallSiteSignature(1) = ObjectType                               ' Instance: Object
+        For i As Integer = 2 To CallSiteSignature.Length - 2            ' Arguments: Object&
+          CallSiteSignature(i) = ObjectRefType
+        Next
+        CallSiteSignature(CallSiteSignature.Length - 1) = ObjectType    ' Result: Object
 
-      ' Dim cs as CallSite(Of delegateType) = CallSite(Of delegateType).Create(Action)
-      Dim il As ILGenerator = InvokerMethod.GetILGenerator()
-      Dim site As LocalBuilder = il.DeclareLocal(CallSiteType)
-      il.Emit(OpCodes.Ldarg_0)
-      il.Emit(OpCodes.Call, CallSiteType.GetMethod("Create", {CallSiteBinderType}))
-      il.Emit(OpCodes.Stloc, site)
+        ' Call Site Delegate
+        Dim CallSiteDelegate As Type = Expression.GetDelegateType(CallSiteSignature)
+        Dim CallSiteType As Type = GetType(CallSite(Of )).MakeGenericType(CallSiteDelegate)
 
-      ' return site.Target.Invoke(site, Instance, ref args(0), ref args(1), ...)
-      il.Emit(OpCodes.Ldloc, site)
-      il.Emit(OpCodes.Ldfld, CallSiteType.GetField("Target"))
-      il.Emit(OpCodes.Ldloc, site)
-      il.Emit(OpCodes.Ldarg_1)                    'Instance
-      For i As Integer = 0 To ArgLength - 1
-        il.Emit(OpCodes.Ldarg_2)
-        il.Emit(OpCodes.Ldc_I4, i)
-        il.Emit(OpCodes.Ldelema, ObjectType)    ' ref arg(i)
-      Next
-      il.Emit(OpCodes.Callvirt, CallSiteDelegate.GetMethod("Invoke"))
-      il.Emit(OpCodes.Ret)
+        ' Invoker(CallSiteBinder, Instance as Object, Args as Object())
+        Dim InvokerMethod As New DynamicMethod("Invoker", ObjectType, {CallSiteBinderType, ObjectType, GetType(Object())}, True)
 
-      Return DirectCast(InvokerMethod.CreateDelegate(GetType(Func(Of CallSiteBinder, Object, Object(), Object))), Func(Of CallSiteBinder, Object, Object(), Object))
-#Else
-      Throw New PlatformNotSupportedException()
+        ' Dim cs as CallSite(Of delegateType) = CallSite(Of delegateType).Create(Action)
+        Dim il As ILGenerator = InvokerMethod.GetILGenerator()
+        Dim site As LocalBuilder = il.DeclareLocal(CallSiteType)
+        il.Emit(OpCodes.Ldarg_0)
+        il.Emit(OpCodes.Call, CallSiteType.GetMethod("Create", {CallSiteBinderType}))
+        il.Emit(OpCodes.Stloc, site)
+
+        ' return site.Target.Invoke(site, Instance, ref args(0), ref args(1), ...)
+        il.Emit(OpCodes.Ldloc, site)
+        il.Emit(OpCodes.Ldfld, CallSiteType.GetField("Target"))
+        il.Emit(OpCodes.Ldloc, site)
+        il.Emit(OpCodes.Ldarg_1)                    'Instance
+        For i As Integer = 0 To ArgLength - 1
+          il.Emit(OpCodes.Ldarg_2)
+          il.Emit(OpCodes.Ldc_I4, i)
+          il.Emit(OpCodes.Ldelema, ObjectType)    ' ref arg(i)
+        Next
+        il.Emit(OpCodes.Callvirt, CallSiteDelegate.GetMethod("Invoke"))
+        il.Emit(OpCodes.Ret)
+
+        Return DirectCast(InvokerMethod.CreateDelegate(GetType(Func(Of CallSiteBinder, Object, Object(), Object))), Func(Of CallSiteBinder, Object, Object(), Object))
+
+      Else
+
 #End If
+
+      Throw New PlatformNotSupportedException()
+
+#If TARGET_WINDOWS Then
+      End If
+#End If
+
     End Function
 
-    Public Shared Function CreateFuncCallSiteAndInvoke(
-action As CallSiteBinder,
-instance As Object,
-arguments As Object()) As Object
+    Public Shared Function CreateFuncCallSiteAndInvoke(action As CallSiteBinder,
+                                                       instance As Object,
+                                                       arguments As Object()) As Object
 
       action = GetCachedBinder(action)
 
@@ -1410,12 +1412,12 @@ arguments As Object()) As Object
             Throw ie.InnerException
           End Try
       End Select
+
     End Function
 
     ' The type of the Convert call site must match the type we are converting to
-    Public Shared Function CreateConvertCallSiteAndInvoke(
-action As ConvertBinder,
-instance As Object) As Object
+    Public Shared Function CreateConvertCallSiteAndInvoke(action As ConvertBinder,
+                                                          instance As Object) As Object
 
       ' Create the call site for performing the conversion
       Dim delegateArgTypes(2) As Type
@@ -1435,8 +1437,8 @@ instance As Object) As Object
       Catch ie As TargetInvocationException
         Throw ie.InnerException
       End Try
-    End Function
 
+    End Function
 
     ''' <summary>
     ''' Adds the exact type restriction on the target of the dynamic operation, and merges all of the
@@ -1451,10 +1453,9 @@ instance As Object) As Object
     ''' This method will add the binding restriction on the exact type of the target (all FallbackXXX
     ''' methods call this).
     '''</remarks>
-    Friend Shared Function CreateRestrictions(
-target As DynamicMetaObject,
-        Optional args As DynamicMetaObject() = Nothing,
-        Optional value As DynamicMetaObject = Nothing) As BindingRestrictions
+    Friend Shared Function CreateRestrictions(target As DynamicMetaObject,
+                                              Optional args As DynamicMetaObject() = Nothing,
+                                              Optional value As DynamicMetaObject = Nothing) As BindingRestrictions
 
       Dim r As BindingRestrictions = CreateRestriction(target)
       If args IsNot Nothing Then
@@ -1466,22 +1467,20 @@ target As DynamicMetaObject,
         r = r.Merge(CreateRestriction(value))
       End If
       Return r
+
     End Function
 
     Private Shared Function CreateRestriction(metaObject As DynamicMetaObject) As BindingRestrictions
       If metaObject.Value Is Nothing Then
-        Return metaObject.Restrictions.Merge(
-            BindingRestrictions.GetInstanceRestriction(metaObject.Expression, Nothing))
+        Return metaObject.Restrictions.Merge(BindingRestrictions.GetInstanceRestriction(metaObject.Expression, Nothing))
       Else
-        Return metaObject.Restrictions.Merge(
-            BindingRestrictions.GetTypeRestriction(metaObject.Expression, metaObject.LimitType))
+        Return metaObject.Restrictions.Merge(BindingRestrictions.GetTypeRestriction(metaObject.Expression, metaObject.LimitType))
       End If
     End Function
 
-    Friend Shared Function NeedsDeferral(
-target As DynamicMetaObject,
-        Optional args As DynamicMetaObject() = Nothing,
-        Optional value As DynamicMetaObject = Nothing) As Boolean
+    Friend Shared Function NeedsDeferral(target As DynamicMetaObject,
+                                         Optional args As DynamicMetaObject() = Nothing,
+                                         Optional value As DynamicMetaObject = Nothing) As Boolean
 
       If Not target.HasValue Then
         Return True
@@ -1501,7 +1500,6 @@ target As DynamicMetaObject,
 
   End Class
 
-
   ''' <summary>
   ''' Provides a set-like object used for caches which holds onto a maximum
   ''' number of elements specified at construction time.
@@ -1509,6 +1507,7 @@ target As DynamicMetaObject,
   ''' This class is thread safe.
   ''' </summary>
   Friend NotInheritable Class CacheSet(Of T)
+
     Private ReadOnly _dict As New Dictionary(Of T, LinkedListNode(Of T))
     Private ReadOnly _list As New LinkedList(Of T)
     Private ReadOnly _maxSize As Integer
@@ -1527,7 +1526,9 @@ target As DynamicMetaObject,
     ''' removing the oldest element in the cache if it has reached capacity.
     ''' </summary>
     Friend Function GetExistingOrAdd(key As T) As T
+
       SyncLock Me
+
         Dim node As LinkedListNode(Of T) = Nothing
         If _dict.TryGetValue(key, node) Then
           ' Found a match, move it to the head of the list
@@ -1547,8 +1548,11 @@ target As DynamicMetaObject,
         _dict.Add(key, node)
         _list.AddFirst(node)
         Return key
+
       End SyncLock
+
     End Function
+
   End Class
 
 End Namespace

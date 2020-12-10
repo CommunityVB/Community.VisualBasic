@@ -127,8 +127,7 @@ Namespace Global.Community.VisualBasic.Tests
     <InlineData("MyFile4#4", 4, "MyFile4")>
     Public Sub ParseHelpLink(helpLink1 As String, expectedHelpContext As Integer, expectedHelpFile As String)
       ProjectData.ClearProjectError()
-      ProjectData.SetProjectError(New ArgumentException() With {
-          .HelpLink = helpLink1})
+      ProjectData.SetProjectError(New ArgumentException("Just Testing") With {.HelpLink = helpLink1})
       Assert.Equal(expectedHelpContext, Information.Err().HelpContext)
       Assert.Equal(expectedHelpFile, Information.Err().HelpFile)
     End Sub
@@ -141,8 +140,7 @@ Namespace Global.Community.VisualBasic.Tests
     <InlineData("MyFile3##")>
     Public Sub ParseHelpLink_InvalidCastException(helpLink1 As String)
       ProjectData.ClearProjectError()
-      ProjectData.SetProjectError(New ArgumentException() With {
-          .HelpLink = helpLink1})
+      ProjectData.SetProjectError(New ArgumentException("Just Testing") With {.HelpLink = helpLink1})
       Assert.Throws(Of InvalidCastException)(Function() Information.Err().HelpContext)
       Assert.Throws(Of InvalidCastException)(Function() Information.Err().HelpFile)
     End Sub

@@ -68,13 +68,13 @@ Namespace Global.Community.VisualBasic.Tests
     <Fact>
     Public Sub LBound_Invalid()
       Assert.Throws(Of ArgumentNullException)(Function() Information.LBound(Nothing))
-      Assert.Throws(Of RankException)(Function() Information.LBound(New Integer() {}, 0))
-      Assert.Throws(Of RankException)(Function() Information.LBound(New Integer() {}, 2))
+      Assert.Throws(Of RankException)(Function() Information.LBound(Array.Empty(Of Integer)(), 0))
+      Assert.Throws(Of RankException)(Function() Information.LBound(Array.Empty(Of Integer)(), 2))
     End Sub
 
     <Fact>
     Public Sub UBound()
-      Assert.Equal(-1, Information.UBound(New Integer() {}))
+      Assert.Equal(-1, Information.UBound(Array.Empty(Of Integer)()))
       Assert.Equal(0, Information.UBound(New Integer(0) {}))
       Assert.Equal(5, Information.UBound(Array.CreateInstance("abc".[GetType](), New Integer() {1}, New Integer() {5})))
       Assert.Equal(6, Information.UBound(Array.CreateInstance("abc".[GetType](), New Integer() {1, 1}, New Integer() {5, 6}), 2))
@@ -83,8 +83,8 @@ Namespace Global.Community.VisualBasic.Tests
     <Fact>
     Public Sub UBound_Invalid()
       Assert.Throws(Of ArgumentNullException)(Function() Information.UBound(Nothing))
-      Assert.Throws(Of RankException)(Function() Information.UBound(New Integer() {}, 0))
-      Assert.Throws(Of RankException)(Function() Information.UBound(New Integer() {}, 2))
+      Assert.Throws(Of RankException)(Function() Information.UBound(Array.Empty(Of Integer)(), 0))
+      Assert.Throws(Of RankException)(Function() Information.UBound(Array.Empty(Of Integer)(), 2))
     End Sub
 
     <Theory>
@@ -184,7 +184,7 @@ Namespace Global.Community.VisualBasic.Tests
       Yield New Object() {CType(Nothing, DateTime), "Date"}
       Yield New Object() {"", "String"}
       Yield New Object() {CType(Nothing, Object()), "Nothing"}
-      Yield New Object() {New Object() {}, "Object()"}
+      Yield New Object() {Array.Empty(Of Object)(), "Object()"}
       Yield New Object() {New Char(,) {}, "Char(,)"}
       Yield New Object() {CType(Nothing, Integer?), "Nothing"}
       Yield New Object() {CType(0, Integer?), "Integer"}

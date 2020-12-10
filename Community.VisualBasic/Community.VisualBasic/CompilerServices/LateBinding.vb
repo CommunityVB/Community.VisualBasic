@@ -267,9 +267,7 @@ UseCallType As CallType)
           flags = flags Or BindingFlags.PutRefDispProperty
           If args(args.GetUpperBound(0)) Is Nothing Then
             Debug.Assert(OperatingSystem.IsWindows())
-#Disable Warning BC40000 ' DispatchWrapper is marked obsolete.
             args(args.GetUpperBound(0)) = New DispatchWrapper(Nothing)
-#Enable Warning BC40000
           End If
         ElseIf UseCallType = CallType.Let Then
           flags = flags Or BindingFlags.PutDispProperty
@@ -871,14 +869,12 @@ OptimisticSet As Boolean, RValueBase As Boolean)
     Private Shared Function GetPropertyPutFlags(NewValue As Object) As BindingFlags
       If (NewValue Is Nothing) Then
         Return BindingFlags.SetProperty
-#Disable Warning BC40000 ' CurrencyWrapper is marked obsolete.
       ElseIf (TypeOf NewValue Is System.ValueType) OrElse
           (TypeOf NewValue Is String) OrElse
           (TypeOf NewValue Is DBNull) OrElse
           (TypeOf NewValue Is Missing) OrElse
           (TypeOf NewValue Is System.Array) OrElse
           (TypeOf NewValue Is System.Runtime.InteropServices.CurrencyWrapper) Then
-#Enable Warning BC40000
         Return BindingFlags.PutDispProperty
       End If
       Return BindingFlags.PutRefDispProperty

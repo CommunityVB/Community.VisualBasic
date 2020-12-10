@@ -18,11 +18,14 @@ Namespace Global.Community.VisualBasic.Tests
       End Get
     End Property
 
+#Disable Warning IDE0051 ' Remove unused private members
     Private Shared ReadOnly Property IsNotArmNorArm64NorAlpine As Boolean
       Get
         Return Not IsArmOrArm64OrAlpine
       End Get
     End Property
+#Enable Warning IDE0051 ' Remove unused private members
+
     ' The accuracy to which we can validate some numeric test cases depends on the platform.
 
     Private Shared ReadOnly s_precision As Integer = If(IsArmOrArm64OrAlpine, 12, If((PlatformDetection.IsBrowser OrElse PlatformDetection.IsNetFramework), 14, 15))

@@ -910,14 +910,14 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
       Yield New Object() {New Char() {"8"c}, Nothing, True, False, False}
 
       ' chars.
-      Yield New Object() {New Char() {}, "7", False, False, True}
-      Yield New Object() {New Char() {}, "8", False, False, True}
-      Yield New Object() {New Char() {}, "9", False, False, True}
-      Yield New Object() {New Char() {}, "", False, True, False}
-      Yield New Object() {New Char() {}, New Char() {"7"c}, False, False, True}
-      Yield New Object() {New Char() {}, New Char() {"8"c}, False, False, True}
-      Yield New Object() {New Char() {}, New Char() {"9"c}, False, False, True}
-      Yield New Object() {New Char() {}, Nothing, False, True, False}
+      Yield New Object() {Array.Empty(Of Char)(), "7", False, False, True}
+      Yield New Object() {Array.Empty(Of Char)(), "8", False, False, True}
+      Yield New Object() {Array.Empty(Of Char)(), "9", False, False, True}
+      Yield New Object() {Array.Empty(Of Char)(), "", False, True, False}
+      Yield New Object() {Array.Empty(Of Char)(), New Char() {"7"c}, False, False, True}
+      Yield New Object() {Array.Empty(Of Char)(), New Char() {"8"c}, False, False, True}
+      Yield New Object() {Array.Empty(Of Char)(), New Char() {"9"c}, False, False, True}
+      Yield New Object() {Array.Empty(Of Char)(), Nothing, False, True, False}
 
       ' bool.
       Yield New Object() {True, CByte(7), False, False, True}
@@ -1113,8 +1113,10 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     <Theory>
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub CompareObjectEqual_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
-      Dim temp = greater
-      temp = less
+      Dim temp1 = greater
+      Dim temp2 = less
+      If temp1 OrElse temp2 Then
+      End If
       Assert.Equal(equal, Operators.CompareObjectEqual(left, right, True))
       Assert.Equal(equal, Operators.CompareObjectEqual(left, right, False))
     End Sub
@@ -1154,29 +1156,50 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     End Sub
 
     Public Class CompareObjectEqual
+
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_Equality(left As CompareObjectEqual, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
+
       <SpecialName>
       Public Shared Function op_Equality(left As Integer, right As CompareObjectEqual) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
+
       <SpecialName>
       Public Shared Function op_Equality(left As CompareObjectEqual, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
+
       <SpecialName>
       Public Shared Function op_Equality(left As OperatorsTests, right As CompareObjectEqual) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
+
     End Class
 
     <Theory>
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub CompareObjectGreater_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
-      Dim temp = equal
-      temp = less
+      Dim temp1 = equal
+      Dim temp2 = less
+      If temp1 OrElse temp2 Then
+      End If
       Assert.Equal(greater, Operators.CompareObjectGreater(left, right, True))
       Assert.Equal(greater, Operators.CompareObjectGreater(left, right, False))
     End Sub
@@ -1216,25 +1239,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class CompareObjectGreater
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_GreaterThan(left As CompareObjectGreater, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThan(left As Integer, right As CompareObjectGreater) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThan(left As CompareObjectGreater, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThan(left As OperatorsTests, right As CompareObjectGreater) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -1242,6 +1279,8 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub CompareObjectGreaterEqual_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
       Dim temp = less
+      If temp Then
+      End If
       Assert.Equal(greater OrElse equal, Operators.CompareObjectGreaterEqual(left, right, True))
       Assert.Equal(greater OrElse equal, Operators.CompareObjectGreaterEqual(left, right, False))
     End Sub
@@ -1281,33 +1320,49 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class CompareObjectGreaterEqual
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_GreaterThanOrEqual(left As CompareObjectGreaterEqual, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThanOrEqual(left As Integer, right As CompareObjectGreaterEqual) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThanOrEqual(left As CompareObjectGreaterEqual, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThanOrEqual(left As OperatorsTests, right As CompareObjectGreaterEqual) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
     <Theory>
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub CompareObjectLess_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
-      Dim temp = greater
-      temp = equal
+      Dim temp1 = greater
+      Dim temp2 = equal
+      If temp1 OrElse temp2 Then
+      End If
       Assert.Equal(less, Operators.CompareObjectLess(left, right, True))
       Assert.Equal(less, Operators.CompareObjectLess(left, right, False))
     End Sub
@@ -1347,25 +1402,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class CompareObjectLess
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_LessThan(left As CompareObjectLess, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThan(left As Integer, right As CompareObjectLess) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThan(left As CompareObjectLess, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThan(left As OperatorsTests, right As CompareObjectLess) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -1373,6 +1442,8 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub CompareObjectLessEqual_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
       Dim temp = greater
+      If temp Then
+      End If
       Assert.Equal(less OrElse equal, Operators.CompareObjectLessEqual(left, right, True))
       Assert.Equal(less OrElse equal, Operators.CompareObjectLessEqual(left, right, False))
     End Sub
@@ -1413,33 +1484,49 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class CompareObjectLessEqual
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_LessThanOrEqual(left As CompareObjectLessEqual, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThanOrEqual(left As Integer, right As CompareObjectLessEqual) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThanOrEqual(left As CompareObjectLessEqual, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThanOrEqual(left As OperatorsTests, right As CompareObjectLessEqual) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
     <Theory>
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub CompareObjectNotEqual_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
-      Dim temp = greater
-      temp = less
+      Dim temp1 = greater
+      Dim temp2 = less
+      If temp1 OrElse temp2 Then
+      End If
       Assert.Equal(Not equal, Operators.CompareObjectNotEqual(left, right, True))
       Assert.Equal(Not equal, Operators.CompareObjectNotEqual(left, right, False))
     End Sub
@@ -1479,33 +1566,49 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class CompareObjectNotEqual
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_Inequality(left As CompareObjectNotEqual, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_Inequality(left As Integer, right As CompareObjectNotEqual) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_Inequality(left As CompareObjectNotEqual, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_Inequality(left As OperatorsTests, right As CompareObjectNotEqual) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
     <Theory>
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub ConditionalCompareObjectEqual_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
-      Dim temp = greater
-      temp = less
+      Dim temp1 = greater
+      Dim temp2 = less
+      If temp1 OrElse temp2 Then
+      End If
       Assert.Equal(equal, Operators.ConditionalCompareObjectEqual(left, right, True))
       Assert.Equal(equal, Operators.ConditionalCompareObjectEqual(left, right, False))
     End Sub
@@ -1545,33 +1648,49 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class ConditionalCompareObjectEqual
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_Equality(left As ConditionalCompareObjectEqual, right As Integer) As Boolean
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return True
       End Function
 
       <SpecialName>
       Public Shared Function op_Equality(left As Integer, right As ConditionalCompareObjectEqual) As Boolean
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_Equality(left As ConditionalCompareObjectEqual, right As OperatorsTests) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_Equality(left As OperatorsTests, right As ConditionalCompareObjectEqual) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return True
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
     <Theory>
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub ConditionalCompareObjectGreater_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
-      Dim temp = equal
-      temp = less
+      Dim temp1 = equal
+      Dim temp2 = less
+      If temp1 OrElse temp2 Then
+      End If
       Assert.Equal(greater, Operators.ConditionalCompareObjectGreater(left, right, True))
       Assert.Equal(greater, Operators.ConditionalCompareObjectGreater(left, right, False))
     End Sub
@@ -1612,25 +1731,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class ConditionalCompareObjectGreater
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_GreaterThan(left As ConditionalCompareObjectGreater, right As Integer) As Boolean
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return True
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThan(left As Integer, right As ConditionalCompareObjectGreater) As Boolean
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThan(left As ConditionalCompareObjectGreater, right As OperatorsTests) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThan(left As OperatorsTests, right As ConditionalCompareObjectGreater) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return True
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -1638,6 +1771,8 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub ConditionalCompareObjectGreaterEqual_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
       Dim temp = less
+      If temp Then
+      End If
       Assert.Equal(greater OrElse equal, Operators.ConditionalCompareObjectGreaterEqual(left, right, True))
       Assert.Equal(greater OrElse equal, Operators.ConditionalCompareObjectGreaterEqual(left, right, False))
     End Sub
@@ -1677,33 +1812,49 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class ConditionalCompareObjectGreaterEqual
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_GreaterThanOrEqual(left As ConditionalCompareObjectGreaterEqual, right As Integer) As Boolean
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return True
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThanOrEqual(left As Integer, right As ConditionalCompareObjectGreaterEqual) As Boolean
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThanOrEqual(left As ConditionalCompareObjectGreaterEqual, right As OperatorsTests) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_GreaterThanOrEqual(left As OperatorsTests, right As ConditionalCompareObjectGreaterEqual) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return True
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
     <Theory>
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub ConditionalCompareObjectLess_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
-      Dim temp = greater
-      temp = equal
+      Dim temp1 = greater
+      Dim temp2 = equal
+      If temp1 OrElse temp2 Then
+      End If
       Assert.Equal(less, Operators.ConditionalCompareObjectLess(left, right, True))
       Assert.Equal(less, Operators.ConditionalCompareObjectLess(left, right, False))
     End Sub
@@ -1743,25 +1894,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class ConditionalCompareObjectLess
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_LessThan(left As ConditionalCompareObjectLess, right As Integer) As Boolean
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return True
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThan(left As Integer, right As ConditionalCompareObjectLess) As Boolean
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThan(left As ConditionalCompareObjectLess, right As OperatorsTests) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThan(left As OperatorsTests, right As ConditionalCompareObjectLess) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return True
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -1769,6 +1934,8 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub ConditionalCompareObjectLessEqual_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
       Dim temp = greater
+      If temp Then
+      End If
       Assert.Equal(less OrElse equal, Operators.ConditionalCompareObjectLessEqual(left, right, True))
       Assert.Equal(less OrElse equal, Operators.ConditionalCompareObjectLessEqual(left, right, False))
     End Sub
@@ -1809,33 +1976,49 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class ConditionalCompareObjectLessEqual
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_LessThanOrEqual(left As ConditionalCompareObjectLessEqual, right As Integer) As Boolean
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return True
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThanOrEqual(left As Integer, right As ConditionalCompareObjectLessEqual) As Boolean
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThanOrEqual(left As ConditionalCompareObjectLessEqual, right As OperatorsTests) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_LessThanOrEqual(left As OperatorsTests, right As ConditionalCompareObjectLessEqual) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return True
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
     <Theory>
     <MemberData(NameOf(Compare_Primitives_TestData))>
     Public Sub ConditionalCompareObjectNotEqual_Invoke_ReturnsExpected(left As Object, right As Object, greater As Boolean, equal As Boolean, less As Boolean)
-      Dim temp = greater
-      temp = less
+      Dim temp1 = greater
+      Dim temp2 = less
+      If temp1 OrElse temp2 Then
+      End If
       Assert.Equal(Not equal, Operators.ConditionalCompareObjectNotEqual(left, right, True))
       Assert.Equal(Not equal, Operators.ConditionalCompareObjectNotEqual(left, right, False))
     End Sub
@@ -1875,25 +2058,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class ConditionalCompareObjectNotEqual
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_Inequality(left As ConditionalCompareObjectNotEqual, right As Integer) As Boolean
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return True
       End Function
 
       <SpecialName>
       Public Shared Function op_Inequality(left As Integer, right As ConditionalCompareObjectNotEqual) As Boolean
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_Inequality(left As ConditionalCompareObjectNotEqual, right As OperatorsTests) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return False
       End Function
 
       <SpecialName>
       Public Shared Function op_Inequality(left As OperatorsTests, right As ConditionalCompareObjectNotEqual) As Boolean
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return True
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 

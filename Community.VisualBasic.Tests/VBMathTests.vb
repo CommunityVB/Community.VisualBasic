@@ -16,6 +16,8 @@ Namespace Global.Community.VisualBasic.Tests
 
     ' Reset seed, without access to implementation internals.
 
+#Disable Warning CA1822 ' Mark members as static
+
     Private Sub ResetSeed()
       Dim x As Single = BitConverter.ToSingle(BitConverter.GetBytes(&H8076F5C1UI), 0)
       VBMath.Rnd(x)
@@ -25,6 +27,8 @@ Namespace Global.Community.VisualBasic.Tests
       Dim currentSeed As Single = VBMath.Rnd(0.0F) * period
       Assert.Equal(startupSeed, currentSeed)
     End Sub
+
+#Enable Warning CA1822 ' Mark members as static
 
     <Fact>
     Public Sub Rnd_0_RepeatsPreviousNumber()

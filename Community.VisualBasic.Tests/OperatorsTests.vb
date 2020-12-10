@@ -291,18 +291,30 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     Public Class AddObject
 
       Public Shared Operator +(left As AddObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Operator
 
       Public Shared Operator +(left As Integer, right As AddObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Operator
 
       Public Shared Operator +(left As AddObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Operator
 
       Public Shared Operator +(left As OperatorsTests, right As AddObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Operator
 
@@ -872,18 +884,30 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     Public Class AndObject
 
       Public Shared Operator And(left As AndObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Operator
 
       Public Shared Operator And(left As Integer, right As AndObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Operator
 
       Public Shared Operator And(left As AndObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Operator
 
       Public Shared Operator And(left As OperatorsTests, right As AndObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Operator
 
@@ -1221,25 +1245,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class ConcatenateObject
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_Concatenate(left As ConcatenateObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_Concatenate(left As Integer, right As ConcatenateObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_Concatenate(left As ConcatenateObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_Concatenate(left As OperatorsTests, right As ConcatenateObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -1528,18 +1566,30 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     Public Class DivideObject
 
       Public Shared Operator /(left As DivideObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Operator
 
       Public Shared Operator /(left As Integer, right As DivideObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Operator
 
       Public Shared Operator /(left As DivideObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Operator
 
       Public Shared Operator /(left As OperatorsTests, right As DivideObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Operator
 
@@ -1780,25 +1830,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class ExponentObject
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_Exponent(left As ExponentObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_Exponent(left As Integer, right As ExponentObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_Exponent(left As ExponentObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_Exponent(left As OperatorsTests, right As ExponentObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -2109,25 +2173,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class IntDivideObject
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_IntegerDivision(left As IntDivideObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_IntegerDivision(left As Integer, right As IntDivideObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_IntegerDivision(left As IntDivideObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_IntegerDivision(left As OperatorsTests, right As IntDivideObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -2399,25 +2477,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class LeftShiftObject
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_LeftShift(left As LeftShiftObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_LeftShift(left As Integer, right As LeftShiftObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_LeftShift(left As LeftShiftObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_LeftShift(left As OperatorsTests, right As LeftShiftObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -2731,18 +2823,30 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     Public Class MultiplyObject
 
       Public Shared Operator *(left As MultiplyObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Operator
 
       Public Shared Operator *(left As Integer, right As MultiplyObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Operator
 
       Public Shared Operator *(left As MultiplyObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Operator
 
       Public Shared Operator *(left As OperatorsTests, right As MultiplyObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Operator
 
@@ -3405,25 +3509,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class ModObject
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_Modulus(left As ModObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_Modulus(left As Integer, right As ModObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_Modulus(left As ModObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_Modulus(left As OperatorsTests, right As ModObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -3528,10 +3646,14 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class NegateObject
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_UnaryNegation(value As NegateObject) As String
+        If value IsNot Nothing Then
+        End If
         Return "custom"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -3644,10 +3766,14 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     End Sub
 
     Public Class NotObject
+
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_OnesComplement(value As NotObject) As String
         Return "custom"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
+
     End Class
 
     Public Shared Iterator Function OrObject_TestData() As IEnumerable(Of Object())
@@ -4223,18 +4349,30 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     Public Class OrObject
 
       Public Shared Operator Or(left As OrObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Operator
 
       Public Shared Operator Or(left As Integer, right As OrObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Operator
 
       Public Shared Operator Or(left As OrObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Operator
 
       Public Shared Operator Or(left As OperatorsTests, right As OrObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Operator
 
@@ -4321,6 +4459,8 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class PlusObject
       Public Shared Operator +(o As PlusObject) As String
+        If o IsNot Nothing Then
+        End If
         Return "custom"
       End Operator
     End Class
@@ -4592,25 +4732,39 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Public Class RightShiftObject
 
+#Disable Warning IDE1006 ' Naming Styles
       <SpecialName>
       Public Shared Function op_RightShift(left As RightShiftObject, right As Integer) As String
+        If left IsNot Nothing AndAlso
+           right <> 0 Then
+        End If
         Return "custom"
       End Function
 
       <SpecialName>
       Public Shared Function op_RightShift(left As Integer, right As RightShiftObject) As String
+        If left <> 0 AndAlso
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Function
 
       <SpecialName>
       Public Shared Function op_RightShift(left As RightShiftObject, right As OperatorsTests) As String
+        If left IsNot Nothing AndAlso
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Function
 
       <SpecialName>
       Public Shared Function op_RightShift(left As OperatorsTests, right As RightShiftObject) As String
+        If left IsNot Nothing AndAlso
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Function
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
@@ -4911,18 +5065,30 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     Public Class SubtractObject
 
       Public Shared Operator -(left As SubtractObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Operator
 
       Public Shared Operator -(left As Integer, right As SubtractObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Operator
 
       Public Shared Operator -(left As SubtractObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Operator
 
       Public Shared Operator -(left As OperatorsTests, right As SubtractObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Operator
 
@@ -5492,18 +5658,30 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     Public Class XorObject
 
       Public Shared Operator Xor(left As XorObject, right As Integer) As String
+        If left IsNot Nothing OrElse
+           right <> 0 Then
+        End If
         Return "custom"
       End Operator
 
       Public Shared Operator Xor(left As Integer, right As XorObject) As String
+        If left <> 0 OrElse
+           right IsNot Nothing Then
+        End If
         Return "motsuc"
       End Operator
 
       Public Shared Operator Xor(left As XorObject, right As OperatorsTests) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "customobject"
       End Operator
 
       Public Shared Operator Xor(left As OperatorsTests, right As XorObject) As String
+        If left IsNot Nothing OrElse
+           right IsNot Nothing Then
+        End If
         Return "tcejbomotsuc"
       End Operator
 

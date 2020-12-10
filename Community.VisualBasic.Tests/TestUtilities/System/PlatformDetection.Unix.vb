@@ -405,6 +405,8 @@ Namespace Global.Community
 
     Private NotInheritable Class Libc
 
+#Disable Warning IDE1006 ' Naming Styles
+
       <DllImport("libc", SetLastError:=True)>
       Public Shared Function geteuid() As UInteger
       End Function
@@ -418,6 +420,8 @@ Namespace Global.Community
       <DllImport("libc", CharSet:=CharSet.Ansi, CallingConvention:=CallingConvention.Cdecl)>
       Public Shared Function gnu_get_libc_version() As IntPtr
       End Function
+
+#Enable Warning IDE1006 ' Naming Styles
 
     End Class
 
