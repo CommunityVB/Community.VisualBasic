@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ConsoleTestApp</RootNamespace>
+    <TargetFramework>net5.0</TargetFramework>
+	  <PackageId>ConsoleTestTestPackage</PackageId>
+	  <Authors>ConsoleTestAuthors</Authors>
+	  <Company>ConsoleTestCompany</Company>
+	  <Product>ConsoleTestProduct</Product>
+	  <Description>ConsoleTest Description</Description>
+	  <Copyright>(c) 2099, ConsoleTest</Copyright>
+	  <Version>1.2.4</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard2_0\netstandard2_0.vbproj" />
+    <ProjectReference Include="..\..\Community.VisualBasic\Community.VisualBasic.vbproj" />
+  </ItemGroup>
+
+</Project>

@@ -3,7 +3,7 @@
 
 Option Compare Text
 Option Explicit On
-Option Infer Off
+Option Infer On
 Option Strict On
 
 Imports System.Collections.Generic
@@ -87,10 +87,11 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     End Class
 
     Public Shared Iterator Function LateCall_OptionalValues_Data() As IEnumerable(Of Object())
-      ' TODO Check: Local function was replaced with Lambda
-      Dim CreateData As Func(Of String, Object(), Type(), String, Object()) = Function(memberName As String, arguments As Object(), typeArguments As Type(), expectedValue As String) As Object()
-                                                                                Return New Object() {memberName, arguments, typeArguments, expectedValue}
-                                                                              End Function
+
+      Dim CreateData = Function(memberName As String, arguments As Object(), typeArguments As Type(), expectedValue As String) As Object()
+                         Return New Object() {memberName, arguments, typeArguments, expectedValue}
+                       End Function
+
       ' If System.Type.Missing is used for a parameter with type parameter type,
       ' System.Reflection.Missing is used in type inference. This matches .NET Framework behavior.
 
@@ -141,15 +142,14 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
       ' NewLateBinding.LateCall() corresponds to a call to the member when using late binding:
       '   Dim instance = New OptionalValuesType()
       '   instance.Member(arguments)
-      Dim actualValue As Object = NewLateBinding.LateCall(
-          Instance:=New OptionalValuesType,
-          Type:=Nothing,
-          MemberName:=memberName,
-          Arguments:=arguments,
-          ArgumentNames:=Nothing,
-          TypeArguments:=typeArguments,
-          CopyBack:=Nothing,
-          IgnoreReturn:=True)
+      Dim actualValue = NewLateBinding.LateCall(Instance:=New OptionalValuesType,
+                                                Type:=Nothing,
+                                                MemberName:=memberName,
+                                                Arguments:=arguments,
+                                                ArgumentNames:=Nothing,
+                                                TypeArguments:=typeArguments,
+                                                CopyBack:=Nothing,
+                                                IgnoreReturn:=True)
       Assert.Equal(expectedValue, actualValue)
     End Sub
 

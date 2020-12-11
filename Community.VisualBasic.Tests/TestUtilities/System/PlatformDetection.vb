@@ -238,7 +238,11 @@ Namespace Global.Community
       End Get
     End Property
 #Else
-        public static bool IsReflectionEmitSupported => true;
+    Public ReadOnly Property IsReflectionEmitSupported As Boolean
+      Get
+        Return True
+      End Get
+    End Property
 #End If
 
     Public ReadOnly Property IsInvokingStaticConstructorsSupported As Boolean
@@ -432,7 +436,7 @@ Namespace Global.Community
         If interopGlobalization IsNot Nothing Then
           Dim methodInfo1 As MethodInfo = interopGlobalization.GetMethod("GetICUVersion", BindingFlags.NonPublic Or BindingFlags.[Static])
           If methodInfo1 IsNot Nothing Then
-            version1 = CInt(Fix(methodInfo1.Invoke(Nothing, Nothing)))
+            version1 = CInt(Community.VisualBasic.Fix(methodInfo1.Invoke(Nothing, Nothing)))
           End If
         End If
       Catch
@@ -491,7 +495,7 @@ Namespace Global.Community
     Private Function OpenSslGetTlsSupport(protocol As SslProtocols) As Boolean
       Debug.Assert(IsOpenSslSupported)
 
-      Dim ret As Integer = Interop.OpenSsl.OpenSslGetProtocolSupport(CInt(Fix(protocol)))
+      Dim ret As Integer = Interop.OpenSsl.OpenSslGetProtocolSupport(CInt(Community.VisualBasic.Fix(protocol)))
       Return ret = 1
     End Function
 

@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Community.VisualBasic\Community.VisualBasic\Community.VisualBasic.vbproj" />
+    <ProjectReference Include="..\Community.VisualBasic\Community.VisualBasic.vbproj" />
   </ItemGroup>
 
 </Project>

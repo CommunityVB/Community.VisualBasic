@@ -116,6 +116,8 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
       Next
     End Sub
 
+#If TARGET_WINDOWS Then
+
     '<ConditionalFact(NameOf(ManualTestsEnabled))>
     '<PlatformSpecific(TestPlatforms.Windows)>
     <Fact>
@@ -134,6 +136,8 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
         Assert.[True](HasExpectedData(CurrentFile, If(CurrentFile.EndsWith("0"), DestData, SourceData)))
       Next
     End Sub
+
+#End If
 
     '<PlatformSpecific(TestPlatforms.AnyUnix)>
     <Fact>
@@ -204,6 +208,8 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
 
     End Sub
 
+#If TARGET_WINDOWS Then
+
     '<ConditionalFact(NameOf(ManualTestsEnabled))>
     '<PlatformSpecific(TestPlatforms.Windows)>
     <Fact>
@@ -240,6 +246,8 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
       Assert.[True](HasExpectedData(testFileDest, SourceData))
 
     End Sub
+
+#End If
 
     <Fact>
     Public Sub CreateDirectory_Directory()
@@ -326,6 +334,8 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
 
     End Sub
 
+#If TARGET_WINDOWS Then
+
     '<ConditionalFact(NameOf(ManualTestsEnabled))>
     '<PlatformSpecific(TestPlatforms.Windows)>
     <Fact>
@@ -359,6 +369,8 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
       Assert.[True](IO.File.Exists(testFileSource))
 
     End Sub
+
+#End If
 
     <Fact>
     Public Sub DeleteFile_File()
@@ -581,6 +593,8 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
       IO.File.Delete(TempFile)
     End Sub
 
+#If TARGET_WINDOWS Then
+
     '<ConditionalFact(NameOf(ManualTestsEnabled))>
     '<PlatformSpecific(TestPlatforms.Windows)>
     <Fact>
@@ -606,6 +620,8 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
         Assert.[True](HasExpectedData(CurrentFile, If(CurrentFile.EndsWith("0"), DestData, SourceData)))
       Next
     End Sub
+
+#End If
 
     <Fact>
     Public Sub MoveDirectory_SourceDirectoryName_DestinationDirectoryName()
@@ -731,6 +747,8 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
       Assert.[True](HasExpectedData(SourceFileNameWithPath, SourceData))
     End Sub
 
+#If TARGET_WINDOWS Then
+
     '<ConditionalFact(NameOf(ManualTestsEnabled))>
     '<PlatformSpecific(TestPlatforms.Windows)>
     <Fact>
@@ -748,6 +766,8 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
       Assert.[True](HasExpectedData(DestinationFileNameWithPath, DestData))
       Assert.[True](IO.File.Exists(SourceFileNameWithPath))
     End Sub
+
+#End If
 
     ' Not tested:
     '   public Microsoft.VisualBasic.FileIO.TextFieldParser OpenTextFieldParser(string file) { throw null; }

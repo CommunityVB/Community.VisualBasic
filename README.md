@@ -20,12 +20,15 @@ As you may have noticed, this project is not a direct fork of [Microsoft.VisualB
 
 The overall goal, at this stage, is to create a pretty complete implementation of the original [Microsoft.VisualBasic](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.VisualBasic.Core) namespace that works in .netstandard 2.x and, as much as possible, within a Console application running on Debian Linux.  I make sure to use the term *namespace* as *assembly*/*project* are probably a bit misleading given that functionality for this *namespace* appears to be implemented in at least three different projects (roslyn, dotnet and winforms).  Where possible, will try to implement everything that isn't on the following list:
 
-- My.Services
+- My.Computer.Keyboard.*
+- My.Computer.Mouse.*
+- My.Computer.Screen.*
+- My.Computer.Clipboard.*
+- My.Computer.Registry.*
 - My.Forms
 - MsgBox()
-- *TBD*
 
-Currently the above list is more of an example... will update the list as we progress forward.
+The above list is what I am currently aware of (off the top of my head) regarding functionality that is either very Windows specific (or more appropriately, WinForms specific).  Will evaluate implementing the above functionality where possible as we progress forward.
 
 ## Ideas / Thoughts for moving forward...
 
