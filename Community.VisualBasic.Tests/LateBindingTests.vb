@@ -17,7 +17,7 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     <MemberData(NameOf(LateCall_TestData))>
     Public Sub LateCall(obj As Object, objType As Type, name As String, args As Object(), paramNames As String(), copyBack As Boolean(), getResult As Func(Of Object, Object), expected As Object)
       LateBinding.LateCall(obj, objType, name, args, paramNames, copyBack)
-      Assert.Equal(expected, getResult(obj)())
+      Assert.Equal(expected, getResult(obj))
     End Sub
 
     <Theory>
@@ -30,7 +30,7 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     <MemberData(NameOf(LateSet_TestData))>
     Public Sub LateSet(obj As Object, objType As Type, name As String, args As Object(), paramNames As String(), getResult As Func(Of Object, Object), expected As Object)
       LateBinding.LateSet(obj, objType, name, args, paramNames)
-      Assert.Equal(expected, getResult(obj)())
+      Assert.Equal(expected, getResult(obj))
     End Sub
 
     <Theory>
@@ -64,7 +64,7 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
     <MemberData(NameOf(LateIndexSet_TestData))>
     Public Sub LateIndexSet(obj As Object, args As Object(), paramNames As String(), getResult As Func(Of Object, Object), expected As Object)
       LateBinding.LateIndexSet(obj, args, paramNames)
-      Assert.Equal(expected, getResult(obj)())
+      Assert.Equal(expected, getResult(obj))
     End Sub
 
     <Theory>
@@ -238,14 +238,23 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
 
     Private Structure InstanceStruct
 
-      Public Value As Integer
+      Private m_value As Integer
+
+      Public Property Value As Integer
+        Get
+          Return m_value
+        End Get
+        Set(value1 As Integer)
+          m_value = value1
+        End Set
+      End Property
 
       Public Property P As Integer
         Get
           Return Value
         End Get
-        Set(value As Integer)
-          Me.Value = value
+        Set(value1 As Integer)
+          Value = value1
         End Set
       End Property
 
@@ -269,8 +278,8 @@ Namespace Global.Community.VisualBasic.CompilerServices.Tests
         Get
           Return CInt(Fix(x)) + CInt(Fix(y))
         End Get
-        Set(Value As Integer)
-          Me.Value = CInt(Fix(x)) + CInt(Fix(y)) + Value
+        Set(value1 As Integer)
+          Value = CInt(Fix(x)) + CInt(Fix(y)) + value1
         End Set
       End Property
 

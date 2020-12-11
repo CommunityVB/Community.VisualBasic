@@ -18,20 +18,20 @@ Namespace Global.Community.VisualBasic.CompilerServices
   ' Implements VB late binder.
   <ComponentModel.EditorBrowsable(ComponentModel.EditorBrowsableState.Never)>
   Public NotInheritable Class NewLateBinding
+
     ' Prevent creation.
     Private Sub New()
     End Sub
 
     <DebuggerHiddenAttribute()> <DebuggerStepThroughAttribute()>
-    Public Shared Function LateCall(
-Instance As Object,
-Type As System.Type,
-MemberName As String,
-Arguments As Object(),
-ArgumentNames As String(),
-TypeArguments As System.Type(),
-CopyBack As Boolean(),
-IgnoreReturn As Boolean) As Object
+    Public Shared Function LateCall(Instance As Object,
+                                    Type As System.Type,
+                                    MemberName As String,
+                                    Arguments As Object(),
+                                    ArgumentNames As String(),
+                                    TypeArguments As System.Type(),
+                                    CopyBack As Boolean(),
+                                    IgnoreReturn As Boolean) As Object
 
       If Arguments Is Nothing Then Arguments = NoArguments
       If ArgumentNames Is Nothing Then ArgumentNames = NoArgumentNames
@@ -57,27 +57,25 @@ IgnoreReturn As Boolean) As Object
     <Obsolete("do not use this method", True)>
     <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)>
     <DebuggerHiddenAttribute()> <DebuggerStepThroughAttribute()>
-    Public Shared Function FallbackCall(
-Instance As Object,
-MemberName As String,
-Arguments As Object(),
-ArgumentNames As String(),
-IgnoreReturn As Boolean) As Object
+    Public Shared Function FallbackCall(Instance As Object,
+                                        MemberName As String,
+                                        Arguments As Object(),
+                                        ArgumentNames As String(),
+                                        IgnoreReturn As Boolean) As Object
 
-      Return ObjectLateCall(Instance, Nothing, MemberName, Arguments,
-          ArgumentNames, NoTypeArguments, IDOBinder.GetCopyBack(), IgnoreReturn)
+      Return ObjectLateCall(Instance, Nothing, MemberName, Arguments, ArgumentNames, NoTypeArguments, IDOBinder.GetCopyBack(), IgnoreReturn)
+
     End Function
 
     <DebuggerHiddenAttribute()> <DebuggerStepThroughAttribute()>
-    Private Shared Function ObjectLateCall(
-instance As Object,
-type As System.Type,
-memberName As String,
-arguments As Object(),
-argumentNames As String(),
-typeArguments As System.Type(),
-copyBack As Boolean(),
-ignoreReturn As Boolean) As Object
+    Private Shared Function ObjectLateCall(instance As Object,
+                                           type As System.Type,
+                                           memberName As String,
+                                           arguments As Object(),
+                                           argumentNames As String(),
+                                           typeArguments As System.Type(),
+                                           copyBack As Boolean(),
+                                           ignoreReturn As Boolean) As Object
 
       Dim baseReference As Container
       If type IsNot Nothing Then
@@ -91,20 +89,21 @@ ignoreReturn As Boolean) As Object
 
       Dim failure As ResolutionFailure
 
-      Return CallMethod(
-                 baseReference,
-                 memberName,
-                 arguments,
-                 argumentNames,
-                 typeArguments,
-                 copyBack,
-                 invocationFlags,
-                 True,
-                 failure)
+      Return CallMethod(baseReference,
+                        memberName,
+                        arguments,
+                        argumentNames,
+                        typeArguments,
+                        copyBack,
+                        invocationFlags,
+                        True,
+                        failure)
+
     End Function
 
     'Quick check to determine if FallbackCall will succeed
     Friend Shared Function CanBindCall(instance As Object, memberName As String, arguments As Object(), argumentNames As String(), ignoreReturn As Boolean) As Boolean
+
       Dim baseReference As New Container(instance)
       Dim invocationFlags As BindingFlags = BindingFlagsInvokeMethod Or BindingFlagsGetProperty
       If ignoreReturn Then invocationFlags = invocationFlags Or BindingFlagsIgnoreReturn
@@ -128,6 +127,7 @@ ignoreReturn As Boolean) As Object
               failure)
 
       Return failure = ResolutionFailure.None
+
     End Function
 
     ' LateCallInvokeDefault is used to optionally invoke the default action on a call target.
@@ -799,17 +799,15 @@ RValueBase As Boolean)
     <Obsolete("do not use this method", True)>
     <System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)>
     <DebuggerHiddenAttribute(), DebuggerStepThroughAttribute()>
-    Public Shared Sub FallbackSetComplex(
-Instance As Object,
-MemberName As String,
-Arguments() As Object,
-OptimisticSet As Boolean,
-RValueBase As Boolean)
+    Public Shared Sub FallbackSetComplex(Instance As Object,
+                                         MemberName As String,
+                                         Arguments() As Object,
+                                         OptimisticSet As Boolean,
+                                         RValueBase As Boolean)
 
-      ObjectLateSetComplex(
-          Instance, Nothing, MemberName, Arguments, Array.Empty(Of String)(),
-          NoTypeArguments, OptimisticSet, RValueBase)
-    End Sub 'FallbackSetComplex
+      ObjectLateSetComplex(Instance, Nothing, MemberName, Arguments, Array.Empty(Of String)(), NoTypeArguments, OptimisticSet, RValueBase)
+
+    End Sub
 
     <DebuggerHiddenAttribute(), DebuggerStepThroughAttribute()>
     Friend Shared Sub ObjectLateSetComplex(

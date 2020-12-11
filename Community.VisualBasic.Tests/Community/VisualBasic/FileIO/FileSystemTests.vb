@@ -717,15 +717,14 @@ Namespace Global.Community.VisualBasic.FileIO.Tests
 
     <Fact>
     Public Sub MoveFile_SourceFileName_DestinationFileName_OverwriteTrue()
-      Dim SourceFileNameWithPath As String = CreateTestFile(SourceData, TestFileName:=GetTestFileName())
-      Dim DestinationFileNameWithPath As String = IO.Path.Combine(TestDirectory, "NewName")
+      Dim SourceFileNameWithPath = CreateTestFile(SourceData, TestFileName:=GetTestFileName())
+      Dim DestinationFileNameWithPath = IO.Path.Combine(TestDirectory, "NewName")
       FileIO.FileSystem.MoveFile(SourceFileNameWithPath, DestinationFileNameWithPath, overwrite:=True)
       Assert.[False](IO.File.Exists(SourceFileNameWithPath))
       Assert.[True](IO.File.Exists(DestinationFileNameWithPath))
       Assert.[True](HasExpectedData(DestinationFileNameWithPath, SourceData))
-      ' TODO: Check, VB does not directly support MemberAccess off a Conditional If Expression
-      Dim tempVar1 = New IO.FileInfo(SourceFileNameWithPath)
-      CreateTestFile(DestData, PathFromBase:=Nothing, TestFileName:=tempVar1.Name)
+      'CreateTestFile(DestData, PathFromBase: null, TestFileName: (new System.IO.FileInfo(SourceFileNameWithPath)).Name);
+      CreateTestFile(DestData, (New IO.FileInfo(SourceFileNameWithPath)).Name, Nothing)
       FileIO.FileSystem.MoveFile(sourceFileName:=DestinationFileNameWithPath, destinationFileName:=SourceFileNameWithPath, overwrite:=True)
       Assert.[True](IO.File.Exists(SourceFileNameWithPath))
       Assert.[False](IO.File.Exists(DestinationFileNameWithPath))

@@ -129,7 +129,7 @@ Namespace Global.Community.VisualBasic
     Public Function LBound(Array As System.Array, Optional Rank As Integer = 1) As Integer
 
       If (Array Is Nothing) Then
-        Throw VbMakeException(New ArgumentNullException(NameOf(Array)), vbErrors.OutOfBounds)
+        Throw VbMakeException(New ArgumentNullException(NameOf(Array)), VbErrors.OutOfBounds)
 
       ElseIf (Rank < 1) OrElse (Rank > Array.Rank) Then
         Throw New RankException(SR.Format(SR.Argument_InvalidRank1, NameOf(Rank)))
@@ -143,7 +143,7 @@ Namespace Global.Community.VisualBasic
     Public Function UBound(Array As System.Array, Optional Rank As Integer = 1) As Integer
 
       If (Array Is Nothing) Then
-        Throw VbMakeException(New ArgumentNullException(NameOf(Array)), vbErrors.OutOfBounds)
+        Throw VbMakeException(New ArgumentNullException(NameOf(Array)), VbErrors.OutOfBounds)
 
       ElseIf (Rank < 1) OrElse (Rank > Array.Rank) Then
         Throw New RankException(SR.Format(SR.Argument_InvalidRank1, NameOf(Rank)))
@@ -154,66 +154,66 @@ Namespace Global.Community.VisualBasic
 
     End Function
 
-#If WINDOWS Then
     Friend Function TypeNameOfCOMObject(VarName As Object, bThrowException As Boolean) As String
 
       Dim Result As String = COMObjectName
 
-#If TARGET_WINDOWS Then
-            Dim pTypeInfo As UnsafeNativeMethods.ITypeInfo = Nothing
-            Dim hr As Integer
-            Dim ClassName As String = Nothing
-            Dim DocString As String = Nothing
-            Dim HelpContext As Integer
-            Dim HelpFile As String = Nothing
+      If OperatingSystem.IsWindows Then
 
+        Dim pTypeInfo As UnsafeNativeMethods.ITypeInfo = Nothing
+        Dim hr As Integer
+        Dim ClassName As String = Nothing
+        Dim DocString As String = Nothing
+        Dim HelpContext As Integer
+        Dim HelpFile As String = Nothing
 
-            Do
-                Dim pProvideClassInfo As UnsafeNativeMethods.IProvideClassInfo = TryCast(VarName, UnsafeNativeMethods.IProvideClassInfo)
+        Do
 
-                If pProvideClassInfo IsNot Nothing Then
-                    Try
-                        pTypeInfo = pProvideClassInfo.GetClassInfo()
-                        hr = pTypeInfo.GetDocumentation(-1, ClassName, DocString, HelpContext, HelpFile)
-                        If hr >= 0 Then
-                            Result = ClassName
-                            Exit Do
-                        End If
-                        pTypeInfo = Nothing
-                    Catch ex As StackOverflowException
-                        Throw ex
-                    Catch ex As OutOfMemoryException
-                        Throw ex
-                    Catch
-                        'Ignore the error
-                    End Try
-                End If
+          Dim pProvideClassInfo As UnsafeNativeMethods.IProvideClassInfo = TryCast(VarName, UnsafeNativeMethods.IProvideClassInfo)
 
-                Dim pDispatch As UnsafeNativeMethods.IDispatch = TryCast(VarName, UnsafeNativeMethods.IDispatch)
+          If pProvideClassInfo IsNot Nothing Then
+            Try
+              pTypeInfo = pProvideClassInfo.GetClassInfo()
+              hr = pTypeInfo.GetDocumentation(-1, ClassName, DocString, HelpContext, HelpFile)
+              If hr >= 0 Then
+                Result = ClassName
+                Exit Do
+              End If
+              pTypeInfo = Nothing
+            Catch ex As StackOverflowException
+              Throw ex
+            Catch ex As OutOfMemoryException
+              Throw ex
+            Catch
+              'Ignore the error
+            End Try
+          End If
 
-                If pDispatch IsNot Nothing Then
-                    ' Try using IDispatch 
-                    hr = pDispatch.GetTypeInfo(0, UnsafeNativeMethods.LCID_US_ENGLISH, pTypeInfo)
-                    If hr >= 0 Then
-                        hr = pTypeInfo.GetDocumentation(-1, ClassName, DocString, HelpContext, HelpFile)
-                        If hr >= 0 Then
-                            Result = ClassName
-                            Exit Do
-                        End If
-                    End If
-                End If
+          Dim pDispatch As UnsafeNativeMethods.IDispatch = TryCast(VarName, UnsafeNativeMethods.IDispatch)
 
-            Loop While (False)
-#End If
+          If pDispatch IsNot Nothing Then
+            ' Try using IDispatch 
+            hr = pDispatch.GetTypeInfo(0, UnsafeNativeMethods.LCID_US_ENGLISH, pTypeInfo)
+            If hr >= 0 Then
+              hr = pTypeInfo.GetDocumentation(-1, ClassName, DocString, HelpContext, HelpFile)
+              If hr >= 0 Then
+                Result = ClassName
+                Exit Do
+              End If
+            End If
+          End If
 
+        Loop While (False)
+
+      End If
 
       If Result.Chars(0) = "_"c Then
         Result = Result.Substring(1)
       End If
 
       Return Result
+
     End Function
-#End If
 
     Public Function QBColor(Color As Integer) As Integer
       If (Color And &HFFF0I) <> 0 Then
@@ -556,32 +556,35 @@ UnmangleName:
 
       Dim Result As String = COMObjectName
 
-#If TARGET_WINDOWS Then
-            Dim pTypeInfo As UnsafeNativeMethods.ITypeInfo = Nothing
-            Dim hr As Integer
-            Dim ClassName As String = Nothing
-            Dim DocString As String = Nothing
-            Dim HelpContext As Integer
-            Dim HelpFile As String = Nothing
+      If OperatingSystem.IsWindows Then
 
-            Dim pDispatch As UnsafeNativeMethods.IDispatch = TryCast(VarName, UnsafeNativeMethods.IDispatch)
+        Dim pTypeInfo As UnsafeNativeMethods.ITypeInfo = Nothing
+        Dim hr As Integer
+        Dim ClassName As String = Nothing
+        Dim DocString As String = Nothing
+        Dim HelpContext As Integer
+        Dim HelpFile As String = Nothing
 
-            If pDispatch IsNot Nothing Then
-                hr = pDispatch.GetTypeInfo(0, UnsafeNativeMethods.LCID_US_ENGLISH, pTypeInfo)
-                If hr >= 0 Then
-                    hr = pTypeInfo.GetDocumentation(-1, ClassName, DocString, HelpContext, HelpFile)
-                    If hr >= 0 Then
-                        Result = ClassName
-                    End If
-                End If
+        Dim pDispatch As UnsafeNativeMethods.IDispatch = TryCast(VarName, UnsafeNativeMethods.IDispatch)
+
+        If pDispatch IsNot Nothing Then
+          hr = pDispatch.GetTypeInfo(0, UnsafeNativeMethods.LCID_US_ENGLISH, pTypeInfo)
+          If hr >= 0 Then
+            hr = pTypeInfo.GetDocumentation(-1, ClassName, DocString, HelpContext, HelpFile)
+            If hr >= 0 Then
+              Result = ClassName
             End If
-#End If
+          End If
+        End If
+
+      End If
 
       If Result.Chars(0) = "_"c Then
         Result = Result.Substring(1)
       End If
 
       Return Result
+
     End Function
 
   End Module

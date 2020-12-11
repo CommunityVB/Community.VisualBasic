@@ -680,28 +680,34 @@ UseCallType As CallType)
     End Function
 
     <DebuggerHiddenAttribute(), DebuggerStepThroughAttribute()>
-    Public Shared Sub LateIndexSetComplex(o As Object, args() As Object, paramnames() As String,
-OptimisticSet As Boolean, RValueBase As Boolean)
+    Public Shared Sub LateIndexSetComplex(o As Object,
+                                          args() As Object,
+                                          paramnames() As String,
+                                          OptimisticSet As Boolean,
+                                          RValueBase As Boolean)
 
       Try
+
         LateIndexSet(o, args, paramnames)
 
         If RValueBase AndAlso o.GetType().IsValueType Then
           Throw New Exception(SR.Format(SR.RValueBaseForValueType, o.GetType().Name, o.GetType().Name))
         End If
+
       Catch ex As System.MissingMemberException When OptimisticSet = True
         'A missing member exception means it has no Set member.  Silently handle the exception.
       End Try
+
     End Sub
 
-    <DebuggerHiddenAttribute(), DebuggerStepThroughAttribute()>
+    '<DebuggerHiddenAttribute(), DebuggerStepThroughAttribute()>
     Public Shared Sub LateIndexSet(o As Object, args() As Object, paramnames() As String)
 
       Dim objType As Type
       Dim DefaultName As String = Nothing
 
       If o Is Nothing Then
-        Throw VbMakeException(vbErrors.ObjNotSet)
+        Throw VbMakeException(VbErrors.ObjNotSet)
       End If
 
       objType = o.GetType()
@@ -726,6 +732,7 @@ OptimisticSet As Boolean, RValueBase As Boolean)
 
         NewValue = args(ArgCount)
         If NewValue IsNot Nothing Then
+
           Dim elemType As Type
           elemType = objType.GetElementType()
 
@@ -733,6 +740,7 @@ OptimisticSet As Boolean, RValueBase As Boolean)
           If NewValue.GetType() IsNot elemType Then
             NewValue = ObjectType.CTypeHelper(NewValue, elemType)
           End If
+
         End If
 
         'Check for valid dimensions
@@ -747,17 +755,21 @@ OptimisticSet As Boolean, RValueBase As Boolean)
           ary.SetValue(NewValue, CInt(args(0)), CInt(args(1)))
 
         Else
+
           Dim IndexArray() As Integer
           Dim ArgIndex As Integer
           ReDim IndexArray(ArgCount - 1)
 
           For ArgIndex = 0 To ArgCount - 1
             IndexArray(ArgIndex) = CInt(args(ArgIndex))
-          Next ArgIndex
+          Next
 
           ary.SetValue(NewValue, IndexArray)
+
         End If
+
       Else
+
         Dim flags As BindingFlags
         Dim member As MemberInfo
         Dim members As MemberInfo()
@@ -771,10 +783,12 @@ OptimisticSet As Boolean, RValueBase As Boolean)
                 BindingFlags.Public
 
         If objType.IsCOMObject() Then
+
           CheckForClassExtendingCOMClass(objType)
           flags = flags Or GetPropertyPutFlags(args(args.GetUpperBound(0)))
 
         Else
+
           flags = flags Or BindingFlags.SetProperty
           If (args.Length = 1) Then
             flags = flags Or BindingFlags.SetField
@@ -816,15 +830,18 @@ OptimisticSet As Boolean, RValueBase As Boolean)
               ' report a bug to the CLR.
               Debug.Assert(False)
             End Try
-          Next i
+          Next
+
         End If
 
         Dim binder As VBBinder
         binder = New VBBinder(Nothing)
         Try
+
           If objType.IsCOMObject Then
             binder.InvokeMember("", flags, objType, objIReflect, o, args, paramnames)
           Else
+
             Dim state As Object = Nothing
             Dim method As MethodBase
 
@@ -857,13 +874,16 @@ OptimisticSet As Boolean, RValueBase As Boolean)
           End If
 
         Catch ex As Exception When IsMissingMemberException(ex)
+
           'Override the message so that we're consistent with above Throw
           Throw New MissingMemberException(SR.Format(SR.MissingMember_NoDefaultMemberFound1, VBFriendlyName(objType, o)))
 
         Catch ex As TargetInvocationException
           Throw ex.InnerException
         End Try
+
       End If
+
     End Sub
 
     Private Shared Function GetPropertyPutFlags(NewValue As Object) As BindingFlags

@@ -19,7 +19,7 @@ Namespace Global.Community.VisualBasic.Tests
     Public Sub CallByName(instance As Object, methodName As String, useCallType As CallType, args As Object(), getResult As Func(Of Object, Object), expected As Object)
       Assert.Equal(If(getResult Is Nothing, expected, Nothing), Versioned.CallByName(instance, methodName, useCallType, args))
       If getResult IsNot Nothing Then
-        Assert.Equal(expected, getResult(instance)())
+        Assert.Equal(expected, getResult(instance))
       End If
     End Sub
 

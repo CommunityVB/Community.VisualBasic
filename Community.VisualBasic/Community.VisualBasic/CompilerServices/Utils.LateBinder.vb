@@ -57,7 +57,7 @@ Namespace Global.Community.VisualBasic.CompilerServices
       Return name
     End Function
 
-    Friend Shared Function GetResourceString(ResourceId As vbErrors) As String
+    Friend Shared Function GetResourceString(ResourceId As VbErrors) As String
       Dim id As String = "ID" & CStr(ResourceId)
       Return SR.GetResourceString(id, id)
     End Function
@@ -348,15 +348,17 @@ GetSpecialValue:
     End Function
 
     Friend Shared Function VBFriendlyName(typ As System.Type, o As Object) As String
+
       If typ.IsCOMObject AndAlso (typ.FullName = "System.__ComObject") Then
-#If WINDOWS Then
-        Return TypeNameOfCOMObject(o, False)
-#Else
-        Throw New PlatformNotSupportedException
-#End If
+        If OperatingSystem.IsWindows Then
+          Return TypeNameOfCOMObject(o, False)
+        Else
+          Throw New PlatformNotSupportedException
+        End If
       End If
 
       Return VBFriendlyNameOfType(typ)
+
     End Function
 
     Friend Shared Function VBFriendlyNameOfType(typ As System.Type, Optional fullName As Boolean = False) As String

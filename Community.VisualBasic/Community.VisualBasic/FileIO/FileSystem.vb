@@ -1157,13 +1157,18 @@ overwrite As Boolean, showUI As UIOptionInternal, onUserCancel As UICancelOption
                         Catch
                             Throw
                         End Try
+#Else
+            ' IO.File.Delete will not throw if destinationFileFullPath does not exist
+            ' (user may not have permission to discover this, but have permission to overwrite),
+            ' so always delete the destination.
+            IO.File.Delete(destinationFileFullPath)
+            IO.File.Move(sourceFileFullPath, destinationFileFullPath)
 #End If
           Else ' Non Windows
             ' IO.File.Delete will not throw if destinationFileFullPath does not exist
             ' (user may not have permission to discover this, but have permission to overwrite),
             ' so always delete the destination.
             IO.File.Delete(destinationFileFullPath)
-
             IO.File.Move(sourceFileFullPath, destinationFileFullPath)
           End If
         Else ' Overwrite = False, call Framework.
