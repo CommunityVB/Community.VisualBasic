@@ -36,7 +36,7 @@ The above list is what I am currently aware of (off the top of my head) regardin
 - Easily build using Visual Studio 16.8+.  
 - Easily leverage in any .NET 5 project... including targeting the Blazor platform.
 - It is a stated goal from the beginning that the project not be 100% compatible with .NET 5 WinForms VisualBasic library as some things will have to give considering we are attempting to reach cross-platform capability; with that said, where possible compatibility will be strived for and maintained.
-- In addition to throwing a New PlatformNotSupportedException, will leverage *obsolete* attributes for functionality that will not work so that the consumer of the package will no quickly that something will most likely fail.
+- In addition to throwing a New PlatformNotSupportedException, will leverage *obsolete* attributes for functionality that will not work so that the consumer of the package will know quickly that something will most likely fail.
 - Review all code for functionality on, at minimum, Windows and Debian Linux - with primary evaluation of Linux debugging taking place directly in Visual Studio thanks to WSL2.  
 - During this process, refactoring the code (where possible - without breaking functionality) so that default Visual Studio settings code analysis warnings are fixed. 
 - Additional functionality may be added, TBD at a later date.
