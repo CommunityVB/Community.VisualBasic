@@ -2,7 +2,7 @@
 
 A very **experimental** alternate to the official [Microsoft.VisualBasic](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.VisualBasic.Core) runtime initially created to evaluate the support of the many ease-of-use features that makes Visual Basic, well, Visual Basic targetting .NET 5 development for non-WinForms projects - especially *netstandard2.0*, *netstandard2.1* and, to some degree, .NET 5 Console applications where cross-platform (Debian Linux / RaspPi) capability is desired.
 
-Much of the common functionality one would *expect* there to exist as part of Visual Basic is **missing** if you desire to build a reusable library targeting *netstardard 2.x* forcing you have to potentially rewrite a lot of code and missing out on a much of what makes VB approachable/usable.  A lot of this isn't necessarily tied to WinForms and it would be nice to have regardless of building a netstandard library, console application (Windows or Linux) or WinForms.
+Much of the common functionality one would *expect* there to exist as part of Visual Basic is **missing** if you desire to build a reusable library targeting *netstandard 2.x* forcing you have to potentially rewrite a lot of code and missing out on a much of what makes VB approachable/usable.  A lot of this isn't necessarily tied to WinForms and it would be nice to have regardless of building a netstandard library, console application (Windows or Linux) or WinForms.
 
 ## Why?
 
@@ -32,7 +32,7 @@ The above list is what I am currently aware of (off the top of my head) regardin
 
 ## Ideas / Thoughts for moving forward...
 
-- Be able to create a new *netstardard2.0* project.  
+- Be able to create a new *netstandard2.0* project.  
 - Easily build using Visual Studio 16.8+.  
 - Easily leverage in any .NET 5 project... including targeting the Blazor platform.
 - It is a stated goal from the beginning that the project not be 100% compatible with .NET 5 WinForms VisualBasic library as some things will have to give considering we are attempting to reach cross-platform capability; with that said, where possible compatibility will be strived for and maintained.
