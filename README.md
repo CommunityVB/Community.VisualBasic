@@ -43,7 +43,7 @@ The above list is what I am currently aware of (off the top of my head) regardin
 
 ## Future
 
-Once project is the a solid state regarding **existing functionality**, will be considering new functionality to take things into the future.  So if you have ideas that you think might be considered, please start the conversation in the discussions.
+Once this project is at the "a solid state" stage regarding **existing functionality**, we will be considering new functionality to take things into the future.  So if you have ideas that you think might be considered, please start the conversation in the discussions.
 
 ## Further Discussion
 
