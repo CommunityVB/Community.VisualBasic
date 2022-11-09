@@ -312,7 +312,8 @@ Namespace Global.Community
     Public Sub Equal(Of T As IEquatable(Of T))(expected As T(), actual As T())
       ' Use the SequenceEqual to compare the arrays for better performance. The default Assert.Equal method compares
       ' the arrays by boxing each element that is very slow for large arrays.
-      If Not expected.AsSpan().SequenceEqual(actual.AsSpan()) Then
+      ' NOTE: Worked in .NET 5 and .NET 6, but apparently no longer works in .NET 7?
+      If Not expected.Equals(actual) Then 'If Not expected.AsSpan().SequenceEqual(actual.AsSpan()) Then
         Dim expectedString As String = String.Join(", ", expected)
         Dim actualString As String = String.Join(", ", actual)
         Throw New AssertActualExpectedException(expectedString, actualString, Nothing)

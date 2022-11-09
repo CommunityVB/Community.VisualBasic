@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>Community.VisualBasic.Tests</RootNamespace>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
