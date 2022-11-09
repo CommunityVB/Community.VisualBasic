@@ -1,6 +1,6 @@
 # Community.VisualBasic
 
-A very **experimental** alternate to the official [Microsoft.VisualBasic](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.VisualBasic.Core) runtime initially created to evaluate the support of the many ease-of-use features that makes Visual Basic, well, Visual Basic targetting .NET 5 development for non-WinForms projects - especially *netstandard2.0*, *netstandard2.1* and, to some degree, .NET 5 Console applications where cross-platform (Debian Linux / RaspPi) capability is desired.
+A very **experimental** alternate to the official [Microsoft.VisualBasic](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.VisualBasic.Core) runtime initially created to evaluate the support of the many ease-of-use features that makes Visual Basic, well, Visual Basic targetting .NET development for non-WinForms projects - especially *netstandard2.0*, *netstandard2.1* and, to some degree, .NET Console applications where cross-platform (Debian Linux / RaspPi) capability is desired.
 
 Much of the common functionality one would *expect* there to exist as part of Visual Basic is **missing** if you desire to build a reusable library targeting *netstandard 2.x* forcing you have to potentially rewrite a lot of code and missing out on a much of what makes VB approachable/usable.  A lot of this isn't necessarily tied to WinForms and it would be nice to have regardless of building a netstandard library, console application (Windows or Linux) or WinForms.
 
@@ -14,7 +14,7 @@ Unlike the project(s) that this is based upon, contributions are encouraged!  Th
 
 ## Not a Fork
 
-As you may have noticed, this project is not a direct fork of [Microsoft.VisualBasic](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.VisualBasic.Core); this is on purpose.  This project is going to utilize the latest tools available to improve the code base as time progresses - meaning that some of the code will be "cleaned up" based on the suggestions provided directly in Visual Studio 2019 (and beyond).  Additionally, this project may eventually be split apart in order to better faciliate nuget packaging, cross-platform targeting, etc.  Trying to somehow maintain this codebase with the original source seems, at least to me, be impossible if these sorts of changes are desired in the long term.  Additionally, a different namespace across the project is needed in order to publish this as a nuget package as the namespace has to be something that isn't *reserved* - something else that I think pretty much breaks the possibility of having a fork maintained.
+As you may have noticed, this project is not a direct fork of [Microsoft.VisualBasic](https://github.com/dotnet/runtime/tree/master/src/libraries/Microsoft.VisualBasic.Core); this is on purpose.  This project is going to utilize the latest tools available to improve the code base as time progresses - meaning that some of the code will be "cleaned up" based on the suggestions provided directly in Visual Studio 2022 (and beyond).  Additionally, this project may eventually be split apart in order to better faciliate nuget packaging, cross-platform targeting, etc.  Trying to somehow maintain this codebase with the original source seems, at least to me, be impossible if these sorts of changes are desired in the long term.  Additionally, a different namespace across the project is needed in order to publish this as a nuget package as the namespace has to be something that isn't *reserved* - something else that I think pretty much breaks the possibility of having a fork maintained.
 
 ## Goal
 
@@ -33,9 +33,9 @@ The above list is what I am currently aware of (off the top of my head) regardin
 ## Ideas / Thoughts for moving forward...
 
 - Be able to create a new *netstandard2.0* project.  
-- Easily build using Visual Studio 17.4+.  
-- Easily leverage in any .NET 5+ project... including targeting the Blazor platform.
-- It is a stated goal from the beginning that the project not be 100% compatible with .NET 5.x, .NET 6.x and .NET 7.x WinForms VisualBasic library as some things will have to give considering we are attempting to reach cross-platform capability; with that said, where possible compatibility will be strived for and maintained.
+- Easily build using Visual Studio 2022 (17.4+).  
+- Easily leverage in any .NET project... including targeting the Blazor platform.
+- It is a stated goal from the beginning that the project not be 100% compatible with .NET WinForms VisualBasic library as some things will have to give considering we are attempting to reach cross-platform capability; with that said, where possible compatibility will be strived for and maintained.
 - In addition to throwing a New PlatformNotSupportedException, will leverage *obsolete* attributes for functionality that will not work so that the consumer of the package will know quickly that something will most likely fail.
 - Review all code for functionality on, at minimum, Windows and Debian Linux - with primary evaluation of Linux debugging taking place directly in Visual Studio thanks to WSL2.  
 - During this process, refactoring the code (where possible - without breaking functionality) so that default Visual Studio settings code analysis warnings are fixed. 
