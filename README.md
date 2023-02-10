@@ -41,6 +41,12 @@ The above list is what I am currently aware of (off the top of my head) regardin
 - During this process, refactoring the code (where possible - without breaking functionality) so that default Visual Studio settings code analysis warnings are fixed. 
 - Additional functionality may be added, TBD at a later date.
 
+## Discord
+
+Please feel to join us over on Discord:
+
+- [Discord Invite](https://discord.gg/Y8EH5fF6WG)
+
 ## Future
 
 Once this project is at the "a solid state" stage regarding **existing functionality**, we will be considering new functionality to take things into the future.  So if you have ideas that you think might be considered, please start the conversation in the discussions.
