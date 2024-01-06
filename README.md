@@ -51,6 +51,3 @@ Please feel to join us over on Discord:
 
 Once this project is at the "a solid state" stage regarding **existing functionality**, we will be considering new functionality to take things into the future.  So if you have ideas that you think might be considered, please start the conversation in the discussions.
 
-## Further Discussion
-
-In addition to the tools provided here on GitHub, feel free to join the general conversations taking place over at https://gitter.im/VB-NET/Language.
